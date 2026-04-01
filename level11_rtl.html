@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #2dd4bf; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #14b8a6; margin: 1.8rem 0 0.8rem; border-right: 4px solid #14b8a6; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #2dd4bf; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #042f2e; color: #2dd4bf; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #14b8a6; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #14b8a6; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #2dd4bf; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Worker agents */
+  .workers { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  .worker { background: #1e293b; border-radius: 8px; padding: 0.8rem; }
+  .w-scout { border-top: 3px solid #38bdf8; }
+  .w-plan  { border-top: 3px solid #a78bfa; }
+  .w-build { border-top: 3px solid #4ade80; }
+  .w-rev   { border-top: 3px solid #f87171; }
+  .w-title { font-weight: bold; font-size: 0.92rem; margin-bottom: 0.4rem; }
+  .w-scout .w-title { color: #38bdf8; }
+  .w-plan  .w-title { color: #a78bfa; }
+  .w-build .w-title { color: #4ade80; }
+  .w-rev   .w-title { color: #f87171; }
+  .w-row { font-size: 0.82rem; color: #94a3b8; margin: 2px 0; }
+  .w-row span { color: #e2e8f0; }
+
+  /* 5-phase flow */
+  .phases { margin: 0.8rem 0; }
+  .phase { display: flex; gap: 0.7rem; align-items: flex-start; margin: 0.4rem 0; }
+  .phase-badge { min-width: 90px; background: #042f2e; border: 1px solid #14b8a6; border-radius: 6px; padding: 0.3rem 0.6rem; text-align: center; font-size: 0.8rem; color: #2dd4bf; font-weight: bold; flex-shrink: 0; }
+  .phase-badge.cond { background: #1a2a1a; border-color: #4ade80; color: #86efac; }
+  .phase-content { font-size: 0.85rem; color: #94a3b8; padding-top: 0.2rem; }
+  .phase-content span { color: #e2e8f0; }
+  .decision { background: #422006; border: 1px dashed #f59e0b; border-radius: 6px; padding: 0.3rem 0.8rem; font-size: 0.8rem; color: #fbbf24; margin: 0.2rem 0 0.2rem 0; display: inline-block; }
+
+  /* Context flow */
+  .ctx-flow { background: #0f172a; border: 1px solid #14b8a6; border-radius: 8px; padding: 1rem; margin: 0.8rem 0; direction: ltr; text-align: left; font-size: 0.82rem; }
+  .ctx-agent { color: #2dd4bf; font-weight: bold; }
+  .ctx-gets { color: #94a3b8; }
+  .ctx-data { color: #86efac; }
+</style>
+</head>
+<body>
+
+<h1>🎻 Level 11: Orchestrator Developer Workflows</h1>
+<p class="subtitle">Class 3, Gear 2 — الـ Orchestrator يقود سير عمل تطوير كامل</p>
+
+<div class="quote">
+  "الـ Orchestrator لا يُدير Agents فقط — يقود سير عمل تطوير كاملة، يُنشئ فرقاً متخصصة لمشاكل مختلفة."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> من Agent واحد إلى سير عمل كاملة</h2>
+
+<div class="card" style="border-color:#f87171">
+  <p style="color:#f87171; font-weight:bold">Level 10 — Agent واحد في كل مرة:</p>
+  <pre style="font-size:0.8rem">Orchestrator → create("builder") → command("build X") → done</pre>
+</div>
+
+<div class="card" style="border-color:#4ade80">
+  <p style="color:#4ade80; font-weight:bold">Level 11 — سير عمل متكاملة:</p>
+  <pre style="font-size:0.8rem">Orchestrator → Scout Phase (استطلاع موازي)
+            → Plan Phase  (مع نتائج Scout)
+            → Build Phase (مع الخطة المعتمدة)
+            → Review Phase (تحقق من الجودة)
+            → Fix Phase   (إذا فشلت المراجعة)
+            → Report      (تقرير نهائي شامل)</pre>
+</div>
+
+<div class="quote" style="border-color:#4ade80">
+  💡 الفرق: مدير يُفوّض مهام vs. قائد أوركسترا يضمن التناسق بين الآلات
+</div>
+
+<hr>
+
+<h2><span class="section-num">٢</span> تصميم الـ Worker Agents المتخصصين</h2>
+<p style="color:#94a3b8; font-size:0.9rem; margin-bottom:0.8rem">مبدأ: أقل أدوات ممكنة لكل وظيفة — الأدوات الزائدة = إغراء للخروج عن المهمة</p>
+
+<div class="workers">
+  <div class="worker w-scout">
+    <div class="w-title">🔍 Scout — الاستطلاع</div>
+    <div class="w-row">الأدوات: <span>Read، Grep، Glob فقط</span></div>
+    <div class="w-row">النموذج: <span>سريع وخفيف (رخيص)</span></div>
+    <div class="w-row">المخرج: <span>ملفات ذات صلة + أنماط + اقتراح</span></div>
+    <div class="w-row" style="color:#ef4444; font-size:0.78rem">❌ بدون أدوات كتابة أبداً</div>
+  </div>
+  <div class="worker w-plan">
+    <div class="w-title">📐 Planner — التخطيط</div>
+    <div class="w-row">الأدوات: <span>Read، Write (specs فقط)، Shell</span></div>
+    <div class="w-row">النموذج: <span>قوي (تفكير عميق)</span></div>
+    <div class="w-row">المخرج: <span>خطة تنفيذ منظمة في specs/</span></div>
+    <div class="w-row" style="color:#ef4444; font-size:0.78rem">❌ لا ينفّذ — يخطط فقط</div>
+  </div>
+  <div class="worker w-build">
+    <div class="w-title">🔨 Builder — التنفيذ</div>
+    <div class="w-row">الأدوات: <span>Read، Write، Edit، Shell، Tests</span></div>
+    <div class="w-row">النموذج: <span>الأكثر قدرة (أغلى)</span></div>
+    <div class="w-row">المخرج: <span>ملفات معدّلة + تقرير بناء</span></div>
+    <div class="w-row" style="color:#fbbf24; font-size:0.78rem">⚡ ينفّذ الخطة بدقة — لا ارتجال</div>
+  </div>
+  <div class="worker w-rev">
+    <div class="w-title">🔎 Reviewer — المراجعة</div>
+    <div class="w-row">الأدوات: <span>Read، Shell (tests/lint)</span></div>
+    <div class="w-row">النموذج: <span>قوي (فهم عميق للكود)</span></div>
+    <div class="w-row">المخرج: <span>PASS/FAIL + نتائج منظمة</span></div>
+    <div class="w-row" style="color:#ef4444; font-size:0.78rem">❌ بدون أدوات كتابة — مراجع مستقل</div>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> سير العمل الخماسي — 5 مراحل</h2>
+
+<div class="phases">
+  <div class="phase">
+    <div class="phase-badge">Phase 1<br>Scout</div>
+    <div class="phase-content">3 Scouts بالتوازي: <span>src/ + tests/ + configs/</span><br>تدمج النتائج في تقرير واحد</div>
+  </div>
+  <div style="margin-right:0.5rem"><span class="decision">🤔 قرار: هل نتائج Scout كافية؟ نعم → تابع</span></div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 2<br>Plan</div>
+    <div class="phase-content">المدخل: <span>طلب المستخدم + تقرير Scout</span><br>المخرج: خطة تنفيذ في <code>specs/</code></div>
+  </div>
+  <div style="margin-right:0.5rem"><span class="decision">🤔 قرار: هل الخطة مكتملة؟ نعم → تابع</span></div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 3<br>Build</div>
+    <div class="phase-content">المدخل: <span>الخطة فقط</span> (لا بيانات Scout الخام)<br>المخرج: ملفات معدّلة + اختبارات تمر</div>
+  </div>
+  <div style="margin-right:0.5rem"><span class="decision">🤔 قرار: هل البناء نجح؟ نعم → تابع</span></div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 4<br>Review</div>
+    <div class="phase-content">المدخل: <span>التغييرات والـ diff فقط</span><br>المخرج: PASS ✅ أو FAIL ❌ + نتائج</div>
+  </div>
+  <div style="margin-right:0.5rem"><span class="decision">🤔 قرار: PASS أو FAIL؟</span></div>
+
+  <div class="phase">
+    <div class="phase-badge cond">Phase 4.5<br>Fix (شرطي)</div>
+    <div class="phase-content">فقط إذا FAIL — يُصلح ثم يُعيد المراجعة</div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 5<br>Report</div>
+    <div class="phase-content">يجمع: <span>Scout + Plan + Build + Review + Fix</span><br>→ تقرير نهائي شامل للمستخدم</div>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٤</span> قاعدة السياق: كل Agent يرى شريحة مُنتقاة</h2>
+
+<div class="ctx-flow">
+  <div class="ctx-agent">Scout</div>
+  <div class="ctx-gets">   يستقبل: </div><div class="ctx-data">   طلب المستخدم + المجلد الهدف فقط</div>
+  <br>
+  <div class="ctx-agent">Planner</div>
+  <div class="ctx-gets">   يستقبل: </div><div class="ctx-data">   طلب المستخدم + نتائج Scout (ملخصة)</div>
+  <br>
+  <div class="ctx-agent">Builder</div>
+  <div class="ctx-gets">   يستقبل: </div><div class="ctx-data">   الخطة فقط — لا Scout، لا تفكير Planner</div>
+  <br>
+  <div class="ctx-agent">Reviewer</div>
+  <div class="ctx-gets">   يستقبل: </div><div class="ctx-data">   التغييرات والـ diff فقط — لا خطة، لا سياق</div>
+  <br>
+  <div class="ctx-agent" style="color:#fbbf24">Orchestrator</div>
+  <div class="ctx-gets">   يرى: </div><div class="ctx-data" style="color:#fbbf24">   كل شيء — هو الذاكرة المركزية</div>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>تمرير كل السياق لكل Agent. الـ Orchestrator يُلخّص ويُنتقي — لا يُكدّس. Scout بـ 500 سطر → Builder يحتاج الـ key findings فقط.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٥</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Scout Skill</div>
+    <p>أنشئ <code>.pi/skills/scout-report-suggest/SKILL.md</code> — قراءة فقط، نموذج خفيف، 3 أدوات read-oriented. المخرج: ملفات ذات صلة + أنماط + اقتراح مقاربة.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Planner Skill</div>
+    <p>أنشئ <code>.pi/skills/planner/SKILL.md</code> — نموذج قوي للتفكير العميق. يقرأ الـ codebase، يكتب الخطة في <code>specs/</code>. لا تنفيذ — تخطيط فقط.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Builder Skill</div>
+    <p>أنشئ <code>.pi/skills/build-agent/SKILL.md</code> — الأدوات الكاملة + أقوى نموذج. ينفّذ الخطة بدقة، يُشغّل الاختبارات، يُبلّغ بما تغيّر.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ 5-Phase Workflow Command</div>
+    <p>أنشئ <code>orch_plan_w_scouts_build_review.md</code> — 5 مراحل صريحة مع نقاط قرار بين كل مرحلتين. Phase 1 ثلاث Scouts بالتوازي.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Multi-Team Command</div>
+    <p>أنشئ <code>orch_multi_team.md</code> — فرق متوازية لـ streams مختلفة (Frontend + Backend). تنسيق العقود المشتركة (API interface) بين الفرق.</p>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٦</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🎼</span><span><strong>Workflows مُقادة > Agents مُدارة</strong> — 5 مراحل بنقاط قرار أقوى بكثير من Agents فردية.</span></div>
+<div class="takeaway"><span class="icon">🎯</span><span><strong>قدرات أدنى لكل Agent</strong> — Scout يقرأ. Planner يُخطط. Builder ينفّذ. Reviewer يُقيّم. كل أداة زائدة = إغراء للخروج عن المهمة.</span></div>
+<div class="takeaway"><span class="icon">✂️</span><span><strong>انتقاء السياق مسؤولية الـ Orchestrator</strong> — لا تُكدّس على كل Agent. أعطِ كلاً ما يحتاجه فقط.</span></div>
+<div class="takeaway"><span class="icon">🔀</span><span><strong>نقاط القرار تجعل الـ Workflow تكيفية</strong> — بدونها عندك shell script. بها عندك نظام ذكي.</span></div>
+<div class="takeaway"><span class="icon">🚫</span><span><strong>الـ Orchestrator لا يعزف</strong> — لا يكتب كوداً، لا يعدّل ملفات، لا يُشغّل اختبارات. يُفوّض فقط.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #14b8a6;">
+  💡 <strong>ملخص الـ 11 Levels</strong><br>
+  L1-L7: بناء الـ Agent 🏗️ | L8: أحداث خارجية 🌐 | L9: ADWs ⚙️<br>
+  L10: Orchestrator يُدير Agents 🎼 | L11: Orchestrator يقود Workflows كاملة 🎻
+</div>
+
+</body>
+</html>

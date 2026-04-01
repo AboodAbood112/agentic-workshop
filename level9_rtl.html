@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #818cf8; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #6366f1; margin: 1.8rem 0 0.8rem; border-right: 4px solid #6366f1; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #818cf8; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #1e1b4b; color: #818cf8; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #6366f1; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #6366f1; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #818cf8; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Hybrid compare */
+  .tri-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  .tri-card { background: #1e293b; border-radius: 8px; padding: 0.8rem; }
+  .tri-bad1 { border-top: 3px solid #94a3b8; }
+  .tri-bad2 { border-top: 3px solid #f87171; }
+  .tri-good { border-top: 3px solid #4ade80; }
+  .tri-title { font-weight: bold; font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .tri-bad1 .tri-title { color: #94a3b8; }
+  .tri-bad2 .tri-title { color: #f87171; }
+  .tri-good .tri-title { color: #4ade80; }
+  .tri-item { font-size: 0.82rem; margin: 2px 0; }
+  .plus { color: #4ade80; }
+  .minus { color: #f87171; }
+
+  /* ADW pattern */
+  .adw-pattern { background: #1e1b4b; border: 1px solid #6366f1; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+  .adw-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.4rem 0; font-size: 0.88rem; }
+  .adw-det { background: #312e81; color: #a5b4fc; border-radius: 5px; padding: 2px 8px; font-size: 0.82rem; }
+  .adw-non { background: #0c1a3b; color: #7dd3fc; border-radius: 5px; padding: 2px 8px; font-size: 0.82rem; }
+  .adw-arrow { color: #6366f1; }
+
+  /* Workflows */
+  .wf-row { display: flex; align-items: center; gap: 0.3rem; margin: 0.5rem 0; flex-wrap: wrap; }
+  .wf-step { background: #1e1b4b; border: 1px solid #6366f1; border-radius: 6px; padding: 0.3rem 0.8rem; color: #a5b4fc; font-size: 0.85rem; font-weight: bold; }
+  .wf-arrow { color: #6366f1; font-size: 1rem; }
+  .wf-label { color: #64748b; font-size: 0.78rem; margin-right: 0.5rem; }
+  .wf-cond { background: #1a2a1a; border: 1px dashed #4ade80; border-radius: 6px; padding: 0.3rem 0.8rem; color: #86efac; font-size: 0.82rem; }
+
+  /* Lifecycle */
+  .lifecycle { background: #0f172a; border: 1px solid #6366f1; border-radius: 8px; padding: 1rem; margin: 0.8rem 0; direction: ltr; text-align: left; }
+  .lc-line { font-size: 0.85rem; margin: 3px 0; }
+  .lc-det { color: #a5b4fc; }
+  .lc-non { color: #7dd3fc; }
+  .lc-com { color: #4ade80; }
+</style>
+</head>
+<body>
+
+<h1>⚙️ Level 9: AI Developer Workflows (ADWs)</h1>
+<p class="subtitle">Class 2, Gear 2 — كود حتمي يُنسّق Agents غير حتمية</p>
+
+<div class="quote">
+  "كود حتمي يُنسّق Agents غير حتمية. أعلى نقطة نفوذ في البرمجة الـ Agentic."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> المعمارية الهجينة</h2>
+
+<div class="tri-grid">
+  <div class="tri-card tri-bad1">
+    <div class="tri-title">Pure Code</div>
+    <div class="tri-item plus">✅ متوقع وسريع</div>
+    <div class="tri-item plus">✅ قابل للاختبار</div>
+    <div class="tri-item minus">❌ لا يتعامل مع المشاكل الجديدة</div>
+    <div class="tri-item minus">❌ هش أمام التغيير</div>
+  </div>
+  <div class="tri-card tri-bad2">
+    <div class="tri-title">Pure Agent</div>
+    <div class="tri-item plus">✅ إبداعي وتكيفي</div>
+    <div class="tri-item plus">✅ يتعامل مع الغموض</div>
+    <div class="tri-item minus">❌ يفقد السياق</div>
+    <div class="tri-item minus">❌ يتخطى خطوات</div>
+  </div>
+  <div class="tri-card tri-good">
+    <div class="tri-title">🏆 ADW (Hybrid)</div>
+    <div class="tri-item plus">✅ بنية متوقعة</div>
+    <div class="tri-item plus">✅ تنفيذ إبداعي</div>
+    <div class="tri-item plus">✅ لا يمكن تخطي خطوة</div>
+    <div class="tri-item plus">✅ audit trail كامل</div>
+  </div>
+</div>
+
+<div class="adw-pattern">
+  <p style="color:#a5b4fc; font-weight:bold; margin-bottom:0.6rem">نمط ADW:</p>
+  <div class="adw-row">
+    <span class="adw-det">Python (حتمي)</span>
+    <span class="adw-arrow">→</span>
+    <span style="color:#94a3b8; font-size:0.85rem">الهيكل العظمي — يضمن ترتيب الخطوات</span>
+  </div>
+  <div class="adw-row">
+    <span class="adw-non">Model (غير حتمي)</span>
+    <span class="adw-arrow">→</span>
+    <span style="color:#94a3b8; font-size:0.85rem">العقل — يُفكر ويكتب الكود</span>
+  </div>
+  <p style="color:#64748b; font-size:0.82rem; margin-top:0.5rem">الهيكل العظمي يضمن عدم تخطي العقل لأي خطوة أو تغيير الترتيب</p>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>محاولة تنفيذ workflows متعددة الخطوات عبر prompt engineering فقط. "أولاً خطّط، ثم ابنِ، ثم راجع" في prompt واحد هو مجرد اقتراح — الـ Agent يتجاهله.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٢</span> دورة حياة كل خطوة</h2>
+
+<div class="lifecycle">
+  <div class="lc-line lc-det">log_step_start(step_name)  # دائماً يحدث</div>
+  <div class="lc-line" style="color:#475569">    │</div>
+  <div class="lc-line lc-non">    ├── Construct prompt for this step</div>
+  <div class="lc-line lc-non">    ├── subprocess.run(["pi", "-p", command])</div>
+  <div class="lc-line lc-non">    ├── Capture stdout/stderr + exit code</div>
+  <div class="lc-line" style="color:#475569">    │</div>
+  <div class="lc-line lc-det">log_step_end(step_name, result)  # دائماً يحدث</div>
+</div>
+
+<p>يعطيك ثلاثة أشياء لا يملكها Pure Agent:</p>
+<ul>
+  <li><strong>Observability كاملة</strong> — سجلات مؤرخة لبداية ونهاية كل خطوة</li>
+  <li><strong>حدود واضحة</strong> — كل خطوة استدعاء model جديد، لا تسرب سياق</li>
+  <li><strong>قدرة الإعادة</strong> — يمكن إعادة خطوة واحدة فاشلة فقط</li>
+</ul>
+
+<hr>
+
+<h2><span class="section-num">٣</span> تركيبات الـ Workflows</h2>
+
+<div class="wf-row">
+  <span class="wf-label">2 خطوات:</span>
+  <span class="wf-step">Plan</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Build</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-right:0.5rem">للميزات السريعة</span>
+</div>
+
+<div class="wf-row">
+  <span class="wf-label">3 خطوات:</span>
+  <span class="wf-step">Plan</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Build</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Review</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-right:0.5rem">مع ضمان الجودة</span>
+</div>
+
+<div class="wf-row">
+  <span class="wf-label">4 خطوات:</span>
+  <span class="wf-step">Plan</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Build</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Review</span><span class="wf-arrow">→</span>
+  <span class="wf-cond">Fix (إذا FAIL)</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-right:0.5rem">أتمتة كاملة مع إصلاح ذاتي</span>
+</div>
+
+<h3>🔀 نمط Fix الشرطي:</h3>
+<pre>review_result = run_step("review")
+if review_result.verdict == "FAIL":
+    run_step("fix")
+    run_step("review")  # إعادة المراجعة بعد الإصلاح
+    # حد أقصى لعدد المحاولات — عادةً 2-3</pre>
+
+<p style="color:#94a3b8; font-size:0.85rem">Python يتخذ القرار الشرطي. الـ Model ينفّذ فقط داخل الحدود.</p>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>حلقة review-fix-review بدون حد أقصى. ضع دائماً حداً للمحاولات — إذا لم يُصلح الـ Agent في 3 محاولات، يحتاج تدخلاً بشرياً.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٤</span> هيكل الملفات</h2>
+<pre>adws/
+  adw_modules/
+    adw_runner.py          # المحرك — ينفّذ الخطوات مع logging
+    adw_logger.py          # كتابة JSON logs مؤرخة
+  adw_workflows/
+    adw_plan_build.py           # 2 خطوات
+    adw_plan_build_review.py    # 3 خطوات
+    adw_plan_build_review_fix.py # 4 خطوات + شرط
+  adw_triggers/
+    run_adw.py             # CLI trigger
+    run_adw_background.py  # تشغيل في الخلفية</pre>
+
+<hr>
+
+<h2><span class="section-num">٥</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Logger Module</div>
+    <p>أنشئ <code>adw_logger.py</code> — يكتب JSON logs لكل خطوة (timestamp + اسم الخطوة + نوع الحدث + النتيجة). سطر JSON واحد لكل حدث.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Runner Module</div>
+    <p>أنشئ <code>adw_runner.py</code> — يأخذ قائمة خطوات، ينفّذ كل خطوة بـ <code>subprocess.run(["pi", "-p", command])</code>، يُسجّل قبل وبعد.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ 2-Step Workflow</div>
+    <p>أنشئ <code>adw_plan_build.py</code>:</p>
+    <pre>STEPS = [
+    {"name": "plan", "command": "/plan", ...},
+    {"name": "build", "command": "/build", ...}
+]
+runner.run(steps=STEPS, prompt=user_prompt)</pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">أضف Review → 3 خطوات</div>
+    <p>أنشئ <code>adw_plan_build_review.py</code> — نفس الـ 2-step + إضافة <code>/review</code> كخطوة ثالثة.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">أضف Fix الشرطي → 4 خطوات</div>
+    <p>أنشئ <code>adw_plan_build_review_fix.py</code> — إذا Review = FAIL، شغّل Fix ثم أعد Review. بحد أقصى للمحاولات.</p>
+  </div>
+</div>
+
+<h3>🧪 اختبار:</h3>
+<pre>python adws/adw_triggers/run_adw.py \
+    --workflow plan_build \
+    --prompt "Add task filtering by status" \
+    --working-dir /path/to/workshop/app</pre>
+
+<hr>
+
+<h2><span class="section-num">٦</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🤝</span><span><strong>الحتمي يُغلّف غير الحتمي</strong> — Python يتحكم بالتدفق، الـ Model يتحكم بالتفكير. لا شيء يعمل مكان الآخر جيداً.</span></div>
+<div class="takeaway"><span class="icon">🚧</span><span><strong>الخطوات حدود لا اقتراحات</strong> — كل خطوة استدعاء process منفصل. الـ Agent يستحيل عليه تخطيها.</span></div>
+<div class="takeaway"><span class="icon">👁️</span><span><strong>Observability مدمجة</strong> — step lifecycle logging يعني أنك تعرف دائماً ما حدث ومتى.</span></div>
+<div class="takeaway"><span class="icon">🧩</span><span><strong>التركيب = التوسيع</strong> — Workflows جديدة هي مجرد قوائم خطوات جديدة. البنية التحتية معادة الاستخدام.</span></div>
+<div class="takeaway"><span class="icon">🐍</span><span><strong>المنطق الشرطي في Python</strong> — هل تُشغّل Fix؟ Python يقرر. هل التنفيذ إبداعي؟ الـ Model يقرر.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #6366f1;">
+  💡 <strong>ملخص الـ 9 Levels</strong><br>
+  L1-L7: بناء الـ Agent وتجهيزه 🏗️<br>
+  L8: الـ Agent يستجيب للأحداث 🌐<br>
+  L9: Python يُنسّق الـ Agent بشكل موثوق ⚙️
+</div>
+
+</body>
+</html>

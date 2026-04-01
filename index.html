@@ -1,0 +1,375 @@
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f172a;--bg2:#1e293b;--bg3:#334155;
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
+  --accent:#7c3aed;--accent2:#a78bfa;--accent3:#ede9fe;
+  --green:#4ade80;--green-bg:#052e16;
+  --border:#334155;--border2:#475569;
+  --r:10px;--r2:6px;
+}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:50}
+.nav-logo{font-size:15px;font-weight:600;color:var(--accent2)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.progress-pill{background:var(--bg3);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--text2)}
+.progress-pill span{color:var(--green);font-weight:600}
+
+/* HERO */
+.hero{padding:3rem 1.5rem 2rem;text-align:center;border-bottom:1px solid var(--border)}
+.hero h1{font-size:28px;font-weight:700;margin-bottom:.5rem;background:linear-gradient(135deg,var(--accent2),#c084fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto 1.5rem}
+.hero-bar{width:100%;max-width:400px;height:6px;background:var(--bg3);border-radius:3px;margin:0 auto;overflow:hidden}
+.hero-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transition:width .5s ease}
+.hero-stat{font-size:12px;color:var(--text3);margin-top:6px}
+
+/* SECTION LABEL */
+.sec-label{padding:1.5rem 1.5rem .5rem;font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;display:flex;align-items:center;gap:8px}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;padding:0 1.5rem 1rem}
+
+/* CARD */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1rem 1.1rem;cursor:pointer;transition:border-color .15s,transform .1s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.card.done{border-color:#166534}
+.card.done::after{content:'';position:absolute;top:0;right:0;width:3px;height:100%;background:var(--green)}
+.card.active{border-color:var(--accent)}
+.card.active::after{content:'';position:absolute;top:0;right:0;width:3px;height:100%;background:var(--accent)}
+
+.card-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
+.num-badge{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.nb-done{background:var(--green-bg);color:var(--green)}
+.nb-active{background:#2e1065;color:var(--accent2)}
+.nb-locked{background:var(--bg3);color:var(--text3)}
+
+.card-info{flex:1;min-width:0}
+.card-class{font-size:11px;color:var(--text3);margin-bottom:2px}
+.card-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.35}
+
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.tag{font-size:11px;padding:2px 7px;border-radius:4px;background:var(--bg3);color:var(--text2)}
+
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid var(--border)}
+.status{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3)}
+.dot{width:6px;height:6px;border-radius:50%}
+.d-done{background:var(--green)}
+.d-active{background:var(--accent2)}
+.d-locked{background:var(--border2)}
+.btn-open{font-size:11px;background:transparent;border:1px solid var(--border2);border-radius:4px;padding:3px 8px;color:var(--text2);cursor:pointer}
+.btn-open:hover{background:var(--bg3)}
+
+/* PANEL */
+.panel-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;display:none;align-items:flex-start;justify-content:flex-end}
+.panel-overlay.open{display:flex}
+.panel{background:var(--bg);border-right:1px solid var(--border);width:100%;max-width:860px;height:100vh;overflow-y:auto;padding:0;display:flex;flex-direction:column;direction:rtl}
+.panel-top{background:var(--bg2);border-bottom:1px solid var(--border);padding:1rem 1.25rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:10}
+.panel-title-area{flex:1}
+.panel-class{font-size:12px;color:var(--text3);margin-bottom:3px}
+.panel-title{font-size:18px;font-weight:700;color:var(--text)}
+.panel-close{background:var(--bg3);border:none;border-radius:6px;padding:6px 10px;cursor:pointer;color:var(--text2);font-size:13px;flex-shrink:0}
+.panel-body{padding:1.25rem;flex:1}
+
+.p-section{margin-bottom:1.4rem}
+.p-section-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.6rem}
+.learn-list{list-style:none}
+.learn-list li{font-size:13px;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);display:flex;gap:6px;align-items:flex-start;line-height:1.45}
+.learn-list li::before{content:'▸';color:var(--accent2);flex-shrink:0;margin-top:1px}
+.takeaway-box{background:var(--bg2);border:1px solid var(--border);border-right:3px solid var(--accent);border-radius:var(--r2);padding:.8rem 1rem;font-size:13px;color:var(--text2);line-height:1.6}
+
+/* Content tabs */
+.tabs{display:flex;gap:2px;margin-bottom:1rem;background:var(--bg2);border-radius:6px;padding:3px}
+.tab-btn{flex:1;padding:6px;font-size:12px;border:none;border-radius:4px;cursor:pointer;color:var(--text2);background:transparent}
+.tab-btn.active{background:var(--bg3);color:var(--text)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* Level content styles */
+.lv-content{font-size:13px;color:var(--text2);line-height:1.7}
+.lv-content h3{font-size:14px;font-weight:600;color:var(--accent2);margin:1rem 0 .4rem;border-right:3px solid var(--accent);padding-right:.5rem}
+.lv-content p{margin-bottom:.6rem}
+.lv-content ul{padding-right:1.2rem;margin-bottom:.6rem}
+.lv-content li{margin:.25rem 0}
+.lv-content code{background:var(--bg3);padding:1px 5px;border-radius:3px;font-size:12px;color:#a3e635;font-family:monospace}
+.lv-content .note{background:var(--bg2);border-right:3px solid #f59e0b;padding:.5rem .75rem;border-radius:4px;margin:.6rem 0;font-size:12px;color:#fbbf24}
+
+/* Actions */
+.panel-actions{padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--bg)}
+.btn-done{background:var(--accent);color:#fff;border:none;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;flex:1}
+.btn-done:hover{background:#6d28d9}
+.btn-done.undone{background:var(--bg3);color:var(--text2)}
+.btn-done.undone:hover{background:var(--bg2)}
+.btn-ask{background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:8px 14px;font-size:13px;cursor:pointer;color:var(--text2)}
+.btn-ask:hover{background:var(--bg3)}
+</style>
+
+<nav>
+  <span class="nav-logo">⬡ Agentic Engineering</span>
+  <div class="nav-right">
+    <span class="progress-pill"><span id="done-count">0</span> / 12 مكتمل</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Agentic Engineering Workshop</h1>
+  <p>12 مستوى — من Prime Prompt حتى نظام تطوير مستقل كامل</p>
+  <div class="hero-bar"><div class="hero-fill" id="hfill" style="width:0%"></div></div>
+  <p class="hero-stat" id="hstat">ابدأ من المستوى الأول</p>
+</div>
+
+<div id="app"></div>
+
+<div class="panel-overlay" id="overlay">
+  <div class="panel" id="panel">
+    <div class="panel-top">
+      <div class="panel-title-area">
+        <div class="panel-class" id="p-class"></div>
+        <div class="panel-title" id="p-title"></div>
+      </div>
+      <button class="panel-close" onclick="closePanel()">✕ إغلاق</button>
+    </div>
+    <div class="panel-body">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('overview',this)">نظرة عامة</button>
+        <button class="tab-btn" onclick="switchTab('content',this)">المحتوى</button>
+      </div>
+      <div id="tab-overview" class="tab-content active">
+        <div class="p-section">
+          <div class="p-section-title">ما ستتعلمه</div>
+          <ul class="learn-list" id="p-learn"></ul>
+        </div>
+        <div class="p-section">
+          <div class="p-section-title">الفكرة الرئيسية</div>
+          <div class="takeaway-box" id="p-take"></div>
+        </div>
+      </div>
+      <div id="tab-content" class="tab-content">
+        <iframe id="p-content" style="width:100%;height:65vh;border:none;border-radius:var(--r2);display:block"></iframe>
+      </div>
+    </div>
+    <div class="panel-actions">
+      <button class="btn-done" id="p-done-btn" onclick="toggleCurrentDone()">✓ وضّع كمكتمل</button>
+      <a class="btn-ask" id="p-file-link" href="#" target="_blank" style="display:none">افتح الصفحة ↗</a>
+      <button class="btn-ask" onclick="askAboutCurrent()">اشرح أكثر ↗</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const levels = [
+  {id:1,cls:"Class 1 · Gear 1",title:"Prime Prompts & Memory",tags:["AGENTS.md","Prime Prompt","Memory"],
+   learn:["ما هو AGENTS.md ولماذا هو أهم ملف في toolkit الـ Agentic","ما هي ملفات الذاكرة وكيف تحفظ السياق عبر الجلسات","منطقة التوازن: 30-50 سطر — لا أقل ولا أكثر","كتابة AGENTS.md يجعل الـ Agent منتجاً فوراً من أول جلسة"],
+   take:"AGENTS.md هو الأساس — كل طبقة أخرى في الورشة تبنى فوقه. احصل على هذا بشكل صحيح وكل شيء يعمل أفضل.",
+   sec:"Class 1 — الأساس",
+   content:`<h3>ما هو AGENTS.md؟</h3><p>هو ملف <code>Prime Prompt</code> يعيش في جذر مشروعك ويُحمَّل تلقائياً كل جلسة. فكّر فيه كورقة إحاطة لمهندس جديد أول يوم.</p>
+<h3>أين يعيش؟</h3><ul><li><code>./AGENTS.md</code> — جذر المشروع لكل الجلسات</li><li><code>~/.pi/agent/AGENTS.md</code> — عالمي لكل المشاريع</li><li><code>./apps/backend/AGENTS.md</code> — مجلد محدد للمونوريبو</li></ul>
+<h3>منطقة التوازن (Goldilocks Zone)</h3><p>الهدف 30-50 سطر يغطي 6 أقسام: Context، Tooling، Key Commands، Project Structure، Dev Guidelines، Important Notes.</p>
+<div class="note">⚠️ خطأ شائع: كتابة AGENTS.md مرة واحدة وعدم تحديثه. الملف القديم أسوأ من عدم وجود ملف.</div>`},
+
+  {id:2,file:"level2_rtl.html",cls:"Class 1 · Gear 2",title:"Sub-Agents, Plans & AI Docs",tags:["Sub-Agents","AI Docs","Commands"],
+   learn:["ما هي Sub-Agents وكيف تنشئ متخصصين لمهام محددة","ما هي AI docs وكيف تعطي الـ Agent معرفة عميقة بنظامك","ما هي Plan commands وكيف تنشئ workflows قابلة لإعادة الاستخدام","كيف تُمكّن هذه الأدوات العمل المتوازي بمستوى الخبير"],
+   take:"Sub-agents متخصصون، AI docs معرفة، Commands سير عمل. الفصل بين المسؤوليات يُطبّق على الـ Agents.",
+   sec:"Class 1 — الأساس",
+   content:`<h3>Sub-Agents</h3><p>ملفات prompt متخصصة في <code>.pi/prompts/agents/</code>. كل واحدة تُعرّف خبيراً بهدف محدد وأدوات محدودة.</p>
+<h3>AI Docs</h3><p>ملفات معرفة في <code>ai_docs/</code> — تخبر الـ Agent كيف يشتغل النظام من الداخل. الفرق عن AGENTS.md: AGENTS.md يقول "كيف تُشغّله"، AI Docs تقول "كيف بُني ولماذا".</p>
+<h3>Plan Commands</h3><p>سير عمل في <code>.pi/prompts/</code> تُستدعى بـ <code>/</code>. مثل <code>/prime</code> و<code>/quick-plan</code>.</p>
+<div class="note">⚠️ لا تضع محتوى AI Docs في AGENTS.md — هذا يعيدك لنمط "الموسوعة" المضرّ.</div>`},
+
+  {id:3,file:"level3_rtl.html",cls:"Class 1 · Gear 3",title:"Skills, MCPs & Custom Tools",tags:["Skills","MCP","Settings"],
+   learn:["ما هي Skills وكيف تختلف عن Sub-Agents بالبنية والتوظيف","ما هي MCP servers وكيف تتجاوز حدود الملفات المحلية","كيف تنشئ أدوات مخصصة بمجرد وصف النمط في AGENTS.md","كيف تتحكم بالصلاحيات عبر settings.json للأمان"],
+   take:"Skills وMCPs والأدوات المخصصة كلها توسع الأدوات الأربعة الأساسية. ابدأ بسيطاً وأضف تعقيداً فقط عند الحاجة.",
+   sec:"Class 1 — الأساس",
+   content:`<h3>Skills vs Sub-Agents</h3><p>Sub-Agent = ملف واحد، يعمل مستقلاً. Skill = مجلد بـ templates، يعمل ضمن السياق الحالي.</p><p>القاعدة: إذا المهمة مستقلة → Sub-Agent. إذا تحتاج templates → Skill.</p>
+<h3>MCP Servers</h3><p>عمليات خارجية تُوفر أدوات تتجاوز الأدوات الأساسية: Firecrawl للـ web scraping، Playwright لـ browser automation، Slack/GitHub للاندماج مع أدوات العمل.</p>
+<h3>Settings.json</h3><p>تحكم بالصلاحيات: قائمة <code>allow</code> لأوامر تعمل تلقائياً، قائمة <code>deny</code> لأوامر محظورة دائماً.</p>
+<div class="note">⚠️ لا تحفظ API keys في الـ repo. استخدم .mcp.json.sample بدون مفاتيح حقيقية.</div>`},
+
+  {id:4,file:"level4_rtl.html",cls:"Class 1 · Gear 4",title:"Closed-Loop Prompts",tags:["/build","/review","/fix"],
+   learn:["نمط Request/Validate/Resolve للـ Agents التي تصحح نفسها","كيف يراجع الـ Agent عمله ويصنّف المشاكل بـ 4 مستويات خطورة","لماذا الحوسبة الأكثر = ثقة أكبر وهذا تبادل دائماً يستحق","بناء chains من Build وReview وFix تشكّل حلقة مغلقة"],
+   take:"الحلقات المغلقة تمسك الأخطاء قبل أن تراها. مراجعة تكتشف ثغرة أمنية تكلف سنتات — نفس الثغرة في production تكلف ثروة.",
+   sec:"Class 1 — الجودة",
+   content:`<h3>Open Loop vs Closed Loop</h3><p>Open Loop: طلب → تنفيذ → تمنى أن يكون صح. Closed Loop: طلب → تنفيذ → تحقق → إصلاح → تأكيد.</p>
+<h3>الأوامر الثلاثة</h3><ul><li><code>/build</code> — ينفّذ الخطة، يشغّل الاختبارات إلزامياً</li><li><code>/review</code> — يحلل الـ diffs، ينتج PASS/FAIL</li><li><code>/fix</code> — يقرأ تقرير المراجعة، يصلح بالأولوية</li></ul>
+<h3>4 مستويات خطورة</h3><ul><li>🚨 BLOCKER — يجب الإصلاح (ثغرات أمنية، كسر API)</li><li>🔴 HIGH — يجب الإصلاح (تراجع أداء، غياب error handling)</li><li>🟡 MEDIUM — أصلح قريباً (تكرار كود، تسمية غير متسقة)</li><li>🟢 LOW — حسن لو أُصلح (اختلافات أسلوب)</li></ul>`},
+
+  {id:5,file:"level5_rtl.html",cls:"Class 1 · Gear 5",title:"Bug, Feature & Chore Templates",tags:["/bug","/feature","/chore","/plan"],
+   learn:["لماذا أنواع العمل المختلفة تتطلب workflows مختلفة جذرياً","ترميز منهجيات reproduction-first وspec-driven وassessment-first","كيف تجعل المتغيرات ($1,$2) الـ Templates مرنة وقابلة للاكتشاف","كيف يربط Plan Template التطبيقات الأخرى"],
+   take:"Bug يحتاج استنساخاً أولاً. Feature تحتاج Spec. Chore تحتاج تقييماً. Templates تُرمّز أفضل الممارسات — كل استدعاء يتبع نفس العملية.",
+   sec:"Class 1 — الجودة",
+   content:`<h3>/bug — الاستنساخ أولاً</h3><p>خطوات: استنسخ → عزّل → أصلح (أدنى) → تحقق → اختبار تراجع. قيد صارم: لا refactoring للكود المحيط.</p>
+<h3>/feature — Spec أولاً</h3><p>خطوات: Spec → Plan → Build → Test → Review. متغير SCOPE: "spec" (توقف بعد الـ Spec) | "plan" | "full".</p>
+<h3>/chore — التقييم أولاً</h3><p>خطوات: Assess → Execute → Validate → Document. لا تغيير في السلوك الظاهر إلا إذا كان هذا الهدف.</p>
+<h3>/plan — للقراءة فقط</h3><p>قيد مطلق: لا تكتب كوداً أبداً. ينتج specs/name.md للاستخدام في /build أو /feature.</p>`},
+
+  {id:6,file:"level6_rtl.html",cls:"Class 1 · Gear 6",title:"Prompt Chains & Agentic Workflows",tags:["Chains","Scout","Parallel"],
+   learn:["كيف تربط Slash Commands بالتسلسل مع تمرير البيانات بينها","نمط Composable Primitives: أوامر صغيرة تتركب في workflows قوية","كيف تستخدم Task Tool لإنشاء Sub-Agents متوازية","لماذا تمرير مسارات الملفات يُبقي نافذة السياق نظيفة"],
+   take:"Primitives صغيرة تعمل منفردة وتتركب في workflows قوية. مرر مسارات الملفات لا محتواها بين الخطوات.",
+   sec:"Class 1 — التركيب",
+   content:`<h3>Composable Primitives</h3><p>Scout (يبحث) → Plan (يصمم) → Build (ينفّذ). كل واحد يعمل منفرداً أو ضمن Chain.</p>
+<h3>تمرير البيانات</h3><p>كل خطوة تكتب ناتجها في ملف، والخطوة التالية تقرأ المسار فقط. هذا يُبقي نافذة السياق نظيفة ويسمح بإعادة خطوة واحدة دون إعادة كل شيء.</p>
+<h3>الـ Scout الموازي</h3><p>3 Agents في نفس الوقت: Agent 1 (Glob — بنية ملفات)، Agent 2 (Grep — محتوى كود)، Agent 3 (Import tracing). النتائج تُدمج وتُحفظ في ملف واحد.</p>
+<div class="note">⚠️ كل Sub-Agent يبدأ من الصفر — اجعل prompt كل agent مكتفياً بذاته.</div>`},
+
+  {id:7,file:"level7_rtl.html",cls:"Class 1 · Gear 7",title:"Agent Experts with Mental Models",tags:["expertise.yaml","Self-Improve","Domains"],
+   learn:["كيف تُرمّز expertise.yaml معرفة عميقة ومنظمة عن domain","لماذا النماذج الذهنية تُلغي الاكتشاف المتكرر من O(n) إلى O(1)","كيف يُبقي Self-Improvement النموذج دقيقاً مع تطور الكود","بناء chains من Plan-Build-Improve تُراكم المعرفة"],
+   take:"خبير لكل domain. النموذج الذهني يحول كل جلسة من اكتشاف إلى بحث فوري. المعرفة تتراكم مع كل دورة.",
+   sec:"Class 1 — التركيب",
+   content:`<h3>expertise.yaml — ليس وثائق</h3><p>YAML منظم يحتوي على: مسارات ملفات مع أرقام أسطر، كل endpoint بالطريقة والمسار وشكل الـ request/response، كل Zod schema، كل database constraint.</p>
+<h3>Self-Improvement</h3><p>بعد كل تغيير: يقرأ git diff → يقارن مع expertise.yaml → يُحدّث الملف → يتحقق من YAML syntax. المعرفة تتراكم وتبقى دقيقة.</p>
+<h3>خبير لكل Domain</h3><p>Backend (Hono، SQLite، Zod) + Frontend (React، State، API client) + Design System (Components، Props، Variants). كل خبير منفصل.</p>
+<div class="note">⚠️ حد أقصى 500 سطر لـ expertise.yaml. ملف يتجاوز نافذة السياق يهزم هدفه.</div>`},
+
+  {id:8,file:"level8_rtl.html",cls:"Class 2 · Gear 1",title:"Out-Loop Systems & Webhooks",tags:["PITER","Webhooks","GitHub","Slack"],
+   learn:["ما معنى Out of the Loop ولماذا يُحول الـ Agent من أداة إلى نظام","إطار PITER: Prompt/Input/Transform/Execute/Report","بناء HTTP webhook servers بـ Python تُشغّل PI commands","دمج GitHub وSlack كـ triggers مستقلة تلقائية"],
+   take:"Agent يحتاج حضورك لكل مهمة هو أداة. Agent يستجيب للأحداث تلقائياً هو نظام. أنت المصمم الآن لا المشغّل.",
+   sec:"Class 2 — الاستقلالية",
+   content:`<h3>In-Loop vs Out-of-Loop</h3><p>In-Loop: أنت → Agent → نتيجة → أنت تراجع. Out-of-Loop: حدث → Webhook → Agent → إشعار.</p>
+<h3>إطار PITER</h3><ul><li><strong>P</strong>rompt — عرّف المهمة</li><li><strong>I</strong>nput — اجمع السياق</li><li><strong>T</strong>ransform — نظّف البيانات للـ Agent</li><li><strong>E</strong>xecute — شغّل الأمر</li><li><strong>R</strong>eport — أرسل النتيجة للمصدر</li></ul>
+<h3>المعمارية</h3><p>Server عام يوجّه + Handlers خاصة تُطبّق PITER. أضف workflows جديدة بإضافة handlers فقط.</p>
+<div class="note">⚠️ Transform هو مصدر القيمة — البيانات الخام مزعجة. الفشل الصامت في الأنظمة الآلية هو الأخطر.</div>`},
+
+  {id:9,file:"level9_rtl.html",cls:"Class 2 · Gear 2",title:"AI Developer Workflows (ADWs)",tags:["Python ADW","Step Lifecycle","Deterministic"],
+   learn:["ما هي ADWs: Python حتمي يُغلّف تنفيذ Agent غير حتمي","لماذا المعمارية الهجينة تتفوق على Pure Code وPure Agent","نمط دورة حياة الخطوة: log_start → execute → log_end","تركيب خطوات Plan/Build/Review/Fix في pipelines موثوقة"],
+   take:"الكود يتحكم بالتدفق. الـ Model يتحكم بالتفكير. خطوات ADW حدود حقيقية لا مجرد اقتراحات — الـ Agent يستحيل عليه تخطيها.",
+   sec:"Class 2 — الاستقلالية",
+   content:`<h3>لماذا Hybrid؟</h3><p>Pure Code: متوقع لكن لا يتعامل مع المشاكل الجديدة. Pure Agent: إبداعي لكن يفقد السياق ويتخطى خطوات. ADW = الأفضل من الاثنين.</p>
+<h3>Step Lifecycle</h3><p><code>log_step_start(name)</code> → <code>subprocess.run(["pi", "-p", cmd])</code> → <code>log_step_end(name, result)</code>. يُعطيك Observability كاملة + حدود واضحة + قدرة إعادة خطوة فاشلة.</p>
+<h3>تركيبات الـ Workflow</h3><ul><li>Plan → Build (2 خطوات — للميزات السريعة)</li><li>Plan → Build → Review (3 خطوات — مع ضمان الجودة)</li><li>Plan → Build → Review → Fix شرطي (4 خطوات — أتمتة كاملة)</li></ul>
+<div class="note">⚠️ ضع حداً لـ MAX_FIX_CYCLES (2-3). بدونه حلقة لانهائية ممكنة.</div>`},
+
+  {id:10,file:"level10_rtl.html",cls:"Class 3 · Gear 1",title:"The Orchestrator Agent",tags:["Orchestrator","CRUD","Dispatch"],
+   learn:["ما هو Orchestrator: Agent مركزي يُنشئ ويُدير Agents أخرى","عمليات CRUD على Agents كنمط إدارة منظم","الـ Orchestrator كمهندس رئيسي يتخذ قرارات التفويض","أنماط One-Shot وScout-then-Build وADW Dispatch"],
+   take:"الـ Orchestrator مفوّض لا منفّذ. CRUD هو النموذج الذهني. السياق يتدفق عبره ليربط Agents مستقلة.",
+   sec:"Class 3 — التنسيق",
+   content:`<h3>CRUD على الـ Agents</h3><ul><li>🟢 Create — أنشئ Agent بغرض وأدوات محددة</li><li>🔵 Read — تحقق من الحالة، استرد المخرجات</li><li>🟡 Update — أرسل أوامر جديدة، عدّل التعليمات</li><li>🔴 Delete — أوقف الـ Agent عند انتهاء عمله</li></ul>
+<h3>3 أنماط</h3><p>One-Shot (للمهام البسيطة) → Scout-and-Build (للمعقدة) → ADW Dispatch (للمتعددة الخطوات).</p>
+<h3>سياسة Cleanup</h3><p>احذف One-shot agents بعد الانتهاء. احتفظ بـ Multi-phase agents للفحص ثم احذفهم.</p>
+<div class="note">⚠️ الـ Orchestrator لا يكتب كوداً ولا يعدّل ملفات. إذا فعل، بنيت Agent ضخم لا Orchestrator.</div>`},
+
+  {id:11,file:"level11_rtl.html",cls:"Class 3 · Gear 2",title:"Orchestrator Developer Workflows",tags:["5-Phase","Worker Skills","Adaptive"],
+   learn:["Orchestrator يقود workflows متعددة الأطوار بفرق متخصصة","محادثات متعددة المستويات: سياق دائم يمتد عبر Agents قصيرة الأمد","تصميم Worker Skills بقدرات أدنى ومركزة لكل وظيفة","قرارات تكيفية عند حدود الأطوار بناءً على النتائج الفعلية"],
+   take:"Workflows مُقادة تتفوق على Agents مُدارة. كل Agent يرى شريحة مُنتقاة — الـ Orchestrator يرى كل شيء ويُلخّص لا يُكدّس.",
+   sec:"Class 3 — التنسيق",
+   content:`<h3>4 Worker Agents متخصصين</h3><ul><li>🔍 Scout — قراءة فقط، نموذج خفيف، بحث واستطلاع</li><li>📐 Planner — نموذج قوي، تصميم خطة، لا تنفيذ</li><li>🔨 Builder — أدوات كاملة، أقوى نموذج، ينفّذ بدقة</li><li>🔎 Reviewer — قراءة فقط، مراجع مستقل، PASS/FAIL</li></ul>
+<h3>5 مراحل مع نقاط قرار</h3><p>Scout → <em>قرار</em> → Plan → <em>قرار</em> → Build → <em>قرار</em> → Review → <em>قرار</em> → Fix (شرطي) → Report.</p>
+<div class="note">⚠️ بدون نقاط قرار بين المراحل عندك shell script. بها عندك نظام ذكي تكيفي.</div>`},
+
+  {id:12,file:"level12_rtl.html",cls:"Class 3 · Gear 3",title:"ADWs with Orchestrator — Final Form",tags:["Final Form","Trust Equation","Full Autonomy"],
+   learn:["دمج ADWs (L9) مع Orchestrator (L10-11) في نظام مستقل كامل","لماذا الكود الحتمي يُنتج استقلالية موثوقة عند تنسيق Agents","معادلة الثقة: Determinism × Observability × Validation × Recovery","المعمارية الكاملة التي تربط الـ 12 Level معاً"],
+   take:"الشكل النهائي: Python يتحكم بالمتى والـ لماذا، الـ Agents يتحكمون بالـ كيف. Prompts طلبات. Code عقود.",
+   sec:"Class 3 — التنسيق",
+   content:`<h3>المعمارية الثلاثية</h3><ul><li>ADW (Python) — التحكم الحتمي: تحقق، checkpoint، retry</li><li>Orchestrator (Agent) — التنسيق: يُفوّض فرق Agents</li><li>Sub-Agents — المتخصصون: Scout, Planner, Builder, Reviewer</li></ul>
+<h3>معادلة الثقة</h3><p>Determinism × Observability × Validation × Recovery. أزل أي عامل واحد → النظام يصبح غير موثوق.</p>
+<h3>3 أنواع Workflow</h3><ul><li><code>plan_build</code> — للميزات البسيطة</li><li><code>plan_build_review</code> — سير العمل المعياري</li><li><code>plan_build_review_fix</code> — للميزات المعقدة مع حلقة إصلاح</li></ul>
+<div class="note">🏆 بهذا المستوى تكون قد أتممت بناء نظام تطوير مستقل كامل من الصفر.</div>`},
+];
+
+const sections=["Class 1 — الأساس","Class 1 — الجودة","Class 1 — التركيب","Class 2 — الاستقلالية","Class 3 — التنسيق"];
+let done=new Set(JSON.parse(localStorage.getItem('adw_done')||'[]'));
+let cur=null;
+
+function save(){try{localStorage.setItem('adw_done',JSON.stringify([...done]))}catch(e){}}
+
+function updateProgress(){
+  const p=Math.round((done.size/12)*100);
+  document.getElementById('hfill').style.width=p+'%';
+  document.getElementById('done-count').textContent=done.size;
+  document.getElementById('hstat').textContent=done.size===12?'🎉 أتممت الورشة كاملة!':done.size===0?'ابدأ من المستوى الأول':`${12-done.size} مستوى متبقي`;
+}
+
+function render(){
+  const app=document.getElementById('app');
+  let html='';
+  sections.forEach(sec=>{
+    const grp=levels.filter(l=>l.sec===sec);
+    html+=`<div class="sec-label">${sec}</div><div class="grid">`;
+    grp.forEach(l=>{
+      const d=done.has(l.id),a=!d;
+      const cc=d?'card done':(a?'card active':'card');
+      const nb=d?'nb-done':(a?'nb-active':'nb-locked');
+      const dc=d?'d-done':(a?'d-active':'d-locked');
+      const st=d?'مكتمل':'متاح';
+      html+=`<div class="${cc}" onclick="openPanel(${l.id})">
+        <div class="card-header">
+          <div class="num-badge ${nb}">${l.id}</div>
+          <div class="card-info"><div class="card-class">${l.cls}</div><div class="card-title">${l.title}</div></div>
+        </div>
+        <div class="tags">${l.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+        <div class="card-footer">
+          <div class="status"><div class="dot ${dc}"></div>${st}</div>
+          <button class="btn-open" onclick="event.stopPropagation();openPanel(${l.id})">فتح</button>
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+  app.innerHTML=html;
+  updateProgress();
+}
+
+function switchTab(name,btn){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+function openPanel(id){
+  cur=levels.find(l=>l.id===id);
+  if(!cur)return;
+  document.getElementById('p-class').textContent=cur.cls;
+  document.getElementById('p-title').textContent=`Level ${cur.id}: ${cur.title}`;
+  document.getElementById('p-learn').innerHTML=cur.learn.map(x=>`<li>${x}</li>`).join('');
+  document.getElementById('p-take').textContent=cur.take;
+  const iframe=document.getElementById('p-content');
+  const noScrollbarCSS='::-webkit-scrollbar{display:none}body{scrollbar-width:none;-ms-overflow-style:none}';
+  iframe.onload=function(){try{const s=iframe.contentDocument.createElement('style');s.textContent=noScrollbarCSS;iframe.contentDocument.head.appendChild(s);}catch(e){}};
+  if(cur.file){iframe.src=cur.file;iframe.removeAttribute('srcdoc');}
+  else{iframe.removeAttribute('src');iframe.srcdoc=`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;background:#0f172a;color:#94a3b8;padding:1rem;line-height:1.7;font-size:13px;scrollbar-width:none;-ms-overflow-style:none}body::-webkit-scrollbar{display:none}h3{font-size:14px;font-weight:600;color:#a78bfa;margin:1rem 0 .4rem;border-right:3px solid #7c3aed;padding-right:.5rem}p{margin-bottom:.6rem}ul{padding-right:1.2rem;margin-bottom:.6rem}li{margin:.25rem 0}code{background:#334155;padding:1px 5px;border-radius:3px;font-size:12px;color:#a3e635;font-family:monospace}.note{background:#1e293b;border-right:3px solid #f59e0b;padding:.5rem .75rem;border-radius:4px;margin:.6rem 0;font-size:12px;color:#fbbf24}</style></head><body>${cur.content}</body></html>`;};
+  updateDoneBtn();
+  const link=document.getElementById('p-file-link');
+  if(cur.file){link.href=cur.file;link.style.display='';}else{link.style.display='none';}
+  document.querySelectorAll('.tab-btn')[0].click();
+  document.getElementById('overlay').classList.add('open');
+}
+
+function updateDoneBtn(){
+  if(!cur)return;
+  const btn=document.getElementById('p-done-btn');
+  if(done.has(cur.id)){
+    btn.textContent='✓ مكتمل — إلغاء';
+    btn.classList.add('undone');
+  } else {
+    btn.textContent='✓ وضّع كمكتمل';
+    btn.classList.remove('undone');
+  }
+}
+
+function toggleCurrentDone(){
+  if(!cur)return;
+  if(done.has(cur.id))done.delete(cur.id);
+  else done.add(cur.id);
+  save();
+  updateDoneBtn();
+  render();
+}
+
+function askAboutCurrent(){
+  if(!cur)return;
+  sendPrompt(`اشرحلي Level ${cur.id}: ${cur.title} من workshop agentic engineering بالتفصيل`);
+}
+
+function closePanel(){
+  document.getElementById('overlay').classList.remove('open');
+}
+
+document.getElementById('overlay').addEventListener('click',e=>{
+  if(e.target===document.getElementById('overlay'))closePanel();
+});
+
+render();
+</script>

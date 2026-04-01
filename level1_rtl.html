@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 2rem;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #7dd3fc; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #38bdf8; margin: 1.8rem 0 0.8rem; border-right: 4px solid #38bdf8; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote {
+    background: #1e293b;
+    border-right: 4px solid #7dd3fc;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.92rem;
+  }
+  th {
+    background: #1e3a5f;
+    color: #7dd3fc;
+    padding: 0.6rem 1rem;
+    text-align: right;
+  }
+  td {
+    background: #1e293b;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #334155;
+    text-align: right;
+  }
+  td code, th code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  .card {
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    border: 1px solid #334155;
+  }
+  .bad { border-right: 4px solid #f87171; }
+  .good { border-right: 4px solid #4ade80; }
+  .bad-label { color: #f87171; font-weight: bold; }
+  .good-label { color: #4ade80; font-weight: bold; }
+  pre {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    color: #a3e635;
+    direction: ltr;
+    text-align: left;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+  }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .tag {
+    display: inline-block;
+    background: #1e3a5f;
+    color: #7dd3fc;
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-size: 0.82rem;
+    margin: 2px;
+  }
+  .section-num {
+    display: inline-block;
+    background: #38bdf8;
+    color: #0f172a;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    font-weight: bold;
+    margin-left: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .takeaway {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin: 0.5rem 0;
+    color: #cbd5e1;
+  }
+  .takeaway .icon { font-size: 1.1rem; flex-shrink: 0; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+</style>
+</head>
+<body>
+
+<h1>🤖 Level 1: Prime Prompts & Memory Files</h1>
+<p class="subtitle">Class 1, Gear 1 — أساس كل طبقة Agentic</p>
+
+<div class="quote">
+  "إذا ما أخبرت الـ Agent من هو، وإيش يشتغل عليه، وكيف يشتغل — بيخمّن. وبيخمّن غلط."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> ما هو AGENTS.md؟</h2>
+<p>هو ملف <strong>Prime Prompt</strong> — يعيش في جذر المشروع ويُحمَّل تلقائياً كل مرة يبدأ فيها الـ Agent جلسة جديدة.</p>
+<p style="margin-top:0.6rem">فكّر فيه كـ <strong>ورقة إحاطة</strong> بتعطيها لمهندس جديد أول يوم:</p>
+<ul>
+  <li>إيش هذا المشروع؟</li>
+  <li>أي أدوات بنستخدم؟</li>
+  <li>كيف أشغّل الأشياء؟</li>
+  <li>ما هي الاتفاقيات؟</li>
+  <li>إيش الأشياء اللي لازم أنتبه لها؟</li>
+</ul>
+
+<h3>📍 أين يعيش الملف؟</h3>
+<table>
+  <tr><th>المكان</th><th>النطاق</th></tr>
+  <tr><td><code>./AGENTS.md</code></td><td>جذر المشروع — لكل الجلسات</td></tr>
+  <tr><td><code>~/.pi/agent/AGENTS.md</code></td><td>عالمي — لكل المشاريع</td></tr>
+  <tr><td><code>./apps/backend/AGENTS.md</code></td><td>مجلد محدد — للمونوريبو</td></tr>
+</table>
+
+<hr>
+
+<h2><span class="section-num">٢</span> منطقة التوازن المثالي (Goldilocks Zone)</h2>
+
+<div class="card bad">
+  <p class="bad-label">❌ قصير جداً — "Figure It Out"</p>
+  <pre># TaskFlow
+Uses bun. Run `bun dev` to start.</pre>
+  <p style="color:#fca5a5; font-size:0.9rem">المشكلة: الـ Agent بيخمّن كل شيء ويغلط — بنية الملفات، أنماط الاختبار، الـ schemas...</p>
+</div>
+
+<div class="card bad">
+  <p class="bad-label">❌ طويل جداً — "Encyclopedia"</p>
+  <p style="color:#fca5a5; font-size:0.9rem">ملف 180+ سطر بكل قاعدة إملائية وكل إعداد ESLint...</p>
+  <p style="color:#fca5a5; font-size:0.9rem">المشكلة: المعلومات المهمة تضيع بين الضجيج ونافذة السياق تُهدر.</p>
+</div>
+
+<div class="card good">
+  <p class="good-label">✅ الحجم المثالي — 30 إلى 50 سطر</p>
+  <table>
+    <tr><th>#</th><th>القسم</th><th>المحتوى</th></tr>
+    <tr><td>١</td><td>Context</td><td>2-3 جمل عن المشروع</td></tr>
+    <tr><td>٢</td><td>Tooling</td><td>Runtime، frameworks، مكتبات</td></tr>
+    <tr><td>٣</td><td>Key Commands</td><td>تثبيت، تطوير، اختبار، بناء</td></tr>
+    <tr><td>٤</td><td>Project Structure</td><td>خريطة المجلدات الرئيسية</td></tr>
+    <tr><td>٥</td><td>Dev Guidelines</td><td>3-7 قواعد مهمة فعلاً</td></tr>
+    <tr><td>٦</td><td>Important Notes</td><td>أشياء تسبب مشاكل، أنماط خاصة</td></tr>
+  </table>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> التمرين العملي — TaskFlow</h2>
+<p>المشروع هو <strong>TaskFlow</strong> — تطبيق إدارة مهام. مطلوب منك:</p>
+
+<div class="card" style="margin-top:0.8rem">
+  <p><strong>الخطوات:</strong></p>
+  <ul>
+    <li>استكشف بنية المشروع في <code>workshop/app/</code></li>
+    <li>افهم الأدوات والأوامر من <code>package.json</code></li>
+    <li>اكتشف الاتفاقيات (Zod schemas، قيم الـ status والـ priority)</li>
+    <li>اكتب <code>AGENTS.md</code> بـ 30-50 سطر</li>
+    <li>قارن نسختك بالملفات في <code>completed/</code></li>
+  </ul>
+</div>
+
+<h3>🔍 التحقق من نسختك:</h3>
+<pre>cat workshop/app/AGENTS.md
+wc -l workshop/app/AGENTS.md        # المتوقع: 30-50 سطر
+grep -c "bun" workshop/app/AGENTS.md
+grep -c "Hono\|hono" workshop/app/AGENTS.md
+grep -c "SQLite\|sqlite" workshop/app/AGENTS.md</pre>
+
+<hr>
+
+<h2><span class="section-num">٤</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🏗️</span><span><strong>AGENTS.md هو الأساس</strong> — كل تقنية تانية في الورشة بتبنى فوقه.</span></div>
+<div class="takeaway"><span class="icon">🎯</span><span><strong>كن دقيقاً بالأوامر</strong> — <code>bun run --filter @taskflow/backend dev</code> أفضل من "شغّل الباكند".</span></div>
+<div class="takeaway"><span class="icon">✂️</span><span><strong>شمّل المهم، احذف المش مهم</strong> — كل سطر لازم يستحق وجوده.</span></div>
+<div class="takeaway"><span class="icon">🔄</span><span><strong>حدّثه مع تطور المشروع</strong> — الملف القديم أسوأ من عدم وجود ملف.</span></div>
+<div class="takeaway"><span class="icon">📓</span><span><strong>ملفات الذاكرة</strong> — احتفظ بالحقائق الثابتة في AGENTS.md لا في تاريخ المحادثة.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #38bdf8;">
+  💡 <strong>AGENTS.md = ذاكرة الـ Agent</strong><br>
+  بدونه يبدأ كل جلسة من الصفر ويخمّن.<br>
+  بوجوده يبدأ كمهندس عارف المشروع من يومه الأول. 🚀
+</div>
+
+</body>
+</html>

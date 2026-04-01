@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 2rem;
+    line-height: 1.8;
+    direction: rtl;
+    text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #a78bfa; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #8b5cf6; margin: 1.8rem 0 0.8rem; border-right: 4px solid #8b5cf6; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote {
+    background: #1e293b;
+    border-right: 4px solid #a78bfa;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #2e1065; color: #a78bfa; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-size: 0.82rem;
+    color: #a3e635;
+    direction: ltr;
+    text-align: left;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+  }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num {
+    display: inline-block; background: #8b5cf6; color: #fff;
+    border-radius: 50%; width: 26px; height: 26px;
+    text-align: center; line-height: 26px; font-weight: bold;
+    margin-left: 0.5rem; font-size: 0.9rem;
+  }
+  .step {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem;
+    margin: 0.5rem 0; border: 1px solid #334155;
+  }
+  .step-num {
+    background: #8b5cf6; color: #fff; border-radius: 50%;
+    width: 28px; height: 28px; display: flex; align-items: center;
+    justify-content: center; font-weight: bold; font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-title { color: #a78bfa; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  .takeaway .icon { font-size: 1.1rem; flex-shrink: 0; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  .pill {
+    display: inline-block; background: #2e1065; color: #a78bfa;
+    border-radius: 20px; padding: 2px 10px; font-size: 0.8rem; margin: 2px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🤖 Level 2: Sub-Agents, Plans & AI Docs</h1>
+<p class="subtitle">Class 1, Gear 2 — إعطاء الـ Agent متخصصين، معرفة، وسير عمل</p>
+
+<div class="quote">
+  "Agent واحد يحاول يعمل كل شيء، مثل مهندس واحد يحاول يكون المعماري والـ Frontend والـ Backend والـ QA في نفس الوقت."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> ما هي الـ Sub-Agents؟</h2>
+<p>هي <strong>ملفات prompt متخصصة</strong> تعيش في <code>.pi/prompts/agents/</code> — كل واحدة بتعرّف خبير متخصص بهدف محدد، أدوات محدودة، وخطوات واضحة.</p>
+
+<h3>📋 شكل ملف الـ Sub-Agent:</h3>
+<pre>---
+name: agent-name
+description: Action-oriented description. Use proactively when...
+tools: Read, Write, Bash
+model: sonnet
+---
+
+# Purpose
+You are a specialized [role]. Your job is to [primary task].
+
+## Instructions
+1. Step one
+2. Step two
+
+## Output Format
+Describe what the agent produces.</pre>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>إعطاء الـ sub-agents أدوات أكثر من اللازم. ابدأ بأقل الأدوات الممكنة.</p>
+</div>
+
+<h3>🗂️ أمثلة على Sub-Agents:</h3>
+<table>
+  <tr><th>الـ Agent</th><th>الهدف</th><th>الأدوات</th></tr>
+  <tr><td><code>meta-agent</code></td><td>ينشئ agents جديدة</td><td>Write, WebFetch</td></tr>
+  <tr><td><code>docs-scraper</code></td><td>يجلب ويلخص التوثيق</td><td>WebFetch, Write, Read, Glob</td></tr>
+  <tr><td><code>code-reviewer</code></td><td>يراجع جودة الكود</td><td>Read, Grep, Glob</td></tr>
+  <tr><td><code>test-writer</code></td><td>يولّد ملفات الاختبار</td><td>Read, Write, Bash</td></tr>
+</table>
+
+<hr>
+
+<h2><span class="section-num">٢</span> ما هي الـ AI Docs؟</h2>
+<p>هي <strong>ملفات معرفة متخصصة</strong> مخزنة في <code>ai_docs/</code> — بتعطي الـ Agent فهماً عميقاً للنظام.</p>
+<ul>
+  <li><strong>AGENTS.md</strong> → يخبر الـ Agent إيش المشروع وكيف يشغّله</li>
+  <li><strong>AI Docs</strong> → يخبره كيف يشتغل النظام من الداخل ولماذا بُني هكذا</li>
+</ul>
+
+<h3>📁 الملفات النموذجية:</h3>
+<table>
+  <tr><th>الملف</th><th>المحتوى</th></tr>
+  <tr><td><code>architecture.md</code></td><td>نظرة عامة، تدفق البيانات، القرارات التقنية</td></tr>
+  <tr><td><code>api-reference.md</code></td><td>كل endpoint موثق مع الـ request والـ response</td></tr>
+  <tr><td><code>component-guide.md</code></td><td>مكونات الـ design system مع الـ props والـ variants</td></tr>
+</table>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>حشر محتوى AI Docs داخل AGENTS.md. الـ AGENTS.md يجب يكون 30-50 سطر فقط. اتركهم منفصلين.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> ما هي الـ Plan Commands؟</h2>
+<p>هي <strong>سير عمل قابلة لإعادة الاستخدام</strong> مخزنة في <code>.pi/prompts/</code> — تُستدعى بـ <code>/</code> مثل <code>/prime</code> أو <code>/quick-plan</code>.</p>
+
+<h3>📋 شكل ملف الـ Command:</h3>
+<pre>---
+description: What this command does
+argument-hint: &lt;optional description&gt;
+---
+
+# Command Name
+Instructions for the agent to follow.
+Use $ARGUMENTS to reference user input.</pre>
+
+<p style="margin-top:0.8rem">مثال: <code>/quick-plan add a priority filter to the task list</code> — كل شيء بعد اسم الـ command بيصير <code>$ARGUMENTS</code></p>
+
+<hr>
+
+<h2><span class="section-num">٤</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ الـ meta-agent</div>
+    <p>أنشئ <code>.pi/prompts/agents/meta-agent.md</code> — مهمته الوحيدة إنشاء agents أخرى.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ الـ docs-scraper agent</div>
+    <p>أنشئ <code>.pi/prompts/agents/docs-scraper.md</code> — يجلب التوثيق من URLs ويحفظ ملخصات منظمة.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ AI Docs لـ TaskFlow</div>
+    <p>أنشئ 3 ملفات في <code>ai_docs/</code>: <code>architecture.md</code>، <code>api-reference.md</code>، <code>component-guide.md</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ الـ Plan Commands</div>
+    <p>أنشئ 3 commands في <code>.pi/prompts/</code>: <code>prime.md</code>، <code>quick-plan.md</code>، <code>load_ai_docs.md</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">اختبر الـ Commands</div>
+    <p>جرّب <code>/prime</code> و <code>/quick-plan add a search feature to TaskFlow</code> — هل يعطي نتائج منظمة ومفيدة؟</p>
+  </div>
+</div>
+
+<h3>🔍 التحقق من نسختك:</h3>
+<pre>ls .pi/prompts/agents/   # meta-agent.md  docs-scraper.md
+ls .pi/prompts/          # prime.md  quick-plan.md  load_ai_docs.md
+ls ai_docs/              # architecture.md  api-reference.md  component-guide.md
+head -5 .pi/prompts/agents/meta-agent.md  # frontmatter صحيح</pre>
+
+<hr>
+
+<h2><span class="section-num">٥</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🧑‍💼</span><span><strong>Sub-agents = متخصصون</strong> — كل واحد يعمل شيء واحد بشكل ممتاز بأقل الأدوات.</span></div>
+<div class="takeaway"><span class="icon">📚</span><span><strong>AI Docs = قاعدة المعرفة</strong> — تُخبر الـ Agent كيف يشتغل النظام لا فقط كيف يشغّله.</span></div>
+<div class="takeaway"><span class="icon">⚡</span><span><strong>Commands = سير عمل جاهزة</strong> — تحوّل خطوات متعددة إلى أمر واحد ينتج نتائج ثابتة.</span></div>
+<div class="takeaway"><span class="icon">🔀</span><span><strong>معاً يُمكّنون العمل المتوازي</strong> — عدة agents تشتغل على أشياء مختلفة في نفس الوقت.</span></div>
+<div class="takeaway"><span class="icon">🗂️</span><span><strong>الفصل بين المسؤوليات</strong> — AGENTS.md للسياق، ai_docs للمعرفة، commands للسير، agents للتخصص.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #8b5cf6;">
+  💡 <strong>الفرق بين Level 1 و Level 2</strong><br>
+  Level 1: أعطيت الـ Agent وثيقة إحاطة 📄<br>
+  Level 2: أعطيته فريق متخصص + قاعدة معرفة + إجراءات موحدة 🚀
+</div>
+
+</body>
+</html>

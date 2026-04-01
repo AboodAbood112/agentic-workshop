@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #34d399; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #10b981; margin: 1.8rem 0 0.8rem; border-right: 4px solid #10b981; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #34d399; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #064e3b; color: #34d399; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #10b981; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #10b981; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #34d399; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  .compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 0.8rem 0; }
+  .compare-card { background: #1e293b; border-radius: 8px; padding: 0.8rem; border: 1px solid #334155; }
+  .compare-title { font-weight: bold; margin-bottom: 0.4rem; font-size: 0.9rem; }
+  .green { color: #34d399; }
+  .blue { color: #38bdf8; }
+  .badge { display: inline-block; background: #064e3b; color: #34d399; border-radius: 20px; padding: 2px 10px; font-size: 0.8rem; margin: 2px; }
+</style>
+</head>
+<body>
+
+<h1>🔧 Level 3: Skills, MCPs & Custom Tools</h1>
+<p class="subtitle">Class 1, Gear 3 — توسيع قدرات الـ Agent</p>
+
+<div class="quote">
+  "Sub-agents وSkills وMCPs كلهم بيعطوك نفس الشيء — أدوات مخصصة. الفرق فقط في طريقة التغليف."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> ما هي الـ Skills؟</h2>
+<p>قدرات قابلة لإعادة الاستخدام معرّفة في <code>.pi/skills/</code> — كل skill في مجلد خاص يحتوي على تعليمات + templates + أمثلة.</p>
+
+<h3>📁 بنية الملفات:</h3>
+<pre>.pi/skills/
+└── skill-name/
+    ├── SKILL.md          # تعريف الـ skill
+    └── templates/
+        └── template.md  # قوالب جاهزة</pre>
+
+<h3>🆚 الفرق بين Sub-Agent و Skill:</h3>
+<table>
+  <tr><th>الخاصية</th><th>Sub-Agent</th><th>Skill</th></tr>
+  <tr><td>المكان</td><td><code>.pi/prompts/agents/</code></td><td><code>.pi/skills/</code></td></tr>
+  <tr><td>البنية</td><td>ملف واحد</td><td>مجلد مع templates</td></tr>
+  <tr><td>الاستدعاء</td><td>تفويض تلقائي</td><td>أمر <code>/</code> أو تفويض</td></tr>
+  <tr><td>السياق</td><td>سياقه المستقل</td><td>يعمل ضمن السياق الحالي</td></tr>
+  <tr><td>النموذج</td><td>يحدد نموذجه</td><td>يستخدم نموذج الجلسة</td></tr>
+</table>
+
+<div class="quote" style="border-color:#38bdf8">
+  💡 <strong>القاعدة العملية:</strong> إذا المهمة مستقلة → <span class="blue">Sub-Agent</span>. إذا تحتاج templates أو تعمل ضمن السياق الحالي → <span class="green">Skill</span>.
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>إنشاء Skill لما Sub-Agent كافي. لا تنشئ Skill إلا إذا عندك شيء حقيقي تحطه في المجلد.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٢</span> ما هي MCP Servers؟</h2>
+<p><strong>Model Context Protocol</strong> — عمليات خارجية بتوفر أدوات تتجاوز الأدوات الأساسية الأربعة.</p>
+
+<h3>🛠️ أمثلة على MCPs:</h3>
+<table>
+  <tr><th>الـ MCP</th><th>القدرة</th></tr>
+  <tr><td>Firecrawl</td><td>تحويل أي URL لمحتوى منظم</td></tr>
+  <tr><td>Playwright</td><td>التحكم بمتصفح حقيقي للاختبار</td></tr>
+  <tr><td>Database MCP</td><td>الاستعلام المباشر من قواعد البيانات</td></tr>
+  <tr><td>Slack / GitHub / Jira</td><td>الاندماج مع أدوات العمل</td></tr>
+</table>
+
+<h3>⚙️ ملف الإعداد <code>.mcp.json</code>:</h3>
+<pre>{
+  "mcpServers": {
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": { "FIRECRAWL_API_KEY": "your-key" }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-playwright"],
+      "env": {}
+    }
+  }
+}</pre>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>حفظ API keys في الـ repo! ضع <code>.mcp.json</code> في <code>.gitignore</code> وشارك <code>.mcp.json.sample</code> بدون مفاتيح حقيقية.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> الأدوات المخصصة عبر Prime Prompts</h2>
+<p>أحياناً ما تحتاج Skill أو MCP — يكفي تصف النمط في AGENTS.md:</p>
+<pre>## Custom Tool: Research Pattern
+When you need to research a library:
+1. Search the web for the official docs
+2. Fetch the getting-started page
+3. Save a summary to ai_docs/&lt;library-name&gt;.md
+4. Report what you learned</pre>
+
+<h3>🔒 صلاحيات <code>.pi/settings.json</code>:</h3>
+<pre>{
+  "permissions": {
+    "allow": [
+      "Bash(bun run:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  }
+}</pre>
+
+<hr>
+
+<h2><span class="section-num">٤</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ meta-agent skill</div>
+    <p>أنشئ <code>.pi/skills/meta-agent/SKILL.md</code> — نسخة Skill من meta-agent مع إشارة لـ template.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ الـ Agent Template</div>
+    <p>أنشئ <code>.pi/skills/meta-agent/templates/subagent-template.md</code> بـ placeholders مثل <code>&lt;AGENT_NAME&gt;</code>، <code>&lt;TOOL_LIST&gt;</code>، <code>&lt;ROLE&gt;</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ MCP Config Sample</div>
+    <p>أنشئ <code>.mcp.json.sample</code> مع Firecrawl و Playwright — استخدم strings فارغة للـ API keys.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ ملف الصلاحيات</div>
+    <p>أنشئ <code>.pi/settings.json</code> — اسمح لأوامر التطوير الآمنة، وامنع الأوامر المدمِّرة.</p>
+  </div>
+</div>
+
+<h3>🔍 التحقق:</h3>
+<pre>ls .pi/skills/meta-agent/           # SKILL.md  templates/
+ls .pi/skills/meta-agent/templates/ # subagent-template.md
+cat .mcp.json.sample | python3 -m json.tool
+cat .pi/settings.json | python3 -m json.tool</pre>
+
+<hr>
+
+<h2><span class="section-num">٥</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">📐</span><span><strong>Skills = قدرات بقوالب</strong> — تضمن نفس البنية ونفس الجودة في كل مرة.</span></div>
+<div class="takeaway"><span class="icon">🌐</span><span><strong>MCPs = أدوات خارجية</strong> — تربط الـ Agent بـ APIs ومتصفحات وقواعد بيانات.</span></div>
+<div class="takeaway"><span class="icon">📝</span><span><strong>Custom Tools = تعليمات ذكية</strong> — صِف النمط في prime prompt والـ Agent يتبعه بلا إعداد.</span></div>
+<div class="takeaway"><span class="icon">🔒</span><span><strong>settings.json = شبكة الأمان</strong> — تحكم بما يُنفَّذ تلقائياً وما يحتاج موافقتك.</span></div>
+<div class="takeaway"><span class="icon">📈</span><span><strong>ابدأ بسيط</strong> — Custom tool أولاً، ثم Skill لما تحتاج templates، ثم MCP لما تحتاج وصولاً خارجياً.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #10b981;">
+  💡 <strong>الثلاثة يخدمون نفس الهدف</strong><br>
+  Skills + MCPs + Custom Tools = توسيع الـ Core Four (Read, Write, Edit, Bash) 🚀
+</div>
+
+</body>
+</html>

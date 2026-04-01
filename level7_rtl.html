@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #fbbf24; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #f59e0b; margin: 1.8rem 0 0.8rem; border-right: 4px solid #f59e0b; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #fbbf24; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #451a03; color: #fbbf24; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #f59e0b; color: #0f172a; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #f59e0b; color: #0f172a; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #fbbf24; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  .expert-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  .expert-card { background: #1e293b; border-radius: 8px; padding: 0.8rem; border-top: 3px solid #f59e0b; }
+  .expert-card.fe { border-top-color: #38bdf8; }
+  .expert-card.ds { border-top-color: #a78bfa; }
+  .expert-title { font-weight: bold; margin-bottom: 0.5rem; font-size: 0.95rem; color: #fbbf24; }
+  .expert-card.fe .expert-title { color: #38bdf8; }
+  .expert-card.ds .expert-title { color: #a78bfa; }
+  .expert-file { font-size: 0.8rem; color: #94a3b8; margin: 2px 0; }
+  .expert-file code { color: #f472b6; font-size: 0.78rem; }
+
+  .yaml-box { background: #0f172a; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .yaml-section { color: #fbbf24; font-weight: bold; font-size: 0.85rem; margin: 0.5rem 0 0.2rem; }
+  .yaml-item { color: #86efac; font-size: 0.82rem; padding-right: 1rem; margin: 1px 0; }
+  .yaml-detail { color: #94a3b8; font-size: 0.78rem; padding-right: 2rem; }
+
+  .chain-improve { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; justify-content: center; }
+  .ci-box { background: #451a03; border: 1px solid #f59e0b; border-radius: 8px; padding: 0.5rem 0.9rem; text-align: center; }
+  .ci-cmd { color: #fbbf24; font-weight: bold; font-size: 0.88rem; }
+  .ci-sub { color: #94a3b8; font-size: 0.75rem; }
+  .ci-arrow { color: #f59e0b; font-size: 1.3rem; }
+  .ci-loop { color: #4ade80; font-size: 0.8rem; font-style: italic; margin-top: 0.3rem; text-align: center; }
+</style>
+</head>
+<body>
+
+<h1>🧠 Level 7: Agent Experts with Mental Models</h1>
+<p class="subtitle">Class 1, Gear 7 — Agents تعرف قاعدة الكود الخاصة بك</p>
+
+<div class="quote">
+  "الفرق بين مهندس مبتدئ وخبير ليس ما يستطيعون فعله — بل ما يعرفونه مسبقاً. أعطِ agents هذه المعرفة."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> مشكلة البداية من الصفر</h2>
+<p>كل مرة تطلب من الـ Agent العمل على الـ backend، يبدأ من الصفر:</p>
+<ul>
+  <li>يبحث عن الملفات → يقرأها → يكتشف الأنماط → يفهم الاتفاقيات → <em>ثم</em> يبدأ العمل الحقيقي</li>
+  <li>الجلسة التالية؟ نفس الشيء — كل الاكتشاف ضاع</li>
+</ul>
+
+<div class="quote" style="border-color:#ef4444">
+  ⚠️ هذا كمن يوظف مهندساً خبيراً، يمحو ذاكرته بعد كل مهمة، ثم يعيد توظيفه في الصباح.
+</div>
+
+<p><strong>الحل: Agent Experts</strong> — مجموعة أوامر مدعومة بـ <strong>mental model</strong> (ملف YAML منظم) يلتقط كل ما يحتاج الـ Agent معرفته.</p>
+
+<hr>
+
+<h2><span class="section-num">٢</span> بنية الـ Expert</h2>
+
+<pre>.pi/prompts/experts/backend/
+  expertise.yaml         # النموذج الذهني — معرفة عميقة ومنظمة
+  plan.md                # تخطيط مدعوم بالخبرة
+  question.md            # إجابة أسئلة بالرجوع للخبرة
+  self-improve.md        # تحديث النموذج بعد كل تغيير
+  plan_build_improve.md  # Chain كاملة: خطط → ابنِ → تحسّن</pre>
+
+<hr>
+
+<h2><span class="section-num">٣</span> تشريح ملف expertise.yaml</h2>
+
+<div class="yaml-box">
+  <div class="yaml-section">📦 overview</div>
+  <div class="yaml-item">description، architecture، runtime، framework</div>
+  <div class="yaml-item">key_patterns: أنماط الكود المتكررة</div>
+
+  <div class="yaml-section">🏗️ core_implementation</div>
+  <div class="yaml-item">entry_point: <span style="color:#94a3b8">ملف + أسطر + مسؤوليات</span></div>
+  <div class="yaml-item">routes: <span style="color:#94a3b8">ملف + أسطر + النمط المستخدم</span></div>
+
+  <div class="yaml-section">🔌 api_endpoints</div>
+  <div class="yaml-item">create_task:</div>
+  <div class="yaml-detail">method: "POST" | path: "/api/tasks"</div>
+  <div class="yaml-detail">handler_lines: "38-62"</div>
+  <div class="yaml-detail">request_body، error_cases</div>
+
+  <div class="yaml-section">🗄️ database_schema</div>
+  <div class="yaml-item">columns: النوع، القيود، الشكل (مثلاً UUID v4)</div>
+
+  <div class="yaml-section">✅ best_practices</div>
+  <div class="yaml-item">قواعد محددة وقابلة للتطبيق مباشرة</div>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>"الـ backend يستخدم REST API مع قاعدة بيانات" — هذا لا يفيد الـ Agent شيئاً. <br>
+  المطلوب: "POST /api/tasks يتحقق بـ CreateTaskSchema.safeParse، يولّد UUID v4، يرجع 201 مع الـ task المنشأ".</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٤</span> الـ Self-Improving Expert</h2>
+
+<div class="chain-improve">
+  <div class="ci-box"><div class="ci-cmd">/experts:backend:plan</div><div class="ci-sub">يقرأ expertise.yaml → ينشئ Spec</div></div>
+  <div class="ci-arrow">→</div>
+  <div class="ci-box"><div class="ci-cmd">/build</div><div class="ci-sub">ينفّذ الخطة</div></div>
+  <div class="ci-arrow">→</div>
+  <div class="ci-box"><div class="ci-cmd">/experts:backend:self-improve</div><div class="ci-sub">يقرأ git diff → يحدّث expertise.yaml</div></div>
+</div>
+<div class="ci-loop">🔁 بعد كل دورة، الـ Expert أذكى — المعرفة تتراكم</div>
+
+<hr>
+
+<h2><span class="section-num">٥</span> خبير لكل Domain</h2>
+
+<div class="expert-grid">
+  <div class="expert-card">
+    <div class="expert-title">🔧 Backend Expert</div>
+    <div class="expert-file">Hono routes، SQLite</div>
+    <div class="expert-file">Zod schemas</div>
+    <div class="expert-file"><code>expertise.yaml</code></div>
+    <div class="expert-file"><code>plan.md</code></div>
+    <div class="expert-file"><code>question.md</code></div>
+    <div class="expert-file"><code>self-improve.md</code></div>
+  </div>
+  <div class="expert-card fe">
+    <div class="expert-title">⚛️ Frontend Expert</div>
+    <div class="expert-file">React components</div>
+    <div class="expert-file">State management</div>
+    <div class="expert-file"><code>expertise.yaml</code></div>
+    <div class="expert-file"><code>plan.md</code></div>
+    <div class="expert-file"><code>question.md</code></div>
+  </div>
+  <div class="expert-card ds">
+    <div class="expert-title">🎨 Design System Expert</div>
+    <div class="expert-file">Component APIs</div>
+    <div class="expert-file">Props & Variants</div>
+    <div class="expert-file"><code>expertise.yaml</code></div>
+    <div class="expert-file"><code>plan.md</code></div>
+    <div class="expert-file"><code>question.md</code></div>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٦</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ backend expertise.yaml</div>
+    <p>اقرأ <code>apps/backend/src/</code> ووثّق كل شيء بدقة: مسارات الملفات + أرقام الأسطر + كل endpoint + كل Zod schema + كل constraint في قاعدة البيانات.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ أوامر الـ Backend Expert</div>
+    <p>ثلاثة ملفات — كل واحد يبدأ بـ "اقرأ expertise.yaml":<br>
+    <code>question.md</code> → أجب مع مراجع ملفات/أسطر<br>
+    <code>plan.md</code> → أنشئ Spec في <code>specs/backend-*.md</code><br>
+    <code>self-improve.md</code> → حدّث بعد git diff + تحقق من YAML</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ plan-build-improve chain</div>
+    <p>أنشئ <code>plan_build_improve.md</code> — يربط الثلاثة تلقائياً عبر <code>SlashCommand()</code> و Task tool.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Frontend Expert</div>
+    <p>اقرأ <code>apps/frontend/src/</code> — وثّق: تدفق البيانات، API client، استخدام Design System، أنماط الـ state.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Design System Expert</div>
+    <p>اقرأ <code>apps/design-system/src/</code> — ركّز على: الـ props، الـ variants، أنماط الاستخدام لكل component.</p>
+  </div>
+</div>
+
+<h3>🧪 اختبار:</h3>
+<pre>/experts:backend:question "What validation does the create task endpoint use?"
+/experts:backend:plan "Add a PATCH endpoint for partial task updates"
+/experts:backend:plan_build_improve "Add a health check endpoint"</pre>
+
+<hr>
+
+<h2><span class="section-num">٧</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">📊</span><span><strong>expertise.yaml = معرفة منظمة لا وثائق</strong> — YAML قابل للقراءة آلياً ومحدد وقابل للتطبيق مباشرة.</span></div>
+<div class="takeaway"><span class="icon">⚡</span><span><strong>النماذج الذهنية تُلغي الاكتشاف المتكرر</strong> — من O(n) بحث إلى O(1) بحث مباشر.</span></div>
+<div class="takeaway"><span class="icon">🔄</span><span><strong>التحسين الذاتي يُبقي المعرفة دقيقة</strong> — بعد كل تغيير، الـ Expert يحدّث نفسه من git diff.</span></div>
+<div class="takeaway"><span class="icon">🏠</span><span><strong>خبير واحد لكل Domain</strong> — Backend وFrontend وDesign System لكل منها أنماطه الخاصة.</span></div>
+<div class="takeaway"><span class="icon">📈</span><span><strong>المعرفة تتراكم</strong> — كل دورة plan-build-improve تجعل الـ Expert أذكى.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #f59e0b;">
+  💡 <strong>ملخص الـ 7 Levels</strong><br>
+  L1: إحاطة 📄 | L2: فريق + معرفة 👥 | L3: توسيع القدرات 🔧<br>
+  L4: حلقة مغلقة 🔁 | L5: سير عمل مخصص 📋 | L6: Chains آلية ⛓️<br>
+  L7: Agents خبراء بذاكرة دائمة 🧠
+</div>
+
+</body>
+</html>

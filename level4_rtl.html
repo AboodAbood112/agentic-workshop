@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #fb923c; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #f97316; margin: 1.8rem 0 0.8rem; border-right: 4px solid #f97316; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #fb923c; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #431407; color: #fb923c; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #f97316; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #f97316; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #fb923c; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  .loop-box { background: #1e293b; border: 1px solid #f97316; border-radius: 10px; padding: 1.2rem; margin: 1rem 0; text-align: center; }
+  .loop-arrow { color: #f97316; font-size: 1.5rem; margin: 0.3rem 0; }
+  .loop-item { display: inline-block; background: #431407; color: #fb923c; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: bold; margin: 0.2rem; }
+  .risk-blocker { border-right: 4px solid #ef4444; }
+  .risk-high { border-right: 4px solid #f97316; }
+  .risk-medium { border-right: 4px solid #eab308; }
+  .risk-low { border-right: 4px solid #22c55e; }
+  .risk-label-blocker { color: #f87171; font-weight: bold; }
+  .risk-label-high { color: #fb923c; font-weight: bold; }
+  .risk-label-medium { color: #facc15; font-weight: bold; }
+  .risk-label-low { color: #4ade80; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>🔁 Level 4: Closed-Loop Prompts</h1>
+<p class="subtitle">Class 1, Gear 4 — Agents تتحقق من عملها بنفسها</p>
+
+<div class="quote">
+  "Agent يبني بدون تحقق، مثل مطوّر لا يشغّل اختباراته أبداً. المزيد من الحوسبة على التحقق = ثقة أكبر في النتائج."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> الفرق بين Open Loop و Closed Loop</h2>
+
+<div class="loop-box">
+  <p style="color:#94a3b8; margin-bottom:0.8rem">❌ <strong>Open Loop</strong> — "أتمنى أن يكون صح"</p>
+  <span class="loop-item">Request</span>
+  <div class="loop-arrow">↓</div>
+  <span class="loop-item">Implement</span>
+  <div class="loop-arrow">↓</div>
+  <span class="loop-item">Done 🤞</span>
+</div>
+
+<div class="loop-box" style="border-color:#4ade80">
+  <p style="color:#94a3b8; margin-bottom:0.8rem">✅ <strong>Closed Loop</strong> — "تأكدت أن الكود صح"</p>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Request</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Implement</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Validate</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Fix</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Validate ✅</span>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٢</span> الأوامر الثلاثة</h2>
+
+<table>
+  <tr><th>الأمر</th><th>الدور</th><th>النمط</th></tr>
+  <tr><td><code>/build</code></td><td>تنفيذ الخطة</td><td>اقرأ الخطة → كوّد → شغّل الاختبارات → أبلّغ</td></tr>
+  <tr><td><code>/review</code></td><td>تحليل العمل</td><td>اقرأ الـ diffs → صنّف المشاكل → حكم نهائي</td></tr>
+  <tr><td><code>/fix</code></td><td>إصلاح المشاكل</td><td>اقرأ التقرير → أصلح بالأولوية → تحقق</td></tr>
+</table>
+
+<div class="loop-box">
+  <span class="loop-item">/build</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→</span>
+  <span class="loop-item">/review</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→</span>
+  <span class="loop-item">/fix</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→</span>
+  <span class="loop-item">/review</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→ ...</span>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">PASS ✅</span>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> تفاصيل كل أمر</h2>
+
+<h3>🔨 /build — التنفيذ</h3>
+<div class="card">
+  <ul>
+    <li>اقرأ ملف الخطة لفهم ما يجب بناؤه</li>
+    <li>افهم الحالة الراهنة — اقرأ الملفات وتحقق من AGENTS.md</li>
+    <li>نفّذ التغييرات بالترتيب المحدد في الخطة</li>
+    <li>شغّل الاختبارات وفحص الأنواع — <strong>لا خيار</strong></li>
+    <li>أصلح الأخطاء وأعد التحقق حتى ينجح كل شيء</li>
+    <li>أنتج تقرير بنية (PASS/FAIL + التغييرات + نتائج التحقق)</li>
+  </ul>
+</div>
+
+<h3>🔍 /review — المراجعة (4 مستويات خطورة)</h3>
+<div class="card risk-blocker">
+  <p class="risk-label-blocker">🚨 BLOCKER — يجب الإصلاح → الحكم: FAIL</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">ثغرات أمنية، كسر الـ API، خطر فقدان البيانات، credentials مكشوفة</p>
+</div>
+<div class="card risk-high">
+  <p class="risk-label-high">🔴 HIGH RISK — يجب الإصلاح</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">تراجع الأداء، غياب معالجة الأخطاء، تسرب الذاكرة، ميزات ناقصة</p>
+</div>
+<div class="card risk-medium">
+  <p class="risk-label-medium">🟡 MEDIUM RISK — أصلح قريباً</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">تكرار الكود، تسمية غير متسقة، اختبارات ناقصة</p>
+</div>
+<div class="card risk-low">
+  <p class="risk-label-low">🟢 LOW RISK — حسن لو أُصلح</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">اختلافات الأسلوب، تحسينات جمالية</p>
+</div>
+<p style="margin-top:0.5rem; color:#94a3b8; font-size:0.9rem">📁 يحفظ التقرير في: <code>app_review/review_&lt;timestamp&gt;.md</code> | يستخدم <code>model: opus</code> لتحليل أعمق</p>
+
+<h3>🔧 /fix — الإصلاح</h3>
+<div class="card">
+  <ul>
+    <li>استخرج المشاكل من تقرير المراجعة مرتبة بالأولوية</li>
+    <li>أصلح Blockers أولاً، ثم High، ثم Medium، ثم Low</li>
+    <li>تحقق من كل إصلاح على حدة</li>
+    <li>شغّل التحقق الكامل بعد كل الإصلاحات</li>
+    <li>أنتج تقرير إصلاح في <code>app_fix_reports/fix_&lt;timestamp&gt;.md</code></li>
+  </ul>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٤</span> لماذا الحوسبة الأكثر = ثقة أكبر؟</h2>
+
+<table>
+  <tr><th>السيناريو</th><th>التكلفة</th><th>النتيجة</th></tr>
+  <tr><td>Build فقط (open loop)</td><td>منخفضة</td><td>جودة غير مضمونة، أنت تراجع</td></tr>
+  <tr><td>Build + Review + Fix</td><td>أعلى × 4</td><td>كود مراجع، تقرير موثق، ثقة عالية</td></tr>
+</table>
+
+<div class="quote" style="border-color:#4ade80">
+  💡 مراجعة تكتشف ثغرة أمنية تكلف سنتات. نفس الثغرة في الـ production تكلف ثروة.
+</div>
+
+<hr>
+
+<h2><span class="section-num">٥</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ /build command</div>
+    <p>أنشئ <code>.pi/prompts/build.md</code> — يقبل مسار ملف الخطة عبر <code>$ARGUMENTS</code>، يُنفّذ، ويتحقق إلزامياً.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ /review command</div>
+    <p>أنشئ <code>.pi/prompts/review.md</code> — يحلل git diffs، يصنّف المشاكل بـ 4 مستويات، ينتهي بـ PASS/FAIL.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ /fix command</div>
+    <p>أنشئ <code>.pi/prompts/fix.md</code> — يقرأ تقرير المراجعة، يصلح بالأولوية، يوثق قبل/بعد.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">اختبر الحلقة الكاملة</div>
+    <p>اكتب خطة صغيرة ← <code>/build</code> ← <code>/review</code> ← إذا FAIL: <code>/fix</code> ← <code>/review</code> مجدداً حتى PASS.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">افحص التقارير</div>
+    <p>اقرأ الملفات في <code>app_review/</code> و<code>app_fix_reports/</code> — هل هي منظمة ومفيدة؟</p>
+  </div>
+</div>
+
+<h3>🔍 التحقق:</h3>
+<pre>ls .pi/prompts/                    # build.md  review.md  fix.md
+grep "ARGUMENTS" .pi/prompts/build.md
+grep "app_review" .pi/prompts/review.md
+grep "app_fix_reports" .pi/prompts/fix.md</pre>
+
+<hr>
+
+<h2><span class="section-num">٦</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🔁</span><span><strong>الحلقات المغلقة تمسك الأخطاء</strong> — قبل أن تصلك، الـ Agent يراجع عمله بنفسه.</span></div>
+<div class="takeaway"><span class="icon">🎯</span><span><strong>مستويات الخطورة تُحدد الأولويات</strong> — Blockers أولاً دائماً، لا تضيع الحوسبة على الأسلوب قبل الأمان.</span></div>
+<div class="takeaway"><span class="icon">📋</span><span><strong>التقارير تُنشئ المساءلة</strong> — ملفات موثقة تُظهر ما بُني، ما راجعناه، وما أُصلح.</span></div>
+<div class="takeaway"><span class="icon">💰</span><span><strong>حوسبة أكثر = ثقة أكبر</strong> — رموز التحقق أرخص بكثير من أخطاء الـ production.</span></div>
+<div class="takeaway"><span class="icon">🔗</span><span><strong>هذا هو القمة</strong> — AGENTS.md + Sub-Agents + AI Docs + Skills + Closed Loop = نظام agentic متكامل.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #f97316;">
+  💡 <strong>ملخص الـ 4 Levels</strong><br>
+  L1: أخبر الـ Agent من هو 📄 &nbsp;|&nbsp; L2: أعطه فريق ومعرفة 👥<br>
+  L3: وسّع قدراته 🔧 &nbsp;|&nbsp; L4: اجعله يتحقق من نفسه 🔁
+</div>
+
+</body>
+</html>

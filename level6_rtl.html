@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #67e8f9; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #22d3ee; margin: 1.8rem 0 0.8rem; border-right: 4px solid #22d3ee; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #67e8f9; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #083344; color: #67e8f9; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #22d3ee; color: #0f172a; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #22d3ee; color: #0f172a; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #67e8f9; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Chain diagram */
+  .chain { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 1rem 0; justify-content: center; }
+  .chain-box { background: #083344; border: 1px solid #22d3ee; border-radius: 8px; padding: 0.5rem 1rem; text-align: center; min-width: 110px; }
+  .chain-box .cmd { color: #67e8f9; font-weight: bold; font-size: 0.95rem; }
+  .chain-box .sub { color: #94a3b8; font-size: 0.78rem; margin-top: 2px; }
+  .chain-arrow { color: #22d3ee; font-size: 1.4rem; margin: 0 0.3rem; }
+  .chain-file { background: #1a2744; border: 1px dashed #38bdf8; border-radius: 6px; padding: 0.3rem 0.7rem; font-size: 0.78rem; color: #7dd3fc; text-align: center; margin: 0 0.2rem; }
+
+  /* Parallel agents */
+  .parallel { display: flex; gap: 0.6rem; margin: 0.8rem 0; }
+  .agent-box { flex: 1; background: #0c2a1e; border: 1px solid #4ade80; border-radius: 8px; padding: 0.7rem; text-align: center; }
+  .agent-title { color: #4ade80; font-weight: bold; font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .agent-sub { color: #86efac; font-size: 0.78rem; }
+
+  .prim-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  .prim-card { background: #1e293b; border-radius: 8px; padding: 0.8rem; border-top: 3px solid #22d3ee; }
+  .prim-title { color: #67e8f9; font-weight: bold; margin-bottom: 0.4rem; font-size: 0.95rem; }
+  .prim-row { font-size: 0.82rem; color: #94a3b8; margin: 2px 0; }
+  .prim-val { color: #cbd5e1; }
+</style>
+</head>
+<body>
+
+<h1>⛓️ Level 6: Prompt Chains & Agentic Workflows</h1>
+<p class="subtitle">Class 1, Gear 6 — Primitives قابلة للتركيب، Chains قوية</p>
+
+<div class="quote">
+  "أمر واحد هو أداة. سلسلة أوامر هي سير عمل. الفرق هو النفوذ."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> ما هو Prompt Chaining؟</h2>
+<p>أمر slash يستدعي أوامر أخرى بالتسلسل، ويمرر البيانات بينها عبر ملفات — بدل أمر ضخم يحاول يعمل كل شيء دفعة واحدة.</p>
+
+<div class="chain">
+  <div class="chain-box"><div class="cmd">/scout_plan_build</div><div class="sub">الـ Orchestrator</div></div>
+  <div style="width:100%; height:0.5rem"></div>
+</div>
+<div class="chain" style="margin-top:0.2rem">
+  <div class="chain-box"><div class="cmd">/scout</div><div class="sub">يبحث بالتوازي</div></div>
+  <div class="chain-arrow">←</div>
+  <div class="chain-file">relevant_files.md</div>
+  <div class="chain-arrow">←</div>
+  <div class="chain-box"><div class="cmd">/plan_w_docs</div><div class="sub">يصمم الـ Spec</div></div>
+  <div class="chain-arrow">←</div>
+  <div class="chain-file">spec.md</div>
+  <div class="chain-arrow">←</div>
+  <div class="chain-box"><div class="cmd">/build</div><div class="sub">ينفّذ بالتوازي</div></div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٢</span> الـ Primitives الثلاثة</h2>
+
+<div class="prim-grid">
+  <div class="prim-card">
+    <div class="prim-title">🔍 Scout</div>
+    <div class="prim-row">المدخل: <span class="prim-val">Prompt + Scale</span></div>
+    <div class="prim-row">المخرج: <span class="prim-val">قائمة ملفات .md</span></div>
+    <div class="prim-row">الهدف: <span class="prim-val">إيجاد الكود ذي الصلة</span></div>
+  </div>
+  <div class="prim-card">
+    <div class="prim-title">📐 Plan</div>
+    <div class="prim-row">المدخل: <span class="prim-val">Prompt + قائمة ملفات</span></div>
+    <div class="prim-row">المخرج: <span class="prim-val">ملف Spec .md</span></div>
+    <div class="prim-row">الهدف: <span class="prim-val">تصميم المقاربة</span></div>
+  </div>
+  <div class="prim-card">
+    <div class="prim-title">🔨 Build</div>
+    <div class="prim-row">المدخل: <span class="prim-val">مسار ملف Spec</span></div>
+    <div class="prim-row">المخرج: <span class="prim-val">كود + تقرير</span></div>
+    <div class="prim-row">الهدف: <span class="prim-val">تنفيذ الخطة</span></div>
+  </div>
+</div>
+
+<div class="quote" style="border-color:#4ade80">
+  💡 كل Primitive يعمل منفرداً أو ضمن Chain — الـ Chain إضافة وليس إلزاماً.
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> تمرير البيانات بين الخطوات</h2>
+<p>السر هو تمرير <strong>مسار الملف</strong> لا محتواه — هذا يُبقي نافذة السياق نظيفة.</p>
+
+<pre>Scout  →  agents/scout_files/relevant_files_XXX.md
+                        ↓ (path)
+Plan   →  specs/feature-name.md
+                        ↓ (path)
+Build  →  تغييرات الكود + تقرير</pre>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>بناء أمر ضخم يجمع Scout + Plan + Build في prompt واحد. نافذة السياق تمتلئ، الـ Agent يضيع، الجودة تنهار.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٤</span> Sub-Agents بالتوازي عبر Task Tool</h2>
+<p>بدل Agent واحد يبحث بالتسلسل — Scout ينشئ عدة Agents تبحث في نفس الوقت:</p>
+
+<div class="parallel">
+  <div class="agent-box">
+    <div class="agent-title">Agent 1</div>
+    <div class="agent-sub">بنية الملفات</div>
+    <div class="agent-sub">Glob</div>
+  </div>
+  <div class="agent-box">
+    <div class="agent-title">Agent 2</div>
+    <div class="agent-sub">محتوى الكود</div>
+    <div class="agent-sub">Grep</div>
+  </div>
+  <div class="agent-box">
+    <div class="agent-title">Agent 3</div>
+    <div class="agent-sub">الـ Dependencies</div>
+    <div class="agent-sub">Import tracing</div>
+  </div>
+</div>
+
+<p>النتائج تُدمج، التكرار يُحذف، وتُكتب في ملف واحد.</p>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>إنشاء Sub-Agents بدون سياق كافٍ. كل Agent يبدأ من الصفر — اجعل prompt كل agent مكتفياً بذاته: الاستعلام + الاستراتيجية + شكل الإخراج.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٥</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ /scout command</div>
+    <p>أنشئ <code>scout.md</code> — متغيران: <code>$1</code> الـ prompt، <code>$2</code> الـ scale (افتراضي: 3). ينشئ Agents بالتوازي، يدمج النتائج في <code>agents/scout_files/relevant_files_&lt;timestamp&gt;.md</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ /plan_w_docs command</div>
+    <p>أنشئ <code>plan_w_docs.md</code> — ثلاثة متغيرات: <code>$1</code> الـ prompt، <code>$2</code> URLs اختيارية، <code>$3</code> مسار ملف Scout. يعمل standalone أو ضمن Chain. يكتب Spec في <code>specs/</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ /scout_plan_build orchestrator</div>
+    <p>أنشئ <code>scout_plan_build.md</code> — يستدعي الثلاثة بالتسلسل عبر <code>SlashCommand()</code>. قيد مهم: <em>"لا تتوقف بين الخطوات — أكمل كل الـ workflow قبل التوقف"</em>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ /build_in_parallel (اختياري)</div>
+    <p>أنشئ <code>build_in_parallel.md</code> — يقرأ الـ Spec، يصنّف الخطوات: مستقلة (تتوازى) vs تسلسلية (تنتظر).</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">اختبر الـ Chain كاملاً</div>
+    <pre>/scout "Add task categories with color coding"
+/plan_w_docs "Add task categories" "" "agents/scout_files/relevant_files_*.md"
+/scout_plan_build "Add task categories with color coding"</pre>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٦</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🧩</span><span><strong>Primitives قابلة للتركيب > أوامر ضخمة</strong> — أوامر صغيرة تعمل منفردة وتتركب في workflows.</span></div>
+<div class="takeaway"><span class="icon">📁</span><span><strong>تمرير المسارات لا المحتوى</strong> — يُبقي نافذة السياق نظيفة بين الخطوات.</span></div>
+<div class="takeaway"><span class="icon">⚡</span><span><strong>Task Tool للتوازي</strong> — Agents متعددة تبحث في نفس الوقت بدل التسلسل.</span></div>
+<div class="takeaway"><span class="icon">🔗</span><span><strong>الـ Chain تُؤتمت التسليم اليدوي</strong> — بدلاً من 3 نسخ/لصق، أمر واحد ينهي كل شيء.</span></div>
+<div class="takeaway"><span class="icon">🔄</span><span><strong>كل Primitive مستقل</strong> — الـ Chains إضافية، ليست إلزامية.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #22d3ee;">
+  💡 <strong>ملخص الـ 6 Levels</strong><br>
+  L1: إحاطة 📄 | L2: فريق + معرفة 👥 | L3: توسيع القدرات 🔧<br>
+  L4: حلقة مغلقة 🔁 | L5: سير عمل مخصص 📋 | L6: Chains آلية ⛓️
+</div>
+
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #c084fc; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #a855f7; margin: 1.8rem 0 0.8rem; border-right: 4px solid #a855f7; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #c084fc; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #2e1065; color: #c084fc; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #a855f7; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #a855f7; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #c084fc; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Orchestrator diagram */
+  .orch-center { background: #2e1065; border: 2px solid #a855f7; border-radius: 12px; padding: 1rem; text-align: center; margin: 0 auto 0.5rem; max-width: 280px; }
+  .orch-title { color: #c084fc; font-weight: bold; font-size: 1rem; }
+  .orch-subs { color: #94a3b8; font-size: 0.78rem; margin-top: 0.3rem; }
+  .agents-row { display: flex; justify-content: center; gap: 0.8rem; margin-top: 0.5rem; }
+  .agent-sm { background: #1e293b; border: 1px solid #a855f7; border-radius: 8px; padding: 0.5rem 0.8rem; text-align: center; }
+  .agent-sm-title { color: #c084fc; font-size: 0.82rem; font-weight: bold; }
+  .agent-sm-sub { color: #64748b; font-size: 0.72rem; }
+  .orch-arrow { text-align: center; color: #a855f7; font-size: 1rem; margin: 0.3rem 0; }
+
+  /* CRUD */
+  .crud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.8rem 0; }
+  .crud-card { background: #1e293b; border-radius: 8px; padding: 0.7rem; border-right: 3px solid #a855f7; }
+  .crud-op { color: #c084fc; font-weight: bold; font-size: 0.95rem; }
+  .crud-desc { color: #94a3b8; font-size: 0.82rem; margin-top: 2px; }
+
+  /* Patterns */
+  .pattern { background: #1e293b; border-radius: 10px; padding: 1rem; margin: 0.7rem 0; border: 1px solid #334155; }
+  .pattern-title { color: #c084fc; font-weight: bold; margin-bottom: 0.5rem; }
+  .pattern-flow { font-size: 0.82rem; color: #94a3b8; direction: ltr; text-align: left; }
+  .pattern-flow span { color: #e2e8f0; }
+
+  /* Data flow */
+  .flow-box { background: #1e1b4b; border: 1px solid #a855f7; border-radius: 10px; padding: 1rem; margin: 0.8rem 0; direction: ltr; text-align: left; font-size: 0.82rem; }
+  .flow-orch { color: #c084fc; font-weight: bold; }
+  .flow-phase { color: #7dd3fc; }
+  .flow-arrow { color: #64748b; }
+  .flow-data { color: #86efac; }
+</style>
+</head>
+<body>
+
+<h1>🎼 Level 10: The Orchestrator Agent</h1>
+<p class="subtitle">Class 3, Gear 1 — Agent واحد يُدير الجميع</p>
+
+<div class="quote">
+  "Agent واحد يحكمهم جميعاً. عمليات CRUD على الـ Agents من نقطة قيادة مركزية."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> مشكلة: أنت المُنسّق</h2>
+<p>في Levels 1-9 بنيت Agents وWorkflows وTriggers — لكن <strong>أنت</strong> من يقرر أي Agent يستخدم، ماذا يفعل، ومتى. هذا لا يتوسع.</p>
+
+<div class="orch-center">
+  <div class="orch-title">🎼 ORCHESTRATOR</div>
+  <div class="orch-subs">يحلل • يقرر • يُفوّض • يراقب • يُبلّغ</div>
+</div>
+<div class="orch-arrow">↓ &nbsp;&nbsp;&nbsp; ↓ &nbsp;&nbsp;&nbsp; ↓</div>
+<div class="agents-row">
+  <div class="agent-sm"><div class="agent-sm-title">Scout</div><div class="agent-sm-sub">Agent</div></div>
+  <div class="agent-sm"><div class="agent-sm-title">Build</div><div class="agent-sm-sub">Agent</div></div>
+  <div class="agent-sm"><div class="agent-sm-title">Review</div><div class="agent-sm-sub">Agent</div></div>
+</div>
+
+<div class="quote" style="border-color:#4ade80; margin-top:1rem">
+  التحول: من "أستخدم أدوات AI" إلى "لدي مهندس رئيسي AI يُدير فريقاً من AI Agents"
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>جعل الـ Orchestrator ذكياً جداً. دوره <strong>التفويض لا التنفيذ</strong>. إذا كان يكتب كوداً بنفسه، بنيت Agent ضخم لا Orchestrator.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٢</span> CRUD على الـ Agents</h2>
+
+<div class="crud-grid">
+  <div class="crud-card">
+    <div class="crud-op">🟢 Create</div>
+    <div class="crud-desc">أنشئ Agent بغرض وأدوات محددة</div>
+  </div>
+  <div class="crud-card">
+    <div class="crud-op">🔵 Read</div>
+    <div class="crud-desc">تحقق من الحالة، استرد المخرجات، افحص السجلات</div>
+  </div>
+  <div class="crud-card">
+    <div class="crud-op">🟡 Update</div>
+    <div class="crud-desc">أرسل أوامر جديدة، عدّل التعليمات</div>
+  </div>
+  <div class="crud-card">
+    <div class="crud-op">🔴 Delete</div>
+    <div class="crud-desc">أوقف الـ Agent عند انتهاء عمله</div>
+  </div>
+</div>
+
+<h3>دورة حياة الـ Agent:</h3>
+<pre style="direction:ltr; text-align:left">Create → Command → Monitor → (Command if needed) → Read results → Delete</pre>
+
+<p style="color:#94a3b8; font-size:0.85rem; margin-top:0.5rem">سياسة Cleanup: احذف One-Shot agents بعد الانتهاء. احتفظ بـ Multi-phase agents للفحص ثم احذفهم.</p>
+
+<hr>
+
+<h2><span class="section-num">٣</span> أنماط الـ Orchestrator</h2>
+
+<div class="pattern">
+  <div class="pattern-title">⚡ Pattern 1: One-Shot Agent</div>
+  <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.5rem">للمهام الواضحة البسيطة — Agent واحد، مهمة واحدة</p>
+  <div class="pattern-flow">
+    <span>Analyze</span> → <span>Create agent</span> → <span>Command</span> → <span>Monitor</span> → <span>Collect results</span> → <span>Delete</span> → <span>Report</span>
+  </div>
+  <p style="font-size:0.82rem; color:#64748b; margin-top:0.5rem">مثال: "أصلح هذا الخطأ الإملائي"، "حدّث هذه التبعية"</p>
+</div>
+
+<div class="pattern">
+  <div class="pattern-title">🔭 Pattern 2: Scout and Build</div>
+  <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.5rem">مرحلتان — استطلع أولاً ثم نفّذ</p>
+  <div class="pattern-flow">
+    <span>Create scout</span> (read-only, fast model)<br>
+    <span>Create builder</span> (full tools, capable model)<br>
+    <span>Run scout</span> → wait → <span>extract findings</span><br>
+    <span>Pass findings to builder</span> → <span>Run builder</span><br>
+    <span>Retain both</span> → <span>Report</span>
+  </div>
+  <p style="font-size:0.82rem; color:#64748b; margin-top:0.5rem">مثال: "أضف حقل priority لـ TaskFlow"</p>
+</div>
+
+<div class="pattern">
+  <div class="pattern-title">⚙️ Pattern 3: ADW Dispatch</div>
+  <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.5rem">يُشغّل ADW كاملاً من Level 9</p>
+  <div class="pattern-flow">
+    <span>Analyze</span> → <span>Choose: one-shot / scout-build / ADW?</span><br>
+    → <span>Start ADW</span> (plan_build, plan_build_review...)<br>
+    → <span>Monitor</span> → <span>Report</span>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٤</span> تدفق السياق بين الـ Agents</h2>
+
+<div class="flow-box">
+  <div class="flow-orch">ORCHESTRATOR — الذاكرة المركزية</div>
+  <br>
+  <div class="flow-phase">1. طلب المستخدم: "Add priority field"</div>
+  <div class="flow-arrow">   ↓</div>
+  <div class="flow-phase">2. Scout phase</div>
+  <div class="flow-arrow">   └─> Scout يستقبل: طلب المستخدم</div>
+  <div class="flow-data">   &lt;── Scout يُعيد: قائمة ملفات + تحليل</div>
+  <div class="flow-arrow">   ↓</div>
+  <div class="flow-phase">3. Build phase</div>
+  <div class="flow-arrow">   └─> Builder يستقبل: طلب المستخدم <span class="flow-data">+ نتائج Scout</span></div>
+  <div class="flow-data">   &lt;── Builder يُعيد: ملفات تغيّرت + ملخص</div>
+  <div class="flow-arrow">   ↓</div>
+  <div class="flow-phase">4. Report: يجمع نتائج المرحلتين</div>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>تمرير سياق أكثر مما يلزم للـ Sub-agents. الـ Orchestrator يجب أن يُلخّص لا يُكدّس. 500 سطر من تحليل Scout → الـ Builder يحتاج الـ key findings فقط.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٥</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Orchestrator Skill</div>
+    <p>أنشئ <code>.pi/skills/orchestrator/SKILL.md</code> — دوره (مهندس رئيسي/مفوّض)، الأنماط التي يستخدمها، متى يستخدم كل نمط، سياسة الـ lifecycle. <strong>بدون أدوات تعديل ملفات</strong> — يُفوّض لا ينفّذ.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ One-Shot Command</div>
+    <p>أنشئ <code>orch_one_shot_agent.md</code> — يقبل الـ task كـ <code>$ARGUMENTS</code>، ينشئ Agent مناسب، ينتظر الانتهاء، يجمع النتائج، يحذف الـ Agent، يُبلّغ.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Scout-and-Build Command</div>
+    <p>أنشئ <code>orch_scout_and_build.md</code> — Scout (read-only + نموذج سريع) ثم Builder (أدوات كاملة + نموذج قوي + نتائج Scout). الـ Orchestrator يُلخّص نتائج Scout ويمررها.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">اختبر بمهام متفاوتة التعقيد</div>
+    <pre>بسيط:  "Fix the typo in the TaskFlow README"
+متوسط: "Add a task priority field to TaskFlow"
+معقد:  "Refactor the TaskFlow API error handling"</pre>
+    <p style="font-size:0.85rem; color:#94a3b8">هل الـ Orchestrator يختار النمط المناسب لكل مهمة؟</p>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٦</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🎼</span><span><strong>الـ Orchestrator مفوّض لا منفّذ</strong> — يقرر ما يُفعل، يُنشئ Agents لتفعله، يراقب النتائج.</span></div>
+<div class="takeaway"><span class="icon">🗄️</span><span><strong>CRUD هو النموذج الذهني</strong> — Create، Read، Update، Delete مع سياسة cleanup صريحة لكل نمط.</span></div>
+<div class="takeaway"><span class="icon">🧵</span><span><strong>السياق يتدفق عبر الـ Orchestrator</strong> — نتائج كل مرحلة تصبح مدخلات المرحلة التالية — الـ Orchestrator هو الذاكرة.</span></div>
+<div class="takeaway"><span class="icon">🧠</span><span><strong>اختيار النمط هو قيمة الـ Orchestrator</strong> — One-shot للبسيط، Scout-and-Build للمعقد، ADW للمتعدد الخطوات.</span></div>
+<div class="takeaway"><span class="icon">🧹</span><span><strong>Cleanup policy صريحة</strong> — احذف One-shot سريعاً، احتفظ بـ Multi-phase للفحص.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #a855f7;">
+  💡 <strong>ملخص الـ 10 Levels</strong><br>
+  L1-L7: بناء وتجهيز الـ Agent 🏗️ | L8: استجابة للأحداث 🌐<br>
+  L9: Python يُنسّق بشكل موثوق ⚙️ | L10: Agent يُدير فريق Agents 🎼
+</div>
+
+</body>
+</html>

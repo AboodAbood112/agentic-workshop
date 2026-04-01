@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #f87171; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #ef4444; margin: 1.8rem 0 0.8rem; border-right: 4px solid #ef4444; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #f87171; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #450a0a; color: #f87171; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #ef4444; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #ef4444; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #f87171; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Loop comparison */
+  .loop-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 0.8rem 0; }
+  .lc { background: #1e293b; border-radius: 8px; padding: 0.9rem; }
+  .lc-bad { border-top: 3px solid #f87171; }
+  .lc-good { border-top: 3px solid #4ade80; }
+  .lc-title { font-weight: bold; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .lc-bad .lc-title { color: #f87171; }
+  .lc-good .lc-title { color: #4ade80; }
+  .lc-flow { font-size: 0.82rem; color: #94a3b8; }
+  .lc-flow span { color: #e2e8f0; }
+
+  /* PITER */
+  .piter { display: flex; gap: 0; margin: 1rem 0; flex-wrap: wrap; justify-content: center; }
+  .piter-item { flex: 1; min-width: 90px; text-align: center; padding: 0.6rem 0.3rem; border-left: 1px solid #334155; }
+  .piter-item:last-child { border-left: none; }
+  .piter-letter { font-size: 1.5rem; font-weight: bold; color: #f87171; }
+  .piter-name { font-size: 0.8rem; color: #94a3b8; margin: 2px 0; }
+  .piter-desc { font-size: 0.75rem; color: #64748b; }
+  .piter-box { background: #1e293b; border-radius: 10px; border: 1px solid #334155; overflow: hidden; }
+
+  /* Arch */
+  .arch { display: flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+  .arch-box { background: #1e293b; border: 1px solid #ef4444; border-radius: 6px; padding: 0.4rem 0.7rem; text-align: center; font-size: 0.82rem; }
+  .arch-title { color: #f87171; font-weight: bold; }
+  .arch-sub { color: #64748b; font-size: 0.72rem; }
+  .arch-arrow { color: #ef4444; font-size: 1.2rem; }
+</style>
+</head>
+<body>
+
+<h1>🌐 Level 8: Out-Loop Systems & Webhooks</h1>
+<p class="subtitle">Class 2, Gear 1 — Agent يعمل بدونك</p>
+
+<div class="quote">
+  "اللحظة التي يستجيب فيها Agent للأحداث بدل الأوامر، تكون قد تجاوزت الخط من أداة إلى نظام."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> التحول: In-Loop → Out-of-Loop</h2>
+
+<div class="loop-compare">
+  <div class="lc lc-bad">
+    <div class="lc-title">❌ In-Loop (Levels 1-7)</div>
+    <div class="lc-flow">
+      <span>أنت</span> → Agent → نتيجة → <span>أنت تراجع</span>
+    </div>
+    <p style="margin-top:0.5rem; font-size:0.82rem; color:#fca5a5">يتطلب حضورك — لا يعمل الساعة 3 صباحاً</p>
+  </div>
+  <div class="lc lc-good">
+    <div class="lc-title">✅ Out-of-Loop</div>
+    <div class="lc-flow">
+      <span>حدث</span> → Webhook → Agent → <span>إشعار</span>
+    </div>
+    <p style="margin-top:0.5rem; font-size:0.82rem; color:#86efac">يعمل تلقائياً — أنت المصمم لا المشغّل</p>
+  </div>
+</div>
+
+<h3>🔥 أمثلة على Out-of-Loop:</h3>
+<ul>
+  <li>PR يُفتح على GitHub → Agent يراجعه تلقائياً</li>
+  <li>رسالة Slack تصل → Agent يبدأ workflow بناء</li>
+  <li>تنبيه monitoring يطلق → Agent يحقق ويُبلّغ</li>
+</ul>
+
+<hr>
+
+<h2><span class="section-num">٢</span> إطار PITER</h2>
+<p>كل workflow خارج الحلقة يتبع نفس الـ 5 خطوات:</p>
+
+<div class="piter-box">
+  <div class="piter">
+    <div class="piter-item">
+      <div class="piter-letter">P</div>
+      <div class="piter-name">Prompt</div>
+      <div class="piter-desc">عرّف المهمة للـ Agent</div>
+    </div>
+    <div class="piter-item">
+      <div class="piter-letter">I</div>
+      <div class="piter-name">Input</div>
+      <div class="piter-desc">اجمع السياق اللازم</div>
+    </div>
+    <div class="piter-item">
+      <div class="piter-letter">T</div>
+      <div class="piter-name">Transform</div>
+      <div class="piter-desc">جهّز البيانات للـ Agent</div>
+    </div>
+    <div class="piter-item">
+      <div class="piter-letter">E</div>
+      <div class="piter-name">Execute</div>
+      <div class="piter-desc">شغّل أمر PI</div>
+    </div>
+    <div class="piter-item">
+      <div class="piter-letter">R</div>
+      <div class="piter-name">Report</div>
+      <div class="piter-desc">أرسل النتيجة للمصدر</div>
+    </div>
+  </div>
+</div>
+
+<table>
+  <tr><th>الخطوة</th><th>ما يحدث</th><th>مثال</th></tr>
+  <tr><td><strong>Prompt</strong></td><td>تعريف المهمة</td><td>"راجع هذا الـ PR للمشاكل الأمنية"</td></tr>
+  <tr><td><strong>Input</strong></td><td>جمع السياق</td><td>PR diff، محتوى الملفات</td></tr>
+  <tr><td><strong>Transform</strong></td><td>تنظيف البيانات</td><td>تحويل diff لـ markdown، استخراج الملفات المتغيرة</td></tr>
+  <tr><td><strong>Execute</strong></td><td>تشغيل PI</td><td><code>pi -p "/review &lt;context&gt;"</code></td></tr>
+  <tr><td><strong>Report</strong></td><td>إرسال النتيجة</td><td>نشر تعليق مراجعة على الـ PR</td></tr>
+</table>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>تجاهل خطوة Transform وإرسال raw payload للـ Agent مباشرة. البيانات الخام مليئة بالضجيج — Transform هو المكان الذي تُنظّف فيه السياق.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> المعمارية الكاملة</h2>
+
+<div class="arch">
+  <div class="arch-box">
+    <div class="arch-title">External Event</div>
+    <div class="arch-sub">GitHub, Slack...</div>
+  </div>
+  <div class="arch-arrow">→</div>
+  <div class="arch-box">
+    <div class="arch-title">Webhook Server</div>
+    <div class="arch-sub">HTTP POST receiver</div>
+  </div>
+  <div class="arch-arrow">→</div>
+  <div class="arch-box">
+    <div class="arch-title">Python Script</div>
+    <div class="arch-sub">Transform (PITER)</div>
+  </div>
+  <div class="arch-arrow">→</div>
+  <div class="arch-box">
+    <div class="arch-title">PI Agent</div>
+    <div class="arch-sub">Execute</div>
+  </div>
+  <div class="arch-arrow">↓</div>
+  <div class="arch-box" style="border-color:#4ade80">
+    <div class="arch-title" style="color:#4ade80">Notification</div>
+    <div class="arch-sub">Report back</div>
+  </div>
+</div>
+
+<div class="quote" style="border-color:#38bdf8">
+  💡 <strong>مبدأ الفصل:</strong> الـ Webhook Server عام ومستقر. الـ Handler Scripts خاصة وتتطور. أضف workflows جديدة بإضافة handlers، لا بتعديل الـ Server.
+</div>
+
+<hr>
+
+<h2><span class="section-num">٤</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ Webhook Server</div>
+    <p>بناء HTTP server بـ Python يستقبل POST على <code>/webhook</code>، يُحلّل JSON، ويوجّه للـ handler الصحيح بناءً على <code>event type</code>.</p>
+    <pre>curl -X POST http://localhost:8080/webhook \
+  -d '{"event": "bug_report", "description": "Tasks not saving"}'</pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أضف GitHub Integration</div>
+    <p>معالجة حدثين:</p>
+    <ul>
+      <li><code>pull_request</code> (opened) → workflow مراجعة كود</li>
+      <li><code>issues</code> (bug label) → workflow تحقيق في بق</li>
+    </ul>
+    <p style="font-size:0.85rem; color:#94a3b8">ملاحظة: GitHub يرسل نوع الحدث في header: <code>X-GitHub-Event</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أضف Slack Integration</div>
+    <p>معالجة 3 slash commands:</p>
+    <ul>
+      <li><code>/taskflow-build &lt;desc&gt;</code> → workflow بناء</li>
+      <li><code>/taskflow-review</code> → workflow مراجعة</li>
+      <li><code>/taskflow-status</code> → حالة النظام</li>
+    </ul>
+    <p style="font-size:0.85rem; color:#94a3b8">Slack يرسل form-encoded لا JSON — استخدم <code>parse_qs()</code>. استجب خلال 3 ثوانٍ.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">طبّق PITER الكامل لكل Handler</div>
+    <p>Execute Step:</p>
+    <pre>subprocess.run(["pi", "-p", prompt], capture_output=True)</pre>
+    <p>Transform Step: بناء markdown نظيف بالسياق المطلوب فقط.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">أضف Error Handling وLogging</div>
+    <p>كل handler في <code>try/except</code>. سجّل كل خطوة PITER مع التوقيت. أرسل تقرير فشل للمصدر حتى في حالة الخطأ — الفشل الصامت أسوأ أنواع الفشل.</p>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٥</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🎯</span><span><strong>Out-of-loop هو الهدف</strong> — Agent يحتاج حضورك لكل مهمة هو أداة. Agent يستجيب للأحداث تلقائياً هو نظام.</span></div>
+<div class="takeaway"><span class="icon">🏗️</span><span><strong>PITER يوفر البنية</strong> — 5 خطوات بالترتيب لكل workflow خارج الحلقة.</span></div>
+<div class="takeaway"><span class="icon">✨</span><span><strong>Transform هو مصدر القيمة</strong> — البيانات الخام مزعجة. Transform يُقدم للـ Agent بالضبط ما يحتاجه.</span></div>
+<div class="takeaway"><span class="icon">🔌</span><span><strong>فصل المسؤوليات</strong> — Server عام + Handlers خاصة = إضافة workflows بدون تعديل البنية.</span></div>
+<div class="takeaway"><span class="icon">🚨</span><span><strong>بلّغ عن الأخطاء دائماً</strong> — خطوة Report حيوية خاصةً للأخطاء. الأنظمة الآلية الفاشلة صامتاً هي الأسوأ.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 1px solid #ef4444;">
+  💡 <strong>ملخص الـ 8 Levels</strong><br>
+  L1-L7: أنت في الحلقة — تكتب أمراً، الـ Agent ينفّذ<br>
+  L8: أنت خارج الحلقة — الأحداث تُشغّل الـ Agent تلقائياً 🌐
+</div>
+
+</body>
+</html>

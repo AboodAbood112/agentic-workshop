@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: rtl; text-align: right;
+  }
+  h1 { font-size: 1.8rem; color: #fcd34d; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #f59e0b; margin: 1.8rem 0 0.8rem; border-right: 4px solid #f59e0b; padding-right: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-right: 4px solid #fcd34d; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #451a03; color: #fcd34d; padding: 0.6rem 1rem; text-align: right; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: right; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-right: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-right: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #f59e0b; color: #0f172a; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-left: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #f59e0b; color: #0f172a; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #fcd34d; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Tracks */
+  .tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 0.8rem 0; }
+  .track { background: #1e293b; border-radius: 8px; padding: 0.9rem; }
+  .track-nd { border-top: 3px solid #818cf8; }
+  .track-d  { border-top: 3px solid #4ade80; }
+  .track-title { font-weight: bold; margin-bottom: 0.4rem; font-size: 0.92rem; }
+  .track-nd .track-title { color: #818cf8; }
+  .track-d  .track-title { color: #4ade80; }
+  .track-item { font-size: 0.82rem; color: #94a3b8; margin: 2px 0; }
+
+  /* 3-layer arch */
+  .arch-layers { margin: 0.8rem 0; }
+  .layer { border-radius: 8px; padding: 0.8rem 1rem; margin: 3px 0; }
+  .layer-adw  { background: #1a2e1a; border: 1px solid #4ade80; }
+  .layer-orch { background: #1e1b4b; border: 1px solid #818cf8; }
+  .layer-agents { background: #1a1a2e; border: 1px solid #38bdf8; }
+  .layer-title { font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .layer-adw .layer-title { color: #4ade80; }
+  .layer-orch .layer-title { color: #818cf8; }
+  .layer-agents .layer-title { color: #38bdf8; }
+  .layer-desc { font-size: 0.82rem; color: #94a3b8; }
+  .layer-promise { font-size: 0.78rem; color: #64748b; margin-top: 0.3rem; font-style: italic; }
+
+  /* Trust equation */
+  .trust { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+  .trust-item { background: #1e293b; border: 1px solid #f59e0b; border-radius: 8px; padding: 0.5rem 0.8rem; text-align: center; }
+  .trust-label { color: #fcd34d; font-weight: bold; font-size: 0.88rem; }
+  .trust-desc { color: #64748b; font-size: 0.72rem; }
+  .trust-x { color: #f59e0b; font-size: 1.2rem; font-weight: bold; }
+
+  /* Workflow types */
+  .wf-type { background: #1e293b; border-radius: 6px; padding: 0.5rem 0.8rem; margin: 0.3rem 0; display: flex; align-items: center; gap: 0.5rem; }
+  .wf-name { color: #fcd34d; font-weight: bold; font-size: 0.85rem; min-width: 180px; }
+  .wf-phases { font-size: 0.8rem; color: #94a3b8; }
+
+  /* Full map */
+  .level-map { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.8rem 0; }
+  .lm-card { background: #1e293b; border-radius: 6px; padding: 0.5rem 0.8rem; border-right: 3px solid #f59e0b; }
+  .lm-num { color: #fcd34d; font-weight: bold; font-size: 0.8rem; }
+  .lm-title { color: #e2e8f0; font-size: 0.82rem; }
+  .lm-layer { color: #64748b; font-size: 0.72rem; }
+</style>
+</head>
+<body>
+
+<h1>🏆 Level 12: ADWs with Orchestrator</h1>
+<p class="subtitle">Class 3, Gear 3 — الشكل النهائي</p>
+
+<div class="quote">
+  "الشكل النهائي: كود حتمي يُنسّق Agents غير حتمية عبر Orchestrator. أقصى استقلالية. أقصى ثقة."
+</div>
+
+<hr>
+
+<h2><span class="section-num">١</span> دمج المسارين</h2>
+
+<div class="tracks">
+  <div class="track track-nd">
+    <div class="track-title">🌀 Track 1: غير حتمي (L1-L8)</div>
+    <div class="track-item">Agents مدفوعة بالـ Prompts</div>
+    <div class="track-item">إبداعية وتكيفية</div>
+    <div class="track-item">لكن: ناتج متغير</div>
+    <div class="track-item">تطلب من النموذج — لا تأمره</div>
+  </div>
+  <div class="track track-d">
+    <div class="track-title">⚙️ Track 2: حتمي (L9)</div>
+    <div class="track-item">Python يتبع خطوات دقيقة</div>
+    <div class="track-item">يتحقق في كل نقطة</div>
+    <div class="track-item">لكن: Agent واحد في كل مرة</div>
+    <div class="track-item">تأمر النظام — لا تطلب</div>
+  </div>
+</div>
+
+<div class="quote" style="border-color:#4ade80; text-align:center">
+  🔀 <strong>Level 12 يدمج المسارين:</strong><br>
+  ADW (Python) يُدير الـ Orchestrator، الذي يُدير فرق Agents غير حتمية.<br>
+  موثوقية الكود + إبداع الـ Agents = استقلالية حقيقية
+</div>
+
+<hr>
+
+<h2><span class="section-num">٢</span> المعمارية الثلاثية الطبقات</h2>
+
+<div class="arch-layers">
+  <div class="layer layer-adw">
+    <div class="layer-title">طبقة 1: ADW (Python) — التحكم الحتمي</div>
+    <div class="layer-desc">يتحقق من النتائج، يُسجّل الـ checkpoints، يُعيد المحاولة، يُدير نقاط التحقق</div>
+    <div class="layer-promise">يعد بـ: نتائج متحقق منها تلبي معايير القبول</div>
+  </div>
+  <div style="text-align:center; color:#64748b; font-size:0.9rem">↕</div>
+  <div class="layer layer-orch">
+    <div class="layer-title">طبقة 2: Orchestrator (Agent) — التنفيذ غير الحتمي</div>
+    <div class="layer-desc">يستقبل المهمة من ADW، يُفوّض: Scouts → Planner → Builder → Reviewer</div>
+    <div class="layer-promise">يعد بـ: اكتمال الـ Workflow مع تقرير حالة منظم</div>
+  </div>
+  <div style="text-align:center; color:#64748b; font-size:0.9rem">↕</div>
+  <div class="layer layer-agents">
+    <div class="layer-title">طبقة 3: Sub-Agents — المتخصصون</div>
+    <div class="layer-desc">Scout يبحث | Planner يصمم | Builder ينفّذ | Reviewer يتحقق</div>
+    <div class="layer-promise">يعدون بـ: ناتج منظم بشكل معروف</div>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٣</span> معادلة الثقة</h2>
+
+<div class="trust">
+  <div class="trust-item">
+    <div class="trust-label">Determinism</div>
+    <div class="trust-desc">Python يتحكم بالتدفق</div>
+  </div>
+  <div class="trust-x">×</div>
+  <div class="trust-item">
+    <div class="trust-label">Observability</div>
+    <div class="trust-desc">كل خطوة مسجّلة</div>
+  </div>
+  <div class="trust-x">×</div>
+  <div class="trust-item">
+    <div class="trust-label">Validation</div>
+    <div class="trust-desc">تحقق في كل بوابة</div>
+  </div>
+  <div class="trust-x">×</div>
+  <div class="trust-item">
+    <div class="trust-label">Recovery</div>
+    <div class="trust-desc">إصلاح تلقائي بميزانية</div>
+  </div>
+</div>
+
+<p style="text-align:center; color:#94a3b8; font-size:0.85rem">أزل أي عامل واحد → النظام يصبح غير موثوق</p>
+
+<hr>
+
+<h2><span class="section-num">٤</span> أنواع الـ Workflow</h2>
+
+<div class="wf-type">
+  <span class="wf-name"><code>plan_build</code></span>
+  <span class="wf-phases">Scout → Plan → Build</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-right:auto">للميزات البسيطة</span>
+</div>
+<div class="wf-type">
+  <span class="wf-name"><code>plan_build_review</code></span>
+  <span class="wf-phases">Scout → Plan → Build → Review</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-right:auto">سير العمل المعياري</span>
+</div>
+<div class="wf-type">
+  <span class="wf-name"><code>plan_build_review_fix</code></span>
+  <span class="wf-phases">Scout → Plan → Build → Review → Fix (حلقة)</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-right:auto">للميزات المعقدة</span>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ خطأ شائع</p>
+  <p>وضع <code>MAX_FIX_CYCLES</code> عالياً جداً. 2-3 محاولات كافية. إذا لم يُصلح Builder في 3 مرات، المشكلة في الخطة لا التنفيذ — صعّد للإنسان.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٥</span> خطوات التمرين العملي</h2>
+
+<div class="step">
+  <div class="step-num">١</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ orch_start_adw.md</div>
+    <p>يُحلّل 3 arguments (اسم ADW، نوع الـ workflow، الـ prompt). يُعرّف المراحل لكل نوع workflow. ينشئ tracking records في <code>adws/active/</code>. يُضمّن <code>MAX_FIX_CYCLES = 2</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٢</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ orch_check_adw.md</div>
+    <p>للقراءة فقط. يقرأ <code>adws/active/{name}.json</code> + <code>adws/logs/{name}.log</code>. يُظهر المرحلة الحالية، قائمة التقدم، آخر إدخالات السجل. يُنبّه إذا كان ADW متوقفاً +5 دقائق. نموذج خفيف.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٣</div>
+  <div class="step-content">
+    <div class="step-title">أنشئ adw_with_orchestrator.py</div>
+    <p>3 كلاسات منفصلة:</p>
+    <ul>
+      <li><code>OrchestratorClient</code> — يُغلّف استدعاء <code>pi</code> CLI</li>
+      <li><code>ADWRecord</code> — dataclass لتتبع الحالة</li>
+      <li><code>ADWEngine</code> — منطق الـ workflow مع بوابات التحقق</li>
+    </ul>
+    <pre>python adw_with_orchestrator.py "Add task priority" --workflow plan_build_review</pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٤</div>
+  <div class="step-content">
+    <div class="step-title">اكتب SYSTEM_ARCHITECTURE.md</div>
+    <p>خريطة كاملة للـ 12 Levels — 5 طبقات: Foundation (L1-3)، Quality (L4-5)، Composition (L6-7)، Autonomy (L8-9)، Orchestration (L10-12). مع تدفق البيانات ونموذج الثقة.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">٥</div>
+  <div class="step-content">
+    <div class="step-title">اختبر النظام كاملاً</div>
+    <pre>python adws/adw_orchestrated/adw_with_orchestrator.py \
+    "Add task priority field" \
+    --workflow plan_build_review</pre>
+    <p>تحقق: <code>adws/active/</code> tracking ← <code>adws/logs/</code> ← <code>adws/reports/</code></p>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٦</span> خريطة الـ 12 Levels كاملة</h2>
+
+<div class="level-map">
+  <div class="lm-card"><div class="lm-num">L1</div><div class="lm-title">AGENTS.md — Prime Prompt</div><div class="lm-layer">Foundation</div></div>
+  <div class="lm-card"><div class="lm-num">L2</div><div class="lm-title">Sub-Agents + AI Docs + Commands</div><div class="lm-layer">Foundation</div></div>
+  <div class="lm-card"><div class="lm-num">L3</div><div class="lm-title">Skills + MCPs + Custom Tools</div><div class="lm-layer">Foundation</div></div>
+  <div class="lm-card"><div class="lm-num">L4</div><div class="lm-title">Closed-Loop Prompts</div><div class="lm-layer">Quality</div></div>
+  <div class="lm-card"><div class="lm-num">L5</div><div class="lm-title">Bug/Feature/Chore Templates</div><div class="lm-layer">Quality</div></div>
+  <div class="lm-card"><div class="lm-num">L6</div><div class="lm-title">Prompt Chains</div><div class="lm-layer">Composition</div></div>
+  <div class="lm-card"><div class="lm-num">L7</div><div class="lm-title">Agent Experts (expertise.yaml)</div><div class="lm-layer">Composition</div></div>
+  <div class="lm-card"><div class="lm-num">L8</div><div class="lm-title">Out-Loop / Webhooks (PITER)</div><div class="lm-layer">Autonomy</div></div>
+  <div class="lm-card"><div class="lm-num">L9</div><div class="lm-title">ADWs — Python يُنسّق</div><div class="lm-layer">Autonomy</div></div>
+  <div class="lm-card"><div class="lm-num">L10</div><div class="lm-title">Orchestrator Agent (CRUD)</div><div class="lm-layer">Orchestration</div></div>
+  <div class="lm-card"><div class="lm-num">L11</div><div class="lm-title">Orchestrator Workflows (5 مراحل)</div><div class="lm-layer">Orchestration</div></div>
+  <div class="lm-card" style="border-color:#fcd34d; background:#1c1810"><div class="lm-num" style="color:#fcd34d">L12</div><div class="lm-title" style="color:#fcd34d">ADWs + Orchestrator = الشكل النهائي</div><div class="lm-layer">🏆 Final Form</div></div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">٧</span> الدروس المستفادة</h2>
+
+<div class="takeaway"><span class="icon">🤝</span><span><strong>حتمي + غير حتمي = استقلالية موثوقة</strong> — Python يتحكم بالـ متى والـ لماذا. الـ Agents يتحكمون بالـ كيف.</span></div>
+<div class="takeaway"><span class="icon">🔢</span><span><strong>الثقة = Determinism × Observability × Validation × Recovery</strong> — كل عامل إلزامي.</span></div>
+<div class="takeaway"><span class="icon">🚧</span><span><strong>بوابات التحقق تمسك الفشل مبكراً</strong> — ADW يتحقق قبل الانتقال لكل مرحلة.</span></div>
+<div class="takeaway"><span class="icon">⏱️</span><span><strong>ميزانية الإصلاح تمنع الحلقات اللانهائية</strong> — 2-3 محاولات ثم التصعيد للإنسان.</span></div>
+<div class="takeaway"><span class="icon">📐</span><span><strong>التسلسل الهرمي يحدود الاستقلالية في كل طبقة</strong> — كل طبقة تُقيّد التي تحتها.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-right:none; border: 2px solid #fcd34d; padding: 1.2rem;">
+  🏆 <strong>تهانينا! أتممت الـ 12 Levels</strong><br><br>
+  بدأت بـ AGENTS.md بسيط 📄<br>
+  وانتهيت بنظام تطوير مستقل كامل يخطط، يبني، يراجع، يصلح، ويوثّق — بدونك 🚀<br><br>
+  <span style="color:#94a3b8; font-size:0.9rem">كل Level بنى على السابق. كل طبقة أضافت موثوقية. هذا هو agentic engineering.</span>
+</div>
+
+</body>
+</html>

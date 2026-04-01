@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: ltr; text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #fb923c; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #f97316; margin: 1.8rem 0 0.8rem; border-left: 4px solid #f97316; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-left: 4px solid #fb923c; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #431407; color: #fb923c; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #f97316; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-right: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #f97316; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #fb923c; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  .loop-box { background: #1e293b; border: 1px solid #f97316; border-radius: 10px; padding: 1.2rem; margin: 1rem 0; text-align: center; }
+  .loop-arrow { color: #f97316; font-size: 1.5rem; margin: 0.3rem 0; }
+  .loop-item { display: inline-block; background: #431407; color: #fb923c; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: bold; margin: 0.2rem; }
+  .risk-blocker { border-left: 4px solid #ef4444; }
+  .risk-high { border-left: 4px solid #f97316; }
+  .risk-medium { border-left: 4px solid #eab308; }
+  .risk-low { border-left: 4px solid #22c55e; }
+  .risk-label-blocker { color: #f87171; font-weight: bold; }
+  .risk-label-high { color: #fb923c; font-weight: bold; }
+  .risk-label-medium { color: #facc15; font-weight: bold; }
+  .risk-label-low { color: #4ade80; font-weight: bold; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🔁 Level 4: Closed-Loop Prompts</h1>
+<p class="subtitle">Class 1, Gear 4 — Agents verifying their own work</p>
+
+<div class="quote">
+  "An Agent building without verification is like a developer who never runs their tests. More computation on verification = higher confidence in results."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> Difference between Open Loop and Closed Loop</h2>
+
+<div class="loop-box">
+  <p style="color:#94a3b8; margin-bottom:0.8rem">❌ <strong>Open Loop</strong> — "I hope it's right"</p>
+  <span class="loop-item">Request</span>
+  <div class="loop-arrow">↓</div>
+  <span class="loop-item">Implement</span>
+  <div class="loop-arrow">↓</div>
+  <span class="loop-item">Done 🤞</span>
+</div>
+
+<div class="loop-box" style="border-color:#4ade80">
+  <p style="color:#94a3b8; margin-bottom:0.8rem">✅ <strong>Closed Loop</strong> — "I made sure the code is right"</p>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Request</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Implement</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Validate</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Fix</span>
+  <div class="loop-arrow" style="color:#4ade80">↓</div>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">Validate ✅</span>
+</div>
+
+<hr>
+
+<h2><span class="section-num">2</span> The Three Commands</h2>
+
+<table>
+  <tr><th>Command</th><th>Role</th><th>Pattern</th></tr>
+  <tr><td><code>/build</code></td><td>Execute the plan</td><td>Read plan → Code → Run tests → Report</td></tr>
+  <tr><td><code>/review</code></td><td>Analyze the work</td><td>Read diffs → Classify issues → Final verdict</td></tr>
+  <tr><td><code>/fix</code></td><td>Fix issues</td><td>Read report → Fix by priority → Verify</td></tr>
+</table>
+
+<div class="loop-box">
+  <span class="loop-item">/build</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→</span>
+  <span class="loop-item">/review</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→</span>
+  <span class="loop-item">/fix</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→</span>
+  <span class="loop-item">/review</span>
+  <span style="color:#f97316; margin: 0 0.5rem">→ ...</span>
+  <span class="loop-item" style="background:#064e3b; color:#4ade80">PASS ✅</span>
+</div>
+
+<hr>
+
+<h2><span class="section-num">3</span> Details of each command</h2>
+
+<h3>🔨 /build — Execution</h3>
+<div class="card">
+  <ul>
+    <li>Read the plan file to understand what to build</li>
+    <li>Understand the current state — read files and check AGENTS.md</li>
+    <li>Execute changes in the order specified in the plan</li>
+    <li>Run tests and type checks — <strong>mandatory</strong></li>
+    <li>Fix errors and re-verify until everything passes</li>
+    <li>Generate a build report (PASS/FAIL + changes + verification results)</li>
+  </ul>
+</div>
+
+<h3>🔍 /review — Review (4 Severity Levels)</h3>
+<div class="card risk-blocker">
+  <p class="risk-label-blocker">🚨 BLOCKER — Must fix → Verdict: FAIL</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">Security vulnerabilities, API breakage, risk of data loss, exposed credentials</p>
+</div>
+<div class="card risk-high">
+  <p class="risk-label-high">🔴 HIGH RISK — Must fix</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">Performance regressions, missing error handling, memory leaks, missing features</p>
+</div>
+<div class="card risk-medium">
+  <p class="risk-label-medium">🟡 MEDIUM RISK — Fix soon</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">Code duplication, inconsistent naming, missing tests</p>
+</div>
+<div class="card risk-low">
+  <p class="risk-label-low">🟢 LOW RISK — Nice to have</p>
+  <p style="font-size:0.9rem; color:#cbd5e1">Style differences, aesthetic improvements</p>
+</div>
+<p style="margin-top:0.5rem; color:#94a3b8; font-size:0.9rem">📁 Saves the report in: <code>app_review/review_&lt;timestamp&gt;.md</code> | Uses <code>model: opus</code> for deeper analysis</p>
+
+<h3>🔧 /fix — The Fix</h3>
+<div class="card">
+  <ul>
+    <li>Extract issues from the review report, sorted by priority</li>
+    <li>Fix Blockers first, then High, then Medium, then Low</li>
+    <li>Verify each fix individually</li>
+    <li>Run full verification after all fixes</li>
+    <li>Generate a fix report in <code>app_fix_reports/fix_&lt;timestamp&gt;.md</code></li>
+  </ul>
+</div>
+
+<hr>
+
+<h2><span class="section-num">4</span> Why More Compute = Higher Confidence?</h2>
+
+<table>
+  <tr><th>Scenario</th><th>Cost</th><th>Result</th></tr>
+  <tr><td>Build only (open loop)</td><td>Low</td><td>Quality not guaranteed, you have to review</td></tr>
+  <tr><td>Build + Review + Fix</td><td>Higher × 4</td><td>Reviewed code, documented report, high confidence</td></tr>
+</table>
+
+<div class="quote" style="border-color:#4ade80">
+  💡 A review that catches a security vulnerability costs cents. The same vulnerability in production costs a fortune.
+</div>
+
+<hr>
+
+<h2><span class="section-num">5</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create /build command</div>
+    <p>Create <code>.pi/prompts/build.md</code> — accepts the plan file path via <code>$ARGUMENTS</code>, executes, and forcefully verifies.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create /review command</div>
+    <p>Create <code>.pi/prompts/review.md</code> — analyzes git diffs, categorizes issues by 4 levels, ends with PASS/FAIL.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create /fix command</div>
+    <p>Create <code>.pi/prompts/fix.md</code> — reads the review report, fixes by priority, documents before/after.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Test the full loop</div>
+    <p>Write a small plan ← <code>/build</code> ← <code>/review</code> ← if FAIL: <code>/fix</code> ← <code>/review</code> again until PASS.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-title">Inspect the reports</div>
+    <p>Read the files in <code>app_review/</code> and <code>app_fix_reports/</code> — are they organized and helpful?</p>
+  </div>
+</div>
+
+<h3>🔍 Checking your version:</h3>
+<pre>ls .pi/prompts/                    # build.md  review.md  fix.md
+grep "ARGUMENTS" .pi/prompts/build.md
+grep "app_review" .pi/prompts/review.md
+grep "app_fix_reports" .pi/prompts/fix.md</pre>
+
+<hr>
+
+<h2><span class="section-num">6</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🔁</span><span><strong>Closed loops catch bugs</strong> — before they reach you, the Agent reviews its own work.</span></div>
+<div class="takeaway"><span class="icon">🎯</span><span><strong>Severity levels determine priorities</strong> — Blockers first always, don't waste compute on style before safety.</span></div>
+<div class="takeaway"><span class="icon">📋</span><span><strong>Reports create accountability</strong> — documented files show what was built, what was reviewed, and what was fixed.</span></div>
+<div class="takeaway"><span class="icon">💰</span><span><strong>More compute = higher confidence</strong> — verification tokens are much cheaper than production bugs.</span></div>
+<div class="takeaway"><span class="icon">🔗</span><span><strong>This is the culmination</strong> — AGENTS.md + Sub-Agents + AI Docs + Skills + Closed Loop = a complete agentic system.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #f97316;">
+  💡 <strong>Summary of the 4 Levels</strong><br>
+  L1: Brief the Agent who it is 📄 &nbsp;|&nbsp; L2: Give it a team and knowledge 👥<br>
+  L3: Expand its capabilities 🔧 &nbsp;|&nbsp; L4: Make it verify itself 🔁
+</div>
+
+</body>
+</html>

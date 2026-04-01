@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: ltr; text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #c084fc; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #a855f7; margin: 1.8rem 0 0.8rem; border-left: 4px solid #a855f7; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-left: 4px solid #c084fc; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #2e1065; color: #c084fc; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #a855f7; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-right: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #a855f7; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #c084fc; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Orchestrator diagram */
+  .orch-center { background: #2e1065; border: 2px solid #a855f7; border-radius: 12px; padding: 1rem; text-align: center; margin: 0 auto 0.5rem; max-width: 280px; }
+  .orch-title { color: #c084fc; font-weight: bold; font-size: 1rem; }
+  .orch-subs { color: #94a3b8; font-size: 0.78rem; margin-top: 0.3rem; }
+  .agents-row { display: flex; justify-content: center; gap: 0.8rem; margin-top: 0.5rem; }
+  .agent-sm { background: #1e293b; border: 1px solid #a855f7; border-radius: 8px; padding: 0.5rem 0.8rem; text-align: center; }
+  .agent-sm-title { color: #c084fc; font-size: 0.82rem; font-weight: bold; }
+  .agent-sm-sub { color: #64748b; font-size: 0.72rem; }
+  .orch-arrow { text-align: center; color: #a855f7; font-size: 1rem; margin: 0.3rem 0; }
+
+  /* CRUD */
+  .crud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.8rem 0; }
+  .crud-card { background: #1e293b; border-radius: 8px; padding: 0.7rem; border-left: 3px solid #a855f7; }
+  .crud-op { color: #c084fc; font-weight: bold; font-size: 0.95rem; }
+  .crud-desc { color: #94a3b8; font-size: 0.82rem; margin-top: 2px; }
+
+  /* Patterns */
+  .pattern { background: #1e293b; border-radius: 10px; padding: 1rem; margin: 0.7rem 0; border: 1px solid #334155; }
+  .pattern-title { color: #c084fc; font-weight: bold; margin-bottom: 0.5rem; }
+  .pattern-flow { font-size: 0.82rem; color: #94a3b8; direction: ltr; text-align: left; }
+  .pattern-flow span { color: #e2e8f0; }
+
+  /* Data flow */
+  .flow-box { background: #1e1b4b; border: 1px solid #a855f7; border-radius: 10px; padding: 1rem; margin: 0.8rem 0; direction: ltr; text-align: left; font-size: 0.82rem; }
+  .flow-orch { color: #c084fc; font-weight: bold; }
+  .flow-phase { color: #7dd3fc; }
+  .flow-arrow { color: #64748b; }
+  .flow-data { color: #86efac; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🎼 Level 10: The Orchestrator Agent</h1>
+<p class="subtitle">Class 3, Gear 1 — One Agent to rule them all</p>
+
+<div class="quote">
+  "One Agent to rule them all. CRUD operations on Agents from a centralized command point."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> The Problem: You are the Orchestrator</h2>
+<p>In Levels 1-9 you built Agents, Workflows, and Triggers — but <strong>you</strong> were deciding which Agent to use, what it should do, and when. This doesn't scale.</p>
+
+<div class="orch-center">
+  <div class="orch-title">🎼 ORCHESTRATOR</div>
+  <div class="orch-subs">Analyzes • Decides • Delegates • Monitors • Reports</div>
+</div>
+<div class="orch-arrow">↓ &nbsp;&nbsp;&nbsp; ↓ &nbsp;&nbsp;&nbsp; ↓</div>
+<div class="agents-row">
+  <div class="agent-sm"><div class="agent-sm-title">Scout</div><div class="agent-sm-sub">Agent</div></div>
+  <div class="agent-sm"><div class="agent-sm-title">Build</div><div class="agent-sm-sub">Agent</div></div>
+  <div class="agent-sm"><div class="agent-sm-title">Review</div><div class="agent-sm-sub">Agent</div></div>
+</div>
+
+<div class="quote" style="border-color:#4ade80; margin-top:1rem">
+  The shift: From "I use AI tools" to "I have a Lead AI Engineer managing a team of AI Agents"
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Making the Orchestrator too smart. Its role is <strong>delegation, not execution</strong>. If it writes code itself, you've built a giant Agent, not an Orchestrator.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">2</span> CRUD on Agents</h2>
+
+<div class="crud-grid">
+  <div class="crud-card">
+    <div class="crud-op">🟢 Create</div>
+    <div class="crud-desc">Spawn an Agent with specific goals and tools</div>
+  </div>
+  <div class="crud-card">
+    <div class="crud-op">🔵 Read</div>
+    <div class="crud-desc">Check status, retrieve outputs, inspect logs</div>
+  </div>
+  <div class="crud-card">
+    <div class="crud-op">🟡 Update</div>
+    <div class="crud-desc">Send new commands, modify instructions</div>
+  </div>
+  <div class="crud-card">
+    <div class="crud-op">🔴 Delete</div>
+    <div class="crud-desc">Stop the Agent when its job is done</div>
+  </div>
+</div>
+
+<h3>Agent Lifecycle:</h3>
+<pre style="direction:ltr; text-align:left">Create → Command → Monitor → (Command if needed) → Read results → Delete</pre>
+
+<p style="color:#94a3b8; font-size:0.85rem; margin-top:0.5rem">Cleanup Policy: Delete One-Shot agents after completion. Keep Multi-phase agents for inspection then delete them.</p>
+
+<hr>
+
+<h2><span class="section-num">3</span> Orchestrator Patterns</h2>
+
+<div class="pattern">
+  <div class="pattern-title">⚡ Pattern 1: One-Shot Agent</div>
+  <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.5rem">For clear, simple tasks — One Agent, One Task</p>
+  <div class="pattern-flow">
+    <span>Analyze</span> → <span>Create agent</span> → <span>Command</span> → <span>Monitor</span> → <span>Collect results</span> → <span>Delete</span> → <span>Report</span>
+  </div>
+  <p style="font-size:0.82rem; color:#64748b; margin-top:0.5rem">Example: "Fix this typo", "Update this dependency"</p>
+</div>
+
+<div class="pattern">
+  <div class="pattern-title">🔭 Pattern 2: Scout and Build</div>
+  <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.5rem">Two phases — Scout first, then execute</p>
+  <div class="pattern-flow">
+    <span>Create scout</span> (read-only, fast model)<br>
+    <span>Create builder</span> (full tools, capable model)<br>
+    <span>Run scout</span> → wait → <span>extract findings</span><br>
+    <span>Pass findings to builder</span> → <span>Run builder</span><br>
+    <span>Retain both</span> → <span>Report</span>
+  </div>
+  <p style="font-size:0.82rem; color:#64748b; margin-top:0.5rem">Example: "Add a priority field to TaskFlow"</p>
+</div>
+
+<div class="pattern">
+  <div class="pattern-title">⚙️ Pattern 3: ADW Dispatch</div>
+  <p style="font-size:0.85rem; color:#94a3b8; margin-bottom:0.5rem">Runs a full ADW from Level 9</p>
+  <div class="pattern-flow">
+    <span>Analyze</span> → <span>Choose: one-shot / scout-build / ADW?</span><br>
+    → <span>Start ADW</span> (plan_build, plan_build_review...)<br>
+    → <span>Monitor</span> → <span>Report</span>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">4</span> Context Flow Between Agents</h2>
+
+<div class="flow-box">
+  <div class="flow-orch">ORCHESTRATOR — The Central Memory</div>
+  <br>
+  <div class="flow-phase">1. User request: "Add priority field"</div>
+  <div class="flow-arrow">   ↓</div>
+  <div class="flow-phase">2. Scout phase</div>
+  <div class="flow-arrow">   └─> Scout receives: User request</div>
+  <div class="flow-data">   &lt;── Scout returns: List of files + analysis</div>
+  <div class="flow-arrow">   ↓</div>
+  <div class="flow-phase">3. Build phase</div>
+  <div class="flow-arrow">   └─> Builder receives: User request <span class="flow-data">+ Scout results</span></div>
+  <div class="flow-data">   &lt;── Builder returns: Modified files + summary</div>
+  <div class="flow-arrow">   ↓</div>
+  <div class="flow-phase">4. Report: Consolidates phase results</div>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Passing more context than necessary to Sub-agents. The Orchestrator must summarize, not stack. 500 lines of Scout analysis → the Builder only needs the key findings.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">5</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create Orchestrator Skill</div>
+    <p>Create <code>.pi/skills/orchestrator/SKILL.md</code> — Its role (Lead Engineer/Delegator), the patterns it uses, when to use each pattern, its lifecycle policy. <strong>No file editing tools</strong> — it delegates, it doesn't execute.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create One-Shot Command</div>
+    <p>Create <code>orch_one_shot_agent.md</code> — Accepts the task as <code>$ARGUMENTS</code>, creates appropriate Agent, waits for completion, collects results, deletes Agent, reports.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create Scout-and-Build Command</div>
+    <p>Create <code>orch_scout_and_build.md</code> — Scout (read-only + fast model) then Builder (full tools + strong model + Scout results). The Orchestrator summarizes Scout results and passes them on.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Test with Tasks of Varying Complexity</div>
+    <pre>Simple:  "Fix the typo in the TaskFlow README"
+Medium:  "Add a task priority field to TaskFlow"
+Complex: "Refactor the TaskFlow API error handling"</pre>
+    <p style="font-size:0.85rem; color:#94a3b8">Does the Orchestrator pick the right pattern for each task?</p>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">6</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🎼</span><span><strong>The Orchestrator delegates, doesn't execute</strong> — decides what to do, spawns Agents to do it, monitors the results.</span></div>
+<div class="takeaway"><span class="icon">🗄️</span><span><strong>CRUD is the mental model</strong> — Create, Read, Update, Delete with an explicit cleanup policy for each pattern.</span></div>
+<div class="takeaway"><span class="icon">🧵</span><span><strong>Context flows through the Orchestrator</strong> — The results of each phase become inputs to the next — the Orchestrator is the memory.</span></div>
+<div class="takeaway"><span class="icon">🧠</span><span><strong>Pattern selection is the Orchestrator's value</strong> — One-shot for simple, Scout-and-Build for complex, ADW for multi-step.</span></div>
+<div class="takeaway"><span class="icon">🧹</span><span><strong>Explicit Cleanup Policy</strong> — Delete One-shots quickly, retain Multi-phase for inspection.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #a855f7;">
+  💡 <strong>Summary of the 10 Levels</strong><br>
+  L1-L7: Building and equipping the Agent 🏗️ | L8: Responding to events 🌐<br>
+  L9: Python orchestrates reliably ⚙️ | L10: Agent manages a team of Agents 🎼
+</div>
+
+</body>
+</html>

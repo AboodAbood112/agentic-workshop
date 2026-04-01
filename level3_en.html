@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: ltr; text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #34d399; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #10b981; margin: 1.8rem 0 0.8rem; border-left: 4px solid #10b981; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-left: 4px solid #34d399; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #064e3b; color: #34d399; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #10b981; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-right: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #10b981; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #34d399; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  .compare-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 0.8rem 0; }
+  .compare-card { background: #1e293b; border-radius: 8px; padding: 0.8rem; border: 1px solid #334155; }
+  .compare-title { font-weight: bold; margin-bottom: 0.4rem; font-size: 0.9rem; }
+  .green { color: #34d399; }
+  .blue { color: #38bdf8; }
+  .badge { display: inline-block; background: #064e3b; color: #34d399; border-radius: 20px; padding: 2px 10px; font-size: 0.8rem; margin: 2px; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🔧 Level 3: Skills, MCPs & Custom Tools</h1>
+<p class="subtitle">Class 1, Gear 3 — Expanding the Agent's Capabilities</p>
+
+<div class="quote">
+  "Sub-agents, Skills, and MCPs all give you the same thing — custom tools. The difference is only in the packaging."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> What are Skills?</h2>
+<p>Reusable capabilities defined in <code>.pi/skills/</code> — each skill is in its own folder containing instructions + templates + examples.</p>
+
+<h3>📁 File Structure:</h3>
+<pre>.pi/skills/
+└── skill-name/
+    ├── SKILL.md          # Skill definition
+    └── templates/
+        └── template.md  # Ready-made templates</pre>
+
+<h3>🆚 Difference between Sub-Agent and Skill:</h3>
+<table>
+  <tr><th>Feature</th><th>Sub-Agent</th><th>Skill</th></tr>
+  <tr><td>Location</td><td><code>.pi/prompts/agents/</code></td><td><code>.pi/skills/</code></td></tr>
+  <tr><td>Structure</td><td>Single file</td><td>Folder with templates</td></tr>
+  <tr><td>Invocation</td><td>Auto-delegation</td><td><code>/</code> command or delegation</td></tr>
+  <tr><td>Context</td><td>Independent context</td><td>Works within current context</td></tr>
+  <tr><td>Model</td><td>Specifies its own</td><td>Uses session model</td></tr>
+</table>
+
+<div class="quote" style="border-color:#38bdf8">
+  💡 <strong>Rule of Thumb:</strong> If the task is independent → <span class="blue">Sub-Agent</span>. If it needs templates or works within current context → <span class="green">Skill</span>.
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Creating a Skill when a Sub-Agent is enough. Don't create a Skill unless you have real content to put in the folder.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">2</span> What are MCP Servers?</h2>
+<p><strong>Model Context Protocol</strong> — external processes that provide tools beyond the core four tools.</p>
+
+<h3>🛠️ Examples of MCPs:</h3>
+<table>
+  <tr><th>MCP</th><th>Capability</th></tr>
+  <tr><td>Firecrawl</td><td>Convert any URL into structured content</td></tr>
+  <tr><td>Playwright</td><td>Control a real browser for testing</td></tr>
+  <tr><td>Database MCP</td><td>Direct querying of databases</td></tr>
+  <tr><td>Slack / GitHub / Jira</td><td>Integration with workflow tools</td></tr>
+</table>
+
+<h3>⚙️ Configuration file <code>.mcp.json</code>:</h3>
+<pre>{
+  "mcpServers": {
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": { "FIRECRAWL_API_KEY": "your-key" }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-playwright"],
+      "env": {}
+    }
+  }
+}</pre>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Saving API keys in the repo! Put <code>.mcp.json</code> in <code>.gitignore</code> and share <code>.mcp.json.sample</code> without real keys.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">3</span> Custom Tools via Prime Prompts</h2>
+<p>Sometimes you don't need a Skill or MCP — it's enough to describe the pattern in AGENTS.md:</p>
+<pre>## Custom Tool: Research Pattern
+When you need to research a library:
+1. Search the web for the official docs
+2. Fetch the getting-started page
+3. Save a summary to ai_docs/&lt;library-name&gt;.md
+4. Report what you learned</pre>
+
+<h3>🔒 Permissions <code>.pi/settings.json</code>:</h3>
+<pre>{
+  "permissions": {
+    "allow": [
+      "Bash(bun run:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  }
+}</pre>
+
+<hr>
+
+<h2><span class="section-num">4</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create meta-agent skill</div>
+    <p>Create <code>.pi/skills/meta-agent/SKILL.md</code> — a Skill version of meta-agent with reference to a template.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create the Agent Template</div>
+    <p>Create <code>.pi/skills/meta-agent/templates/subagent-template.md</code> with placeholders like <code>&lt;AGENT_NAME&gt;</code>, <code>&lt;TOOL_LIST&gt;</code>, <code>&lt;ROLE&gt;</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create MCP Config Sample</div>
+    <p>Create <code>.mcp.json.sample</code> with Firecrawl and Playwright — use empty strings for API keys.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Create Permissions File</div>
+    <p>Create <code>.pi/settings.json</code> — allow safe dev commands, and block destructive ones.</p>
+  </div>
+</div>
+
+<h3>🔍 Checking your version:</h3>
+<pre>ls .pi/skills/meta-agent/           # SKILL.md  templates/
+ls .pi/skills/meta-agent/templates/ # subagent-template.md
+cat .mcp.json.sample | python3 -m json.tool
+cat .pi/settings.json | python3 -m json.tool</pre>
+
+<hr>
+
+<h2><span class="section-num">5</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">📐</span><span><strong>Skills = Templated Capabilities</strong> — guarantees the same structure and quality every time.</span></div>
+<div class="takeaway"><span class="icon">🌐</span><span><strong>MCPs = External Tools</strong> — connects the Agent to APIs, browsers, and databases.</span></div>
+<div class="takeaway"><span class="icon">📝</span><span><strong>Custom Tools = Smart Instructions</strong> — describe the pattern in the prime prompt and the Agent follows it without setup.</span></div>
+<div class="takeaway"><span class="icon">🔒</span><span><strong>settings.json = Safety Net</strong> — controls what runs automatically and what requires your approval.</span></div>
+<div class="takeaway"><span class="icon">📈</span><span><strong>Start Simple</strong> — Custom tool first, then Skill when you need templates, then MCP when you need external access.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #10b981;">
+  💡 <strong>All three serve the same goal</strong><br>
+  Skills + MCPs + Custom Tools = Expanding the Core Four (Read, Write, Edit, Bash) 🚀
+</div>
+
+</body>
+</html>

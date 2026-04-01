@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 2rem;
+    line-height: 1.8;
+    direction: ltr;
+    text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #7dd3fc; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #38bdf8; margin: 1.8rem 0 0.8rem; border-left: 4px solid #38bdf8; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote {
+    background: #1e293b;
+    border-left: 4px solid #7dd3fc;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.92rem;
+  }
+  th {
+    background: #1e3a5f;
+    color: #7dd3fc;
+    padding: 0.6rem 1rem;
+    text-align: left;
+  }
+  td {
+    background: #1e293b;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid #334155;
+    text-align: left;
+  }
+  td code, th code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  .card {
+    background: #1e293b;
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+    margin: 0.8rem 0;
+    border: 1px solid #334155;
+  }
+  .bad { border-left: 4px solid #f87171; }
+  .good { border-left: 4px solid #4ade80; }
+  .bad-label { color: #f87171; font-weight: bold; }
+  .good-label { color: #4ade80; font-weight: bold; }
+  pre {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+    color: #a3e635;
+    direction: ltr;
+    text-align: left;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+  }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .tag {
+    display: inline-block;
+    background: #1e3a5f;
+    color: #7dd3fc;
+    border-radius: 20px;
+    padding: 2px 12px;
+    font-size: 0.82rem;
+    margin: 2px;
+  }
+  .section-num {
+    display: inline-block;
+    background: #38bdf8;
+    color: #0f172a;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    text-align: center;
+    line-height: 26px;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .takeaway {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin: 0.5rem 0;
+    color: #cbd5e1;
+  }
+  .takeaway .icon { font-size: 1.1rem; flex-shrink: 0; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🤖 Level 1: Prime Prompts & Memory Files</h1>
+<p class="subtitle">Class 1, Gear 1 — The foundation of every Agentic layer</p>
+
+<div class="quote">
+  "If you don't tell the Agent who it is, what it's working on, and how to work — it will guess. And it will guess wrong."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> What is AGENTS.md?</h2>
+<p>It is the <strong>Prime Prompt</strong> file — it lives in the root of the project and loads automatically every time the Agent starts a new session.</p>
+<p style="margin-top:0.6rem">Think of it as a <strong>briefing document</strong> you'd give to a new engineer on their first day:</p>
+<ul>
+  <li>What is this project?</li>
+  <li>What tools do we use?</li>
+  <li>How do I run things?</li>
+  <li>What are the conventions?</li>
+  <li>What things should I pay attention to?</li>
+</ul>
+
+<h3>📍 Where does the file live?</h3>
+<table>
+  <tr><th>Location</th><th>Scope</th></tr>
+  <tr><td><code>./AGENTS.md</code></td><td>Project Root — for all sessions</td></tr>
+  <tr><td><code>~/.pi/agent/AGENTS.md</code></td><td>Global — for all projects</td></tr>
+  <tr><td><code>./apps/backend/AGENTS.md</code></td><td>Specific directory — for monorepos</td></tr>
+</table>
+
+<hr>
+
+<h2><span class="section-num">2</span> The Goldilocks Zone</h2>
+
+<div class="card bad">
+  <p class="bad-label">❌ Too short — "Figure It Out"</p>
+  <pre># TaskFlow
+Uses bun. Run `bun dev` to start.</pre>
+  <p style="color:#fca5a5; font-size:0.9rem">Problem: The Agent will guess everything and make mistakes — file structures, test patterns, schemas...</p>
+</div>
+
+<div class="card bad">
+  <p class="bad-label">❌ Too long — "Encyclopedia"</p>
+  <p style="color:#fca5a5; font-size:0.9rem">A 180+ line file detailing every spelling rule and ESLint configuration...</p>
+  <p style="color:#fca5a5; font-size:0.9rem">Problem: Important information gets lost in the noise and context window is wasted.</p>
+</div>
+
+<div class="card good">
+  <p class="good-label">✅ The Perfect Size — 30 to 50 lines</p>
+  <table>
+    <tr><th>#</th><th>Section</th><th>Content</th></tr>
+    <tr><td>1</td><td>Context</td><td>2-3 sentences about the project</td></tr>
+    <tr><td>2</td><td>Tooling</td><td>Runtime, frameworks, libraries</td></tr>
+    <tr><td>3</td><td>Key Commands</td><td>Install, dev, test, build</td></tr>
+    <tr><td>4</td><td>Project Structure</td><td>Main directory map</td></tr>
+    <tr><td>5</td><td>Dev Guidelines</td><td>3-7 rules that actually matter</td></tr>
+    <tr><td>6</td><td>Important Notes</td><td>Things that cause issues, special patterns</td></tr>
+  </table>
+</div>
+
+<hr>
+
+<h2><span class="section-num">3</span> Practical Exercise — TaskFlow</h2>
+<p>The project is <strong>TaskFlow</strong> — a task management application. You are required to:</p>
+
+<div class="card" style="margin-top:0.8rem">
+  <p><strong>Steps:</strong></p>
+  <ul>
+    <li>Explore the project structure in <code>workshop/app/</code></li>
+    <li>Understand the tools and commands from <code>package.json</code></li>
+    <li>Discover conventions (Zod schemas, status and priority values)</li>
+    <li>Write <code>AGENTS.md</code> in 30-50 lines</li>
+    <li>Compare your version with the files in <code>completed/</code></li>
+  </ul>
+</div>
+
+<h3>🔍 Checking your version:</h3>
+<pre>cat workshop/app/AGENTS.md
+wc -l workshop/app/AGENTS.md        # Expected: 30-50 lines
+grep -c "bun" workshop/app/AGENTS.md
+grep -c "Hono\|hono" workshop/app/AGENTS.md
+grep -c "SQLite\|sqlite" workshop/app/AGENTS.md</pre>
+
+<hr>
+
+<h2><span class="section-num">4</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🏗️</span><span><strong>AGENTS.md is the foundation</strong> — every other technique in the workshop builds on top of it.</span></div>
+<div class="takeaway"><span class="icon">🎯</span><span><strong>Be precise with commands</strong> — <code>bun run --filter @taskflow/backend dev</code> is better than "run the backend".</span></div>
+<div class="takeaway"><span class="icon">✂️</span><span><strong>Include what matters, remove what doesn't</strong> — every line must earn its place.</span></div>
+<div class="takeaway"><span class="icon">🔄</span><span><strong>Update it as the project evolves</strong> — an outdated file is worse than no file.</span></div>
+<div class="takeaway"><span class="icon">📓</span><span><strong>Memory files</strong> — keep permanent facts in AGENTS.md, not in the chat history.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #38bdf8;">
+  💡 <strong>AGENTS.md = The Agent's Memory</strong><br>
+  Without it, every session starts from scratch and guesses.<br>
+  With it, it starts like an engineer who knows the project from day one. 🚀
+</div>
+
+</body>
+</html>

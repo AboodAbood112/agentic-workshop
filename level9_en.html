@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: ltr; text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #818cf8; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #6366f1; margin: 1.8rem 0 0.8rem; border-left: 4px solid #6366f1; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-left: 4px solid #818cf8; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #1e1b4b; color: #818cf8; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #6366f1; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-right: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #6366f1; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #818cf8; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Hybrid compare */
+  .tri-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  .tri-card { background: #1e293b; border-radius: 8px; padding: 0.8rem; }
+  .tri-bad1 { border-top: 3px solid #94a3b8; }
+  .tri-bad2 { border-top: 3px solid #f87171; }
+  .tri-good { border-top: 3px solid #4ade80; }
+  .tri-title { font-weight: bold; font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .tri-bad1 .tri-title { color: #94a3b8; }
+  .tri-bad2 .tri-title { color: #f87171; }
+  .tri-good .tri-title { color: #4ade80; }
+  .tri-item { font-size: 0.82rem; margin: 2px 0; }
+  .plus { color: #4ade80; }
+  .minus { color: #f87171; }
+
+  /* ADW pattern */
+  .adw-pattern { background: #1e1b4b; border: 1px solid #6366f1; border-radius: 10px; padding: 1rem; margin: 1rem 0; }
+  .adw-row { display: flex; align-items: center; gap: 0.5rem; margin: 0.4rem 0; font-size: 0.88rem; }
+  .adw-det { background: #312e81; color: #a5b4fc; border-radius: 5px; padding: 2px 8px; font-size: 0.82rem; }
+  .adw-non { background: #0c1a3b; color: #7dd3fc; border-radius: 5px; padding: 2px 8px; font-size: 0.82rem; }
+  .adw-arrow { color: #6366f1; }
+
+  /* Workflows */
+  .wf-row { display: flex; align-items: center; gap: 0.3rem; margin: 0.5rem 0; flex-wrap: wrap; }
+  .wf-step { background: #1e1b4b; border: 1px solid #6366f1; border-radius: 6px; padding: 0.3rem 0.8rem; color: #a5b4fc; font-size: 0.85rem; font-weight: bold; }
+  .wf-arrow { color: #6366f1; font-size: 1rem; }
+  .wf-label { color: #64748b; font-size: 0.78rem; margin-right: 0.5rem; }
+  .wf-cond { background: #1a2a1a; border: 1px dashed #4ade80; border-radius: 6px; padding: 0.3rem 0.8rem; color: #86efac; font-size: 0.82rem; }
+
+  /* Lifecycle */
+  .lifecycle { background: #0f172a; border: 1px solid #6366f1; border-radius: 8px; padding: 1rem; margin: 0.8rem 0; direction: ltr; text-align: left; }
+  .lc-line { font-size: 0.85rem; margin: 3px 0; }
+  .lc-det { color: #a5b4fc; }
+  .lc-non { color: #7dd3fc; }
+  .lc-com { color: #4ade80; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>⚙️ Level 9: AI Developer Workflows (ADWs)</h1>
+<p class="subtitle">Class 2, Gear 2 — Deterministic code orchestrating non-deterministic Agents</p>
+
+<div class="quote">
+  "Deterministic code orchestrating non-deterministic Agents. The highest leverage point in Agentic programming."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> The Hybrid Architecture</h2>
+
+<div class="tri-grid">
+  <div class="tri-card tri-bad1">
+    <div class="tri-title">Pure Code</div>
+    <div class="tri-item plus">✅ Predictable and fast</div>
+    <div class="tri-item plus">✅ Testable</div>
+    <div class="tri-item minus">❌ Can't handle new problems</div>
+    <div class="tri-item minus">❌ Brittle to change</div>
+  </div>
+  <div class="tri-card tri-bad2">
+    <div class="tri-title">Pure Agent</div>
+    <div class="tri-item plus">✅ Creative and adaptive</div>
+    <div class="tri-item plus">✅ Handles ambiguity</div>
+    <div class="tri-item minus">❌ Loses context</div>
+    <div class="tri-item minus">❌ Skips steps</div>
+  </div>
+  <div class="tri-card tri-good">
+    <div class="tri-title">🏆 ADW (Hybrid)</div>
+    <div class="tri-item plus">✅ Predictable structure</div>
+    <div class="tri-item plus">✅ Creative execution</div>
+    <div class="tri-item plus">✅ Can't skip steps</div>
+    <div class="tri-item plus">✅ Complete audit trail</div>
+  </div>
+</div>
+
+<div class="adw-pattern">
+  <p style="color:#a5b4fc; font-weight:bold; margin-bottom:0.6rem">ADW Pattern:</p>
+  <div class="adw-row">
+    <span class="adw-det">Python (Deterministic)</span>
+    <span class="adw-arrow">→</span>
+    <span style="color:#94a3b8; font-size:0.85rem">The Skeleton — ensures step sequence</span>
+  </div>
+  <div class="adw-row">
+    <span class="adw-non">Model (Non-deterministic)</span>
+    <span class="adw-arrow">→</span>
+    <span style="color:#94a3b8; font-size:0.85rem">The Brain — thinks and writes code</span>
+  </div>
+  <p style="color:#64748b; font-size:0.82rem; margin-top:0.5rem">The Skeleton guarantees the Brain won't skip or reorder any steps.</p>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Trying to execute multi-step workflows using only prompt engineering. "First plan, then build, then review" in a single prompt is just a suggestion — the Agent will ignore it.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">2</span> Step Lifecycle</h2>
+
+<div class="lifecycle">
+  <div class="lc-line lc-det">log_step_start(step_name)  # Always happens</div>
+  <div class="lc-line" style="color:#475569">    │</div>
+  <div class="lc-line lc-non">    ├── Construct prompt for this step</div>
+  <div class="lc-line lc-non">    ├── subprocess.run(["pi", "-p", command])</div>
+  <div class="lc-line lc-non">    ├── Capture stdout/stderr + exit code</div>
+  <div class="lc-line" style="color:#475569">    │</div>
+  <div class="lc-line lc-det">log_step_end(step_name, result)  # Always happens</div>
+</div>
+
+<p>This gives you three things a Pure Agent lacks:</p>
+<ul>
+  <li><strong>Full Observability</strong> — timestamped logs for the start and end of each step</li>
+  <li><strong>Clear Boundaries</strong> — each step is a new model invocation, no context leakage</li>
+  <li><strong>Retryability</strong> — you can retry just one failed step</li>
+</ul>
+
+<hr>
+
+<h2><span class="section-num">3</span> Workflow Compositions</h2>
+
+<div class="wf-row">
+  <span class="wf-label">2 Steps:</span>
+  <span class="wf-step">Plan</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Build</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-left:0.5rem">For quick features</span>
+</div>
+
+<div class="wf-row">
+  <span class="wf-label">3 Steps:</span>
+  <span class="wf-step">Plan</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Build</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Review</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-left:0.5rem">With Quality Assurance</span>
+</div>
+
+<div class="wf-row">
+  <span class="wf-label">4 Steps:</span>
+  <span class="wf-step">Plan</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Build</span><span class="wf-arrow">→</span>
+  <span class="wf-step">Review</span><span class="wf-arrow">→</span>
+  <span class="wf-cond">Fix (If FAIL)</span>
+  <span style="color:#64748b; font-size:0.78rem; margin-left:0.5rem">Full automation with self-healing</span>
+</div>
+
+<h3>🔀 Conditional Fix Pattern:</h3>
+<pre>review_result = run_step("review")
+if review_result.verdict == "FAIL":
+    run_step("fix")
+    run_step("review")  # Re-review after fixing
+    # Maximum retry limit — usually 2-3</pre>
+
+<p style="color:#94a3b8; font-size:0.85rem">Python makes the conditional decision. The Model only executes within boundaries.</p>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>A review-fix-review loop without a maximum limit. Always set a retry limit — if the Agent fails to fix it in 3 attempts, it needs human intervention.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">4</span> File Structure</h2>
+<pre>adws/
+  adw_modules/
+    adw_runner.py          # The engine — executes steps with logging
+    adw_logger.py          # Writes timestamped JSON logs
+  adw_workflows/
+    adw_plan_build.py           # 2 steps
+    adw_plan_build_review.py    # 3 steps
+    adw_plan_build_review_fix.py # 4 steps + condition
+  adw_triggers/
+    run_adw.py             # CLI trigger
+    run_adw_background.py  # Background execution</pre>
+
+<hr>
+
+<h2><span class="section-num">5</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create Logger Module</div>
+    <p>Create <code>adw_logger.py</code> — writes JSON logs for each step (timestamp + step name + event type + result). One JSON string per event line.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create Runner Module</div>
+    <p>Create <code>adw_runner.py</code> — takes a list of steps, executes each step with <code>subprocess.run(["pi", "-p", command])</code>, and logs before and after.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create 2-Step Workflow</div>
+    <p>Create <code>adw_plan_build.py</code>:</p>
+    <pre>STEPS = [
+    {"name": "plan", "command": "/plan", ...},
+    {"name": "build", "command": "/build", ...}
+]
+runner.run(steps=STEPS, prompt=user_prompt)</pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Add Review → 3 steps</div>
+    <p>Create <code>adw_plan_build_review.py</code> — same as the 2-step + adds <code>/review</code> as a third step.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-title">Add Conditional Fix → 4 steps</div>
+    <p>Create <code>adw_plan_build_review_fix.py</code> — if Review = FAIL, run Fix then review again. With a retry limit.</p>
+  </div>
+</div>
+
+<h3>🧪 Testing:</h3>
+<pre>python adws/adw_triggers/run_adw.py \
+    --workflow plan_build \
+    --prompt "Add task filtering by status" \
+    --working-dir /path/to/workshop/app</pre>
+
+<hr>
+
+<h2><span class="section-num">6</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🤝</span><span><strong>Deterministic wraps non-deterministic</strong> — Python controls the flow, the Model controls the thinking. Neither can do the other's job well.</span></div>
+<div class="takeaway"><span class="icon">🚧</span><span><strong>Steps are boundaries, not suggestions</strong> — each step is a separate process invocation. It is impossible for the Agent to skip them.</span></div>
+<div class="takeaway"><span class="icon">👁️</span><span><strong>Observability is built-in</strong> — step lifecycle logging means you always know what happened and when.</span></div>
+<div class="takeaway"><span class="icon">🧩</span><span><strong>Composition = Extensibility</strong> — New workflows are just new step lists. Infrastructure is reused.</span></div>
+<div class="takeaway"><span class="icon">🐍</span><span><strong>Conditional Logic in Python</strong> — Run Fix? Python decides. Is execution creative? The Model decides.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #6366f1;">
+  💡 <strong>Summary of the 9 Levels</strong><br>
+  L1-L7: Building and equipping the Agent 🏗️<br>
+  L8: The Agent responds to events 🌐<br>
+  L9: Python orchestrates the Agent reliably ⚙️
+</div>
+
+</body>
+</html>

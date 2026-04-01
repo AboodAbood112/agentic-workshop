@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 2rem;
+    line-height: 1.8;
+    direction: ltr;
+    text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #a78bfa; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #8b5cf6; margin: 1.8rem 0 0.8rem; border-left: 4px solid #8b5cf6; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote {
+    background: #1e293b;
+    border-left: 4px solid #a78bfa;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-style: italic;
+    margin: 1rem 0;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #2e1065; color: #a78bfa; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre {
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-size: 0.82rem;
+    color: #a3e635;
+    direction: ltr;
+    text-align: left;
+    overflow-x: auto;
+    margin: 0.5rem 0;
+  }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num {
+    display: inline-block; background: #8b5cf6; color: #fff;
+    border-radius: 50%; width: 26px; height: 26px;
+    text-align: center; line-height: 26px; font-weight: bold;
+    margin-right: 0.5rem; font-size: 0.9rem;
+  }
+  .step {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem;
+    margin: 0.5rem 0; border: 1px solid #334155;
+  }
+  .step-num {
+    background: #8b5cf6; color: #fff; border-radius: 50%;
+    width: 28px; height: 28px; display: flex; align-items: center;
+    justify-content: center; font-weight: bold; font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .step-content { flex: 1; }
+  .step-title { color: #a78bfa; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  .takeaway .icon { font-size: 1.1rem; flex-shrink: 0; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  .pill {
+    display: inline-block; background: #2e1065; color: #a78bfa;
+    border-radius: 20px; padding: 2px 10px; font-size: 0.8rem; margin: 2px;
+  }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🤖 Level 2: Sub-Agents, Plans & AI Docs</h1>
+<p class="subtitle">Class 1, Gear 2 — Empowering the Agent with specialists, knowledge, and workflows</p>
+
+<div class="quote">
+  "A single Agent trying to do everything is like a single engineer trying to be the Architect, Frontend, Backend, and QA all at once."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> What are Sub-Agents?</h2>
+<p>They are <strong>specialized prompt files</strong> that live in <code>.pi/prompts/agents/</code> — each one defines a specialized expert with a specific goal, limited tools, and clear steps.</p>
+
+<h3>📋 Sub-Agent File Format:</h3>
+<pre>---
+name: agent-name
+description: Action-oriented description. Use proactively when...
+tools: Read, Write, Bash
+model: sonnet
+---
+
+# Purpose
+You are a specialized [role]. Your job is to [primary task].
+
+## Instructions
+1. Step one
+2. Step two
+
+## Output Format
+Describe what the agent produces.</pre>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Giving sub-agents too many tools. Start with the minimum tools possible.</p>
+</div>
+
+<h3>🗂️ Examples of Sub-Agents:</h3>
+<table>
+  <tr><th>Agent</th><th>Goal</th><th>Tools</th></tr>
+  <tr><td><code>meta-agent</code></td><td>Creates new agents</td><td>Write, WebFetch</td></tr>
+  <tr><td><code>docs-scraper</code></td><td>Fetches and summarizes docs</td><td>WebFetch, Write, Read, Glob</td></tr>
+  <tr><td><code>code-reviewer</code></td><td>Reviews code quality</td><td>Read, Grep, Glob</td></tr>
+  <tr><td><code>test-writer</code></td><td>Generates test files</td><td>Read, Write, Bash</td></tr>
+</table>
+
+<hr>
+
+<h2><span class="section-num">2</span> What are AI Docs?</h2>
+<p>They are <strong>specialized knowledge files</strong> stored in <code>ai_docs/</code> — they give the Agent a deep understanding of the system.</p>
+<ul>
+  <li><strong>AGENTS.md</strong> → Tells the Agent what the project is and how to run it</li>
+  <li><strong>AI Docs</strong> → Tells it how the system works internally and why it was built this way</li>
+</ul>
+
+<h3>📁 Typical Files:</h3>
+<table>
+  <tr><th>File</th><th>Content</th></tr>
+  <tr><td><code>architecture.md</code></td><td>Overview, data flow, technical decisions</td></tr>
+  <tr><td><code>api-reference.md</code></td><td>Every endpoint documented with request and response</td></tr>
+  <tr><td><code>component-guide.md</code></td><td>Design system components with props and variants</td></tr>
+</table>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Cramming AI Docs content inside AGENTS.md. AGENTS.md should be 30-50 lines only. Keep them separate.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">3</span> What are Plan Commands?</h2>
+<p>They are <strong>reusable workflows</strong> stored in <code>.pi/prompts/</code> — invoked with <code>/</code> like <code>/prime</code> or <code>/quick-plan</code>.</p>
+
+<h3>📋 Command File Format:</h3>
+<pre>---
+description: What this command does
+argument-hint: &lt;optional description&gt;
+---
+
+# Command Name
+Instructions for the agent to follow.
+Use $ARGUMENTS to reference user input.</pre>
+
+<p style="margin-top:0.8rem">Example: <code>/quick-plan add a priority filter to the task list</code> — everything after the command name becomes <code>$ARGUMENTS</code></p>
+
+<hr>
+
+<h2><span class="section-num">4</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create the meta-agent</div>
+    <p>Create <code>.pi/prompts/agents/meta-agent.md</code> — its only job is to create other agents.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create the docs-scraper agent</div>
+    <p>Create <code>.pi/prompts/agents/docs-scraper.md</code> — it fetches documentation from URLs and saves structured summaries.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create AI Docs for TaskFlow</div>
+    <p>Create 3 files in <code>ai_docs/</code>: <code>architecture.md</code>, <code>api-reference.md</code>, <code>component-guide.md</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Create Plan Commands</div>
+    <p>Create 3 commands in <code>.pi/prompts/</code>: <code>prime.md</code>, <code>quick-plan.md</code>, <code>load_ai_docs.md</code></p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-title">Test the Commands</div>
+    <p>Try <code>/prime</code> and <code>/quick-plan add a search feature to TaskFlow</code> — does it give organized and useful results?</p>
+  </div>
+</div>
+
+<h3>🔍 Checking your version:</h3>
+<pre>ls .pi/prompts/agents/   # meta-agent.md  docs-scraper.md
+ls .pi/prompts/          # prime.md  quick-plan.md  load_ai_docs.md
+ls ai_docs/              # architecture.md  api-reference.md  component-guide.md
+head -5 .pi/prompts/agents/meta-agent.md  # correct frontmatter</pre>
+
+<hr>
+
+<h2><span class="section-num">5</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🧑‍💼</span><span><strong>Sub-agents = Specialists</strong> — each one does one thing excellently with minimal tools.</span></div>
+<div class="takeaway"><span class="icon">📚</span><span><strong>AI Docs = Knowledge Base</strong> — tells the Agent how the system works, not just how to run it.</span></div>
+<div class="takeaway"><span class="icon">⚡</span><span><strong>Commands = Ready Workflows</strong> — turns multiple steps into a single command that produces consistent results.</span></div>
+<div class="takeaway"><span class="icon">🔀</span><span><strong>Together they enable parallel work</strong> — multiple agents working on different things simultaneously.</span></div>
+<div class="takeaway"><span class="icon">🗂️</span><span><strong>Separation of Concerns</strong> — AGENTS.md for context, ai_docs for knowledge, commands for workflows, agents for specialization.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #8b5cf6;">
+  💡 <strong>Difference between Level 1 and Level 2</strong><br>
+  Level 1: You gave the Agent a briefing document 📄<br>
+  Level 2: You gave it a specialized team + knowledge base + standard procedures 🚀
+</div>
+
+</body>
+</html>

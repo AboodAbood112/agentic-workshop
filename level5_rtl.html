@@ -52,6 +52,20 @@
   .anatomy-row { display: flex; gap: 0.8rem; padding: 0.3rem 0; border-bottom: 1px solid #1e293b; font-size: 0.9rem; }
   .anatomy-key { color: #e879f9; font-weight: bold; min-width: 130px; flex-shrink: 0; }
   .anatomy-val { color: #cbd5e1; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
 </style>
 </head>
 <body>

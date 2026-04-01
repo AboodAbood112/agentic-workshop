@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: ltr; text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #e879f9; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #d946ef; margin: 1.8rem 0 0.8rem; border-left: 4px solid #d946ef; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-left: 4px solid #e879f9; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #4a044e; color: #e879f9; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #d946ef; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-right: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #d946ef; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #e879f9; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+  .wf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 0.8rem 0; }
+  .wf-card { background: #1e293b; border-radius: 10px; padding: 1rem; border: 1px solid #334155; }
+  .wf-title { font-weight: bold; font-size: 1rem; margin-bottom: 0.5rem; }
+  .wf-bug { border-top: 3px solid #f87171; }
+  .wf-feature { border-top: 3px solid #38bdf8; }
+  .wf-chore { border-top: 3px solid #facc15; }
+  .wf-plan { border-top: 3px solid #4ade80; }
+  .wf-bug .wf-title { color: #f87171; }
+  .wf-feature .wf-title { color: #38bdf8; }
+  .wf-chore .wf-title { color: #facc15; }
+  .wf-plan .wf-title { color: #4ade80; }
+  .badge { display: inline-block; border-radius: 20px; padding: 2px 10px; font-size: 0.78rem; margin: 2px; }
+  .badge-red { background: #450a0a; color: #f87171; }
+  .badge-blue { background: #0c1a3b; color: #38bdf8; }
+  .badge-yellow { background: #422006; color: #facc15; }
+  .badge-green { background: #052e16; color: #4ade80; }
+  .anatomy { background: #0f172a; border: 1px solid #4a044e; border-radius: 8px; padding: 1rem; margin: 0.8rem 0; }
+  .anatomy-row { display: flex; gap: 0.8rem; padding: 0.3rem 0; border-bottom: 1px solid #1e293b; font-size: 0.9rem; }
+  .anatomy-key { color: #e879f9; font-weight: bold; min-width: 130px; flex-shrink: 0; }
+  .anatomy-val { color: #cbd5e1; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>📋 Level 5: Bug, Feature & Chore Templates</h1>
+<p class="subtitle">Class 1, Gear 5 — Different work = Different workflows</p>
+
+<div class="quote">
+  "A bug fix that starts with a refactor is a bug fix that will never ship."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> The Problem: One Agent for everything</h2>
+<p>Without templates, "fix this bug" and "build this feature" are treated exactly the same by the Agent — and that's wrong.</p>
+
+<table>
+  <tr><th>Work Type</th><th>Primary Goal</th><th>Key Differentiator</th></tr>
+  <tr><td>🐛 Bug</td><td>Fix broken behavior</td><td>Reproduction first, regression test required</td></tr>
+  <tr><td>✨ Feature</td><td>Add new capability</td><td>Spec-driven, plan then build</td></tr>
+  <tr><td>🔧 Chore</td><td>Maintenance & cleanup</td><td>Assess first, verify after execution</td></tr>
+  <tr><td>📐 Plan</td><td>Design the approach</td><td>Read-only, produces a Spec file</td></tr>
+</table>
+
+<hr>
+
+<h2><span class="section-num">2</span> Anatomy of a Template</h2>
+
+<div class="anatomy">
+  <div class="anatomy-row"><span class="anatomy-key">frontmatter</span><span class="anatomy-val">description + argument-hint → makes the command discoverable in the menu</span></div>
+  <div class="anatomy-row"><span class="anatomy-key">Variables</span><span class="anatomy-val"><code>$1</code> for the first input, <code>$2</code> for an optional input</span></div>
+  <div class="anatomy-row"><span class="anatomy-key">Instructions</span><span class="anatomy-val">Strict constraints on the Agent's behavior</span></div>
+  <div class="anatomy-row"><span class="anatomy-key">Workflow</span><span class="anatomy-val">Numbered sequential steps — detailed and binding</span></div>
+  <div class="anatomy-row"><span class="anatomy-key">Report</span><span class="anatomy-val">Structured output format — consistent in every invocation</span></div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">3</span> The Four Patterns</h2>
+
+<div class="wf-grid">
+  <div class="wf-card wf-bug">
+    <div class="wf-title">🐛 /bug — Reproduction First</div>
+    <span class="badge badge-red">1. Reproduce</span>
+    <span class="badge badge-red">2. Isolate</span>
+    <span class="badge badge-red">3. Fix</span>
+    <span class="badge badge-red">4. Verify</span>
+    <span class="badge badge-red">5. Regression Test</span>
+    <p style="margin-top:0.6rem; font-size:0.85rem; color:#fca5a5">⚠️ Strict constraint: Minimal fix only — no refactoring surrounding code</p>
+  </div>
+  <div class="wf-card wf-feature">
+    <div class="wf-title">✨ /feature — Spec First</div>
+    <span class="badge badge-blue">1. Spec</span>
+    <span class="badge badge-blue">2. Plan</span>
+    <span class="badge badge-blue">3. Build</span>
+    <span class="badge badge-blue">4. Test</span>
+    <span class="badge badge-blue">5. Review</span>
+    <p style="margin-top:0.6rem; font-size:0.85rem; color:#7dd3fc">🎛️ SCOPE variable: <code>"spec"</code> | <code>"plan"</code> | <code>"full"</code></p>
+  </div>
+  <div class="wf-card wf-chore">
+    <div class="wf-title">🔧 /chore — Assess First</div>
+    <span class="badge badge-yellow">1. Assess</span>
+    <span class="badge badge-yellow">2. Execute</span>
+    <span class="badge badge-yellow">3. Validate</span>
+    <span class="badge badge-yellow">4. Document</span>
+    <p style="margin-top:0.6rem; font-size:0.85rem; color:#fde047">⚠️ No change in user-visible behavior unless that is the explicit goal</p>
+  </div>
+  <div class="wf-card wf-plan">
+    <div class="wf-title">📐 /plan — Read Only</div>
+    <span class="badge badge-green">1. Understand Requirements</span>
+    <span class="badge badge-green">2. Read Context</span>
+    <span class="badge badge-green">3. Write Spec</span>
+    <p style="margin-top:0.6rem; font-size:0.85rem; color:#86efac">🔒 Absolute constraint: Do not write code, never modify a file</p>
+    <p style="font-size:0.85rem; color:#86efac">📁 Produces: <code>specs/&lt;name&gt;.md</code></p>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">4</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create the folder</div>
+    <pre>mkdir -p workshop/app/.pi/prompts/</pre>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create /bug template</div>
+    <p>Create <code>bug.md</code> — 5 steps, strict constraint: "Do not pass the reproduction step, and if it fails stop and report".</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create /feature template</div>
+    <p>Create <code>feature.md</code> — 2 variables: <code>$1</code> description, <code>$2</code> scope (default: <code>"full"</code>). The Spec is saved in <code>specs/</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Create /chore template</div>
+    <p>Create <code>chore.md</code> — 4 steps. Validate step runs: <code>bun run check</code> + <code>bun run lint</code> + <code>bun test</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-title">Create /plan template</div>
+    <p>Create <code>plan.md</code> — Read-only. Spec includes: Goal, Requirements, Technical Approach, Implementation Steps, Testing, Risks.</p>
+  </div>
+</div>
+
+<h3>🧪 Testing Templates:</h3>
+<pre>/bug "Tasks with status 'done' still appear in the 'To Do' filter"
+/feature "Add task labels/tags with filtering" "spec"
+/chore "Add input validation to all API endpoints"
+/plan "Add task categories with color coding"</pre>
+
+<hr>
+
+<h2><span class="section-num">5</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🎯</span><span><strong>Different work = Different workflow</strong> — Bug needs reproduction, Feature needs a Spec, Chore needs assessment.</span></div>
+<div class="takeaway"><span class="icon">📏</span><span><strong>Templates encode best practices</strong> — Every invocation follows the same good methodology, regardless of who invokes it.</span></div>
+<div class="takeaway"><span class="icon">🎛️</span><span><strong>Variables provide flexibility</strong> — <code>$1</code> for input, <code>$2</code> for scope or optional context.</span></div>
+<div class="takeaway"><span class="icon">🔍</span><span><strong>Frontmatter aids discovery</strong> — The description appears in the command menu when typing <code>/</code>.</span></div>
+<div class="takeaway"><span class="icon">📊</span><span><strong>Structured reports ensure consistency</strong> — Every invocation produces the same report format.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #d946ef;">
+  💡 <strong>Summary of the 5 Levels</strong><br>
+  L1: Brief the Agent 📄 &nbsp;|&nbsp; L2: Team + Knowledge 👥 &nbsp;|&nbsp; L3: Expand Capabilities 🔧<br>
+  L4: Closed Loop Verification 🔁 &nbsp;|&nbsp; L5: Custom workflow for each work type 📋
+</div>
+
+</body>
+</html>

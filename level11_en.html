@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: ltr; text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #2dd4bf; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #14b8a6; margin: 1.8rem 0 0.8rem; border-left: 4px solid #14b8a6; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-left: 4px solid #2dd4bf; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #042f2e; color: #2dd4bf; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #14b8a6; color: #fff; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-right: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #14b8a6; color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #2dd4bf; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Worker agents */
+  .workers { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  .worker { background: #1e293b; border-radius: 8px; padding: 0.8rem; }
+  .w-scout { border-top: 3px solid #38bdf8; }
+  .w-plan  { border-top: 3px solid #a78bfa; }
+  .w-build { border-top: 3px solid #4ade80; }
+  .w-rev   { border-top: 3px solid #f87171; }
+  .w-title { font-weight: bold; font-size: 0.92rem; margin-bottom: 0.4rem; }
+  .w-scout .w-title { color: #38bdf8; }
+  .w-plan  .w-title { color: #a78bfa; }
+  .w-build .w-title { color: #4ade80; }
+  .w-rev   .w-title { color: #f87171; }
+  .w-row { font-size: 0.82rem; color: #94a3b8; margin: 2px 0; }
+  .w-row span { color: #e2e8f0; }
+
+  /* 5-phase flow */
+  .phases { margin: 0.8rem 0; }
+  .phase { display: flex; gap: 0.7rem; align-items: flex-start; margin: 0.4rem 0; }
+  .phase-badge { min-width: 90px; background: #042f2e; border: 1px solid #14b8a6; border-radius: 6px; padding: 0.3rem 0.6rem; text-align: center; font-size: 0.8rem; color: #2dd4bf; font-weight: bold; flex-shrink: 0; }
+  .phase-badge.cond { background: #1a2a1a; border-color: #4ade80; color: #86efac; }
+  .phase-content { font-size: 0.85rem; color: #94a3b8; padding-top: 0.2rem; }
+  .phase-content span { color: #e2e8f0; }
+  .decision { background: #422006; border: 1px dashed #f59e0b; border-radius: 6px; padding: 0.3rem 0.8rem; font-size: 0.8rem; color: #fbbf24; margin: 0.2rem 0 0.2rem 0; display: inline-block; }
+
+  /* Context flow */
+  .ctx-flow { background: #0f172a; border: 1px solid #14b8a6; border-radius: 8px; padding: 1rem; margin: 0.8rem 0; direction: ltr; text-align: left; font-size: 0.82rem; }
+  .ctx-agent { color: #2dd4bf; font-weight: bold; }
+  .ctx-gets { color: #94a3b8; }
+  .ctx-data { color: #86efac; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🎻 Level 11: Orchestrator Developer Workflows</h1>
+<p class="subtitle">Class 3, Gear 2 — The Orchestrator Drives a Full Development Workflow</p>
+
+<div class="quote">
+  "The Orchestrator doesn't just manage Agents — it leads a complete development workflow, creating specialized teams for different problems."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> From a Single Agent to a Complete Workflow</h2>
+
+<div class="card" style="border-color:#f87171">
+  <p style="color:#f87171; font-weight:bold">Level 10 — One Agent at a time:</p>
+  <pre style="font-size:0.8rem">Orchestrator → create("builder") → command("build X") → done</pre>
+</div>
+
+<div class="card" style="border-color:#4ade80">
+  <p style="color:#4ade80; font-weight:bold">Level 11 — Integrated Workflow:</p>
+  <pre style="font-size:0.8rem">Orchestrator → Scout Phase (Parallel exploration)
+            → Plan Phase  (With Scout results)
+            → Build Phase (With approved plan)
+            → Review Phase (Quality check)
+            → Fix Phase   (If review fails)
+            → Report      (Comprehensive final report)</pre>
+</div>
+
+<div class="quote" style="border-color:#4ade80">
+  💡 Difference: A manager delegating tasks vs. an orchestra conductor ensuring harmony among instruments
+</div>
+
+<hr>
+
+<h2><span class="section-num">2</span> Designing Specialized Worker Agents</h2>
+<p style="color:#94a3b8; font-size:0.9rem; margin-bottom:0.8rem">Principle: Fewest possible tools for each job — extra tools = temptation to stray from the task</p>
+
+<div class="workers">
+  <div class="worker w-scout">
+    <div class="w-title">🔍 Scout — Exploration</div>
+    <div class="w-row">Tools: <span>Read, Grep, Glob only</span></div>
+    <div class="w-row">Model: <span>Fast and lightweight (Cheap)</span></div>
+    <div class="w-row">Output: <span>Relevant files + patterns + suggestion</span></div>
+    <div class="w-row" style="color:#ef4444; font-size:0.78rem">❌ Never any write tools</div>
+  </div>
+  <div class="worker w-plan">
+    <div class="w-title">📐 Planner — Planning</div>
+    <div class="w-row">Tools: <span>Read, Write (specs only), Shell</span></div>
+    <div class="w-row">Model: <span>Powerful (Deep thinking)</span></div>
+    <div class="w-row">Output: <span>Structured execution plan in specs/</span></div>
+    <div class="w-row" style="color:#ef4444; font-size:0.78rem">❌ Does not execute — plans only</div>
+  </div>
+  <div class="worker w-build">
+    <div class="w-title">🔨 Builder — Execution</div>
+    <div class="w-row">Tools: <span>Read, Write, Edit, Shell, Tests</span></div>
+    <div class="w-row">Model: <span>Most capable (Most expensive)</span></div>
+    <div class="w-row">Output: <span>Modified files + build report</span></div>
+    <div class="w-row" style="color:#fbbf24; font-size:0.78rem">⚡ Executes the plan precisely — no improvisation</div>
+  </div>
+  <div class="worker w-rev">
+    <div class="w-title">🔎 Reviewer — Review</div>
+    <div class="w-row">Tools: <span>Read, Shell (tests/lint)</span></div>
+    <div class="w-row">Model: <span>Powerful (Deep code understanding)</span></div>
+    <div class="w-row">Output: <span>PASS/FAIL + structured results</span></div>
+    <div class="w-row" style="color:#ef4444; font-size:0.78rem">❌ No write tools — independent reviewer</div>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">3</span> The Pentagonal Workflow — 5 Phases</h2>
+
+<div class="phases">
+  <div class="phase">
+    <div class="phase-badge">Phase 1<br>Scout</div>
+    <div class="phase-content">3 Parallel Scouts: <span>src/ + tests/ + configs/</span><br>Merge results into a single report</div>
+  </div>
+  <div style="margin-left:0.5rem"><span class="decision">🤔 Decision: Are Scout results sufficient? Yes → Continue</span></div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 2<br>Plan</div>
+    <div class="phase-content">Input: <span>User request + Scout report</span><br>Output: Execution plan in <code>specs/</code></div>
+  </div>
+  <div style="margin-left:0.5rem"><span class="decision">🤔 Decision: Is the plan complete? Yes → Continue</span></div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 3<br>Build</div>
+    <div class="phase-content">Input: <span>Plan only</span> (No raw Scout data)<br>Output: Modified files + passing tests</div>
+  </div>
+  <div style="margin-left:0.5rem"><span class="decision">🤔 Decision: Did the build succeed? Yes → Continue</span></div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 4<br>Review</div>
+    <div class="phase-content">Input: <span>Changes and diff only</span><br>Output: PASS ✅ or FAIL ❌ + results</div>
+  </div>
+  <div style="margin-left:0.5rem"><span class="decision">🤔 Decision: PASS or FAIL?</span></div>
+
+  <div class="phase">
+    <div class="phase-badge cond">Phase 4.5<br>Fix (Conditional)</div>
+    <div class="phase-content">Only if FAIL — fixes then re-reviews</div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-badge">Phase 5<br>Report</div>
+    <div class="phase-content">Gathers: <span>Scout + Plan + Build + Review + Fix</span><br>→ Comprehensive final report to the user</div>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">4</span> Context Rule: Each Agent Sees a Curated Slice</h2>
+
+<div class="ctx-flow">
+  <div class="ctx-agent">Scout</div>
+  <div class="ctx-gets">   Receives: </div><div class="ctx-data">   User request + Target folder only</div>
+  <br>
+  <div class="ctx-agent">Planner</div>
+  <div class="ctx-gets">   Receives: </div><div class="ctx-data">   User request + Scout results (summarized)</div>
+  <br>
+  <div class="ctx-agent">Builder</div>
+  <div class="ctx-gets">   Receives: </div><div class="ctx-data">   Plan only — no Scout, no Planner thoughts</div>
+  <br>
+  <div class="ctx-agent">Reviewer</div>
+  <div class="ctx-gets">   Receives: </div><div class="ctx-data">   Changes and diff only — no plan, no context</div>
+  <br>
+  <div class="ctx-agent" style="color:#fbbf24">Orchestrator</div>
+  <div class="ctx-gets">   Sees: </div><div class="ctx-data" style="color:#fbbf24">   Everything — it is the central memory</div>
+</div>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Passing all context to every Agent. The Orchestrator summarizes and curates — it doesn't pile on. A 500-line Scout → Builder needs only the key findings.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">5</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create Scout Skill</div>
+    <p>Create <code>.pi/skills/scout-report-suggest/SKILL.md</code> — Read-only, lightweight model, 3 read-oriented tools. Output: Relevant files + patterns + approach suggestion.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create Planner Skill</div>
+    <p>Create <code>.pi/skills/planner/SKILL.md</code> — Powerful model for deep thinking. Reads the codebase, writes the plan in <code>specs/</code>. No execution — planning only.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create Builder Skill</div>
+    <p>Create <code>.pi/skills/build-agent/SKILL.md</code> — Full tools + most powerful model. Executes the plan precisely, runs tests, reports what changed.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Create 5-Phase Workflow Command</div>
+    <p>Create <code>orch_plan_w_scouts_build_review.md</code> — 5 explicit phases with decision points between each. Phase 1 has three Scouts in parallel.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-title">Create Multi-Team Command</div>
+    <p>Create <code>orch_multi_team.md</code> — Parallel teams for different streams (Frontend + Backend). Coordinates shared contracts (API interface) between teams.</p>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">6</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🎼</span><span><strong>Driven Workflows > Managed Agents</strong> — 5 phases with decision points are far more powerful than individual Agents.</span></div>
+<div class="takeaway"><span class="icon">🎯</span><span><strong>Minimal Capabilities per Agent</strong> — Scout reads. Planner plans. Builder executes. Reviewer evaluates. Every extra tool = temptation to deviate.</span></div>
+<div class="takeaway"><span class="icon">✂️</span><span><strong>Context Curation is the Orchestrator's Job</strong> — Don't overload every Agent. Give each only what it needs.</span></div>
+<div class="takeaway"><span class="icon">🔀</span><span><strong>Decision Points Make the Workflow Adaptive</strong> — Without them, you have a shell script. With them, you have an intelligent system.</span></div>
+<div class="takeaway"><span class="icon">🚫</span><span><strong>The Orchestrator Doesn't Play</strong> — It doesn't write code, modify files, or run tests. It only delegates.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #14b8a6;">
+  💡 <strong>Summary of the 11 Levels</strong><br>
+  L1-L7: Building the Agent 🏗️ | L8: External Events 🌐 | L9: ADWs ⚙️<br>
+  L10: Orchestrator Manages Agents 🎼 | L11: Orchestrator Drives Full Workflows 🎻
+</div>
+
+</body>
+</html>

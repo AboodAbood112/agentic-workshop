@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: #0f172a; color: #e2e8f0;
+    padding: 2rem; line-height: 1.8;
+    direction: ltr; text-align: left;
+  }
+  h1 { font-size: 1.8rem; color: #67e8f9; margin-bottom: 0.3rem; }
+  h2 { font-size: 1.3rem; color: #22d3ee; margin: 1.8rem 0 0.8rem; border-left: 4px solid #22d3ee; padding-left: 0.7rem; }
+  h3 { font-size: 1.05rem; color: #94a3b8; margin: 1rem 0 0.4rem; }
+  .subtitle { color: #94a3b8; font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .quote { background: #1e293b; border-left: 4px solid #67e8f9; padding: 0.8rem 1rem; border-radius: 6px; color: #cbd5e1; font-style: italic; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; }
+  th { background: #083344; color: #67e8f9; padding: 0.6rem 1rem; text-align: left; }
+  td { background: #1e293b; padding: 0.6rem 1rem; border-bottom: 1px solid #334155; text-align: left; }
+  code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 0.85rem; color: #f472b6; }
+  pre { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 0.8rem 1rem; font-size: 0.82rem; color: #a3e635; direction: ltr; text-align: left; overflow-x: auto; margin: 0.5rem 0; }
+  .card { background: #1e293b; border-radius: 10px; padding: 1rem 1.2rem; margin: 0.8rem 0; border: 1px solid #334155; }
+  .warn { border-left: 4px solid #f59e0b; }
+  .warn-label { color: #fbbf24; font-weight: bold; font-size: 0.9rem; margin-bottom: 0.3rem; }
+  ul { padding-left: 1.4rem; margin: 0.5rem 0; }
+  li { margin: 0.3rem 0; color: #cbd5e1; }
+  .section-num { display: inline-block; background: #22d3ee; color: #0f172a; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; font-weight: bold; margin-right: 0.5rem; font-size: 0.9rem; }
+  .step { display: flex; align-items: flex-start; gap: 0.8rem; background: #1e293b; border-radius: 8px; padding: 0.8rem 1rem; margin: 0.5rem 0; border: 1px solid #334155; }
+  .step-num { background: #22d3ee; color: #0f172a; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+  .step-title { color: #67e8f9; font-weight: bold; margin-bottom: 0.2rem; }
+  .takeaway { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0.5rem 0; color: #cbd5e1; }
+  hr { border: none; border-top: 1px solid #334155; margin: 1.5rem 0; }
+
+  /* Chain diagram */
+  .chain { display: flex; align-items: center; gap: 0; flex-wrap: wrap; margin: 1rem 0; justify-content: center; }
+  .chain-box { background: #083344; border: 1px solid #22d3ee; border-radius: 8px; padding: 0.5rem 1rem; text-align: center; min-width: 110px; }
+  .chain-box .cmd { color: #67e8f9; font-weight: bold; font-size: 0.95rem; }
+  .chain-box .sub { color: #94a3b8; font-size: 0.78rem; margin-top: 2px; }
+  .chain-arrow { color: #22d3ee; font-size: 1.4rem; margin: 0 0.3rem; }
+  .chain-file { background: #1a2744; border: 1px dashed #38bdf8; border-radius: 6px; padding: 0.3rem 0.7rem; font-size: 0.78rem; color: #7dd3fc; text-align: center; margin: 0 0.2rem; }
+
+  /* Parallel agents */
+  .parallel { display: flex; gap: 0.6rem; margin: 0.8rem 0; }
+  .agent-box { flex: 1; background: #0c2a1e; border: 1px solid #4ade80; border-radius: 8px; padding: 0.7rem; text-align: center; }
+  .agent-title { color: #4ade80; font-weight: bold; font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .agent-sub { color: #86efac; font-size: 0.78rem; }
+
+  .prim-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7rem; margin: 0.8rem 0; }
+  .prim-card { background: #1e293b; border-radius: 8px; padding: 0.8rem; border-top: 3px solid #22d3ee; }
+  .prim-title { color: #67e8f9; font-weight: bold; margin-bottom: 0.4rem; font-size: 0.95rem; }
+  .prim-row { font-size: 0.82rem; color: #94a3b8; margin: 2px 0; }
+  .prim-val { color: #cbd5e1; }
+  /* Mobile Responsive Styles */
+  @media (max-width: 768px) {
+    body { padding: 1.5rem; }
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.15rem; }
+    h3 { font-size: 1rem; }
+  }
+  @media (max-width: 480px) {
+    body { padding: 1rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.1rem; margin: 1.2rem 0 0.6rem; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    pre { overflow-x: auto; }
+  }
+</style>
+</head>
+<body>
+
+<h1>⛓️ Level 6: Prompt Chains & Agentic Workflows</h1>
+<p class="subtitle">Class 1, Gear 6 — Composable Primitives, Powerful Chains</p>
+
+<div class="quote">
+  "A single command is a tool. A chain of commands is a workflow. The difference is leverage."
+</div>
+
+<hr>
+
+<h2><span class="section-num">1</span> What is Prompt Chaining?</h2>
+<p>A slash command invoking other commands in sequence, and passing data between them via files — instead of a massive command trying to do everything at once.</p>
+
+<div class="chain">
+  <div class="chain-box"><div class="cmd">/scout_plan_build</div><div class="sub">The Orchestrator</div></div>
+  <div style="width:100%; height:0.5rem"></div>
+</div>
+<div class="chain" style="margin-top:0.2rem">
+  <div class="chain-box"><div class="cmd">/scout</div><div class="sub">Searches in parallel</div></div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-file">relevant_files.md</div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-box"><div class="cmd">/plan_w_docs</div><div class="sub">Designs the Spec</div></div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-file">spec.md</div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-box"><div class="cmd">/build</div><div class="sub">Executes in parallel</div></div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">2</span> The Three Primitives</h2>
+
+<div class="prim-grid">
+  <div class="prim-card">
+    <div class="prim-title">🔍 Scout</div>
+    <div class="prim-row">Input: <span class="prim-val">Prompt + Scale</span></div>
+    <div class="prim-row">Output: <span class="prim-val">List of .md files</span></div>
+    <div class="prim-row">Goal: <span class="prim-val">Find relevant code</span></div>
+  </div>
+  <div class="prim-card">
+    <div class="prim-title">📐 Plan</div>
+    <div class="prim-row">Input: <span class="prim-val">Prompt + File list</span></div>
+    <div class="prim-row">Output: <span class="prim-val">Spec .md file</span></div>
+    <div class="prim-row">Goal: <span class="prim-val">Design the approach</span></div>
+  </div>
+  <div class="prim-card">
+    <div class="prim-title">🔨 Build</div>
+    <div class="prim-row">Input: <span class="prim-val">Spec file path</span></div>
+    <div class="prim-row">Output: <span class="prim-val">Code + Report</span></div>
+    <div class="prim-row">Goal: <span class="prim-val">Execute the plan</span></div>
+  </div>
+</div>
+
+<div class="quote" style="border-color:#4ade80">
+  💡 Every Primitive works standalone or within a Chain — the Chain is an addition, not a requirement.
+</div>
+
+<hr>
+
+<h2><span class="section-num">3</span> Passing Data Between Steps</h2>
+<p>The secret is passing the <strong>file path</strong> not its content — this keeps the context window clean.</p>
+
+<pre>Scout  →  agents/scout_files/relevant_files_XXX.md
+                        ↓ (path)
+Plan   →  specs/feature-name.md
+                        ↓ (path)
+Build  →  Code changes + Report</pre>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Building a massive command that combines Scout + Plan + Build in one prompt. The context window overflows, the Agent gets lost, quality degrades.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">4</span> Sub-Agents in Parallel via Task Tool</h2>
+<p>Instead of one Agent searching sequentially — Scout spawns multiple Agents searching at the same time:</p>
+
+<div class="parallel">
+  <div class="agent-box">
+    <div class="agent-title">Agent 1</div>
+    <div class="agent-sub">File Structure</div>
+    <div class="agent-sub">Glob</div>
+  </div>
+  <div class="agent-box">
+    <div class="agent-title">Agent 2</div>
+    <div class="agent-sub">Code Content</div>
+    <div class="agent-sub">Grep</div>
+  </div>
+  <div class="agent-box">
+    <div class="agent-title">Agent 3</div>
+    <div class="agent-sub">Dependencies</div>
+    <div class="agent-sub">Import tracing</div>
+  </div>
+</div>
+
+<p>Results are merged, duplicates are removed, and written into a single file.</p>
+
+<div class="card warn">
+  <p class="warn-label">⚠️ Common Mistake</p>
+  <p>Creating Sub-Agents without sufficient context. Each Agent starts from scratch — make every agent prompt self-contained: Query + Strategy + Output Format.</p>
+</div>
+
+<hr>
+
+<h2><span class="section-num">5</span> Practical Exercise Steps</h2>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-content">
+    <div class="step-title">Create /scout command</div>
+    <p>Create <code>scout.md</code> — 2 variables: <code>$1</code> prompt, <code>$2</code> scale (default: 3). Spawns Agents in parallel, merges results into <code>agents/scout_files/relevant_files_&lt;timestamp&gt;.md</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-content">
+    <div class="step-title">Create /plan_w_docs command</div>
+    <p>Create <code>plan_w_docs.md</code> — 3 variables: <code>$1</code> prompt, <code>$2</code> optional URLs, <code>$3</code> Scout file path. Works standalone or within a Chain. Writes Spec to <code>specs/</code>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-content">
+    <div class="step-title">Create /scout_plan_build orchestrator</div>
+    <p>Create <code>scout_plan_build.md</code> — calls all three sequentially via <code>SlashCommand()</code>. Important constraint: <em>"Do not pause between steps — finish the whole workflow before stopping"</em>.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">4</div>
+  <div class="step-content">
+    <div class="step-title">Create /build_in_parallel (Optional)</div>
+    <p>Create <code>build_in_parallel.md</code> — reads the Spec, categorizes steps: independent (parallel) vs sequential (await).</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">5</div>
+  <div class="step-content">
+    <div class="step-title">Test the full Chain</div>
+    <pre>/scout "Add task categories with color coding"
+/plan_w_docs "Add task categories" "" "agents/scout_files/relevant_files_*.md"
+/scout_plan_build "Add task categories with color coding"</pre>
+  </div>
+</div>
+
+<hr>
+
+<h2><span class="section-num">6</span> Key Takeaways</h2>
+
+<div class="takeaway"><span class="icon">🧩</span><span><strong>Composable Primitives > Massive Commands</strong> — Small commands that work independently and compose into workflows.</span></div>
+<div class="takeaway"><span class="icon">📁</span><span><strong>Passing Paths not Content</strong> — keeps the context window clean between steps.</span></div>
+<div class="takeaway"><span class="icon">⚡</span><span><strong>Task Tool for Parallelism</strong> — Multiple Agents searching simultaneously instead of sequentially.</span></div>
+<div class="takeaway"><span class="icon">🔗</span><span><strong>Chains Automate Handoffs</strong> — Instead of 3 copy/pastes, one command finishes everything.</span></div>
+<div class="takeaway"><span class="icon">🔄</span><span><strong>Each Primitive is Independent</strong> — Chains are additive, not mandatory.</span></div>
+
+<hr>
+
+<div class="quote" style="text-align:center; border-left:none; border: 1px solid #22d3ee;">
+  💡 <strong>Summary of the 6 Levels</strong><br>
+  L1: Briefing 📄 | L2: Team + Knowledge 👥 | L3: Expand Capabilities 🔧<br>
+  L4: Closed Loop 🔁 | L5: Custom Workflow 📋 | L6: Automated Chains ⛓️
+</div>
+
+</body>
+</html>
